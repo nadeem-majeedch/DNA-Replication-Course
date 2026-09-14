@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DNA Replication in Prokaryotes and Eukaryotes</title>
+<style>
+:root {
+  --primary: #1B4F72; --secondary: #2E86C1; --accent: #16A085;
+  --dark: #2C3E50; --light: #F4F8FB; --border: #D5E5F1;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  margin: 0; color: #22303c; line-height: 1.65;
+  background: #fbfdff;
+}
+.site-header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff; padding: 1.4rem 1rem 1.2rem; text-align: center;
+}
+.site-header .course-title { font-size: 1.35rem; font-weight: 700; margin: 0; }
+.site-header .crumb { font-size: .8rem; opacity: .85; margin: 0 0 .35rem; }
+.site-header a { color: #fff; text-decoration: none; opacity: .92; }
+.site-header a:hover { text-decoration: underline; opacity: 1; }
+.layout { display: flex; max-width: 1180px; margin: 0 auto; gap: 1.5rem; padding: 1.25rem 1rem; }
+nav.sidebar {
+  flex: 0 0 260px; align-self: flex-start; position: sticky; top: 12px;
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1rem 1.1rem; max-height: calc(100vh - 30px); overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--accent); margin: 1.1rem 0 .35rem;
+}
+nav.sidebar h3:first-of-type { margin-top: 0; }
+nav.sidebar a {
+  display: block; color: var(--primary); text-decoration: none;
+  font-size: .9rem; padding: .28rem .5rem; border-radius: 6px;
+}
+nav.sidebar a:hover { background: var(--light); }
+main.content { flex: 1; min-width: 0; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1.6rem 2rem 2.4rem; }
+main.content.wide { width: 100%; }
+main.content h1 { color: var(--primary); font-size: 1.65rem; border-bottom: 3px solid var(--secondary); padding-bottom: .45rem; }
+main.content h2 { color: var(--secondary); font-size: 1.25rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; margin-top: 2rem; }
+main.content h3 { color: var(--accent); font-size: 1.05rem; margin-top: 1.6rem; }
+main.content table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .9rem; display: block; overflow-x: auto; }
+main.content th, main.content td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; vertical-align: top; }
+main.content th { background: var(--primary); color: #fff; }
+main.content tr:nth-child(even) td { background: var(--light); }
+main.content pre {
+  background: #F4F6F8; border: 1px solid #DDE3E9; border-radius: 8px;
+  padding: .9rem 1.1rem; overflow-x: auto; font-size: .82rem; line-height: 1.45;
+}
+main.content code { background: #F0F2F4; border-radius: 4px; padding: .1rem .35rem; font-size: .88em; }
+main.content pre code { background: none; padding: 0; }
+main.content blockquote { border-left: 4px solid var(--secondary); background: var(--light); margin: 1rem 0; padding: .6rem 1.1rem; border-radius: 0 8px 8px 0; }
+main.content a { color: var(--secondary); }
+main.content img { max-width: 100%; }
+.nav-links { margin-top: 2.4rem; padding-top: 1rem; border-top: 2px solid var(--border); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .92rem; }
+footer.site-footer {
+  text-align: center; padding: 1.6rem 1rem 2.2rem; color: #5a6b7a; font-size: .88rem;
+}
+footer.site-footer .instructor { margin: 0 0 .4rem; color: var(--primary); font-weight: 600; }
+
+/* Landing page */
+.hero {
+  background: linear-gradient(160deg, var(--primary) 0%, var(--secondary) 60%, var(--accent) 100%);
+  color: #fff; padding: 3.4rem 1.2rem 3rem; text-align: center;
+}
+.hero h1 { font-size: 2.1rem; margin: 0 0 .6rem; }
+.hero .tagline { font-size: 1.08rem; font-style: italic; opacity: .95; margin: 0 0 1.8rem; }
+.hero .instructor { color: #fff; background: rgba(255,255,255,.12); display: inline-block; padding: .8rem 1.6rem; border-radius: 10px; line-height: 1.5; }
+.hero .instructor strong { font-size: 1.15rem; }
+.btn {
+  display: inline-block; margin-top: 1.6rem; background: #fff; color: var(--primary);
+  font-weight: 700; padding: .7rem 2rem; border-radius: 999px; text-decoration: none; font-size: 1.05rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+}
+.btn:hover { transform: translateY(-1px); }
+.section-card { max-width: 1080px; margin: 1.4rem auto; padding: 0 1rem; }
+.card {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.3rem 1.5rem; margin-bottom: 1.1rem;
+}
+.card h2 { color: var(--primary); margin-top: 0; font-size: 1.25rem; border-bottom: 2px solid var(--border); padding-bottom: .35rem; }
+.card table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+.card th, .card td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; }
+.card th { background: var(--primary); color: #fff; }
+.card tr:nth-child(even) td { background: var(--light); }
+.card a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+.card a:hover { text-decoration: underline; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.grid .card { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .layout { flex-direction: column; padding: .8rem; }
+  nav.sidebar { position: static; max-height: none; flex-basis: auto; }
+  main.content { padding: 1.1rem 1rem 1.8rem; }
+  .hero h1 { font-size: 1.55rem; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <p class="crumb"><a href="../index.html">Course Home</a></p>
+  <p class="course-title">DNA Replication in Prokaryotes and Eukaryotes</p>
+</header>
+<div class="layout"><nav class="sidebar">
+  <h3>Course</h3>
+  <a href="../README.html">Course Home</a>
+  <a href="../REFERENCES.html">References</a>
+  <h3>Teaching Modules</h3>
+  <a href="../MARKDOWN/01-Introduction-to-DNA-Replication.html">Introduction to DNA Replication</a>
+<a href="../MARKDOWN/02-Core-Concepts.html">Core Concepts of DNA Replication</a>
+<a href="../MARKDOWN/03-Prokaryotic-DNA-Replication.html">Prokaryotic DNA Replication</a>
+<a href="../MARKDOWN/04-Eukaryotic-DNA-Replication.html">Eukaryotic DNA Replication</a>
+<a href="../MARKDOWN/05-Replication-Fidelity-and-Repair.html">Replication Fidelity and Repair</a>
+<a href="../MARKDOWN/06-Telomeres-and-Telomerase.html">Telomeres and Telomerase</a>
+<a href="../MARKDOWN/07-Replication-Stress-and-Checkpoints.html">Replication Stress and Checkpoints</a>
+<a href="../MARKDOWN/08-Prokaryote-vs-Eukaryote.html">Prokaryote vs. Eukaryote Comparison</a>
+<a href="../MARKDOWN/09-Experimental-Methods.html">Experimental Methods</a>
+<a href="../MARKDOWN/10-Data-Analysis-and-Interpretation.html">Data Analysis and Interpretation</a>
+<a href="../MARKDOWN/11-Clinical-and-Biotechnology-Applications.html">Clinical and Biotechnology Applications</a>
+<a href="../MARKDOWN/12-Advanced-Topics.html">Advanced Topics in DNA Replication</a>
+  <h3>Laboratory</h3>
+  <a href="../LAB/Lab-01-DNA-Replication-Concepts.html">Lab 01: DNA Structure and Replication Modeling</a>
+<a href="../LAB/Lab-02-DNA-Quantification.html">Lab 02: DNA Quantification and Quality Assessment</a>
+<a href="../LAB/Lab-03-Gel-Electrophoresis.html">Lab 03: Agarose Gel Electrophoresis</a>
+<a href="../LAB/Lab-04-PCR-and-DNA-Amplification.html">Lab 04: PCR and DNA Amplification</a>
+<a href="../LAB/Lab-05-Replication-Data-Analysis.html">Lab 05: Replication Data Analysis</a>
+<a href="../LAB/Lab-06-Capstone-Exercise.html">Lab 06: Capstone Exercise — Integrated Replication Analysis</a>
+  <h3>Workbook & Data</h3>
+  <a href="../WORKBOOK/DNA-Replication-Lab-Workbook.html">Lab Workbook</a>
+  <a href="../DATA/datasets.html">Datasets</a>
+  <h3>Resources</h3>
+  <a href="../CHEAT-SHEET/DNA-Replication-Cheat-Sheet.html">Cheat Sheet</a>
+  <a href="../FAQ/DNA-Replication-FAQs.html">FAQs</a>
+  <h3>Assessment</h3>
+  <a href="../ASSESSMENT/MCQs.html">DNA Replication — Multiple Choice Questions</a>
+<a href="../ASSESSMENT/Short-Questions.html">DNA Replication — Short Answer Questions</a>
+<a href="../ASSESSMENT/Long-Questions.html">DNA Replication — Long Answer / Essay Questions</a>
+<a href="../ASSESSMENT/Viva-Questions.html">DNA Replication — Viva Voce Questions</a>
+<a href="../ASSESSMENT/Case-Studies.html">DNA Replication — Case Studies</a>
+  <h3>Downloads</h3>
+  <a href="../PDF/Complete-Tutorial.pdf">Complete Tutorial (PDF)</a>
+  <a href="../PDF/Lab-Workbook.pdf">Lab Workbook (PDF)</a>
+  <a href="../PDF/Cheat-Sheet.pdf">Cheat Sheet (PDF)</a>
+  <a href="../PDF/FAQs.pdf">FAQs (PDF)</a>
+  <a href="../PDF/Assessment.pdf">Assessment (PDF)</a>
+  <a href="../PPTX/DNA_Replication_Complete_Lecture.pptx">Lecture Slides (PPTX)</a>
+</nav><main class="content"><h1 id="dna-replication--case-studies">DNA Replication — Case Studies</h1>
+<p><strong>10 Case Studies requiring critical reasoning</strong></p>
+<hr>
+<h2 id="case-study-1-the-young-cancer-patient">Case Study 1: The Young Cancer Patient</h2>
+<p><strong>Clinical Presentation:</strong>
+A 28-year-old woman presents with early-onset colorectal cancer. Her family history includes:</p>
+<ul>
+<li>Maternal aunt: ovarian cancer (age 35)</li>
+<li>Maternal grandmother: endometrial cancer (age 50)</li>
+<li>Brother: gastric cancer (age 30)</li>
+</ul>
+<p><strong>Laboratory Findings:</strong></p>
+<ul>
+<li>Tumor biopsy: MSI-High</li>
+<li>MLH1 immunohistochemistry: negative in tumor</li>
+<li>MLH1 promoter methylation: negative</li>
+<li>Germline sequencing: MLH1 c.676C&gt;T (p.Arg226*)</li>
+</ul>
+<p><strong>Questions:</strong></p>
+<ol>
+<li>What is the most likely diagnosis? Explain the molecular basis.</li>
+<li>Why is MLH1 promoter methylation negative? What is the significance?</li>
+<li>What is the recurrence risk for the patient&#39;s children?</li>
+<li>What surveillance recommendations would you make for the patient&#39;s siblings?</li>
+<li>What immunotherapy might be effective and why?</li>
+</ol>
+<hr>
+<h2 id="case-study-2-the-premature-aging-syndrome">Case Study 2: The Premature Aging Syndrome</h2>
+<p><strong>Clinical Presentation:</strong>
+A 15-year-old boy presents with:</p>
+<ul>
+<li>Short stature, microcephaly</li>
+<li>Bone marrow failure (pancytopenia)</li>
+<li>Pulmonary fibrosis</li>
+<li>Very short telomeres (&lt;3 kb; normal: 8-12 kb)</li>
+</ul>
+<p><strong>Genetic Testing:</strong></p>
+<ul>
+<li>TERT: c.2282G&gt;A (p.Gly761Glu) — heterozygous</li>
+<li>TERC: normal</li>
+<li>DKC1: normal</li>
+</ul>
+<p><strong>Questions:</strong></p>
+<ol>
+<li>What is the likely diagnosis?</li>
+<li>How does the TERT mutation affect telomerase function?</li>
+<li>Why does this patient have bone marrow failure?</li>
+<li>Would bone marrow transplantation be effective? What are the considerations?</li>
+<li>How does this condition relate to normal aging?</li>
+</ol>
+<hr>
+<h2 id="case-study-3-the-replication-mutant">Case Study 3: The Replication Mutant</h2>
+<p><strong>Research Scenario:</strong>
+A researcher isolates an <em>E. coli</em> mutant with the following phenotype:</p>
+<ul>
+<li>Extremely high mutation rate (100-fold increase)</li>
+<li>Okazaki fragments are normal size (1-2 kb)</li>
+<li>Leading strand synthesis appears normal</li>
+<li>Lagging strand synthesis shows gaps between Okazaki fragments</li>
+<li>No growth on minimal media</li>
+</ul>
+<p><strong>Questions:</strong></p>
+<ol>
+<li>Which protein is likely mutated? Explain your reasoning.</li>
+<li>Why are Okazaki fragments normal size but gaps persist?</li>
+<li>Why is the mutation rate increased?</li>
+<li>Design an experiment to confirm your hypothesis.</li>
+<li>What would happen if you introduced a wild-type copy of this gene on a plasmid?</li>
+</ol>
+<hr>
+<h2 id="case-study-4-the-cancer-drug-response">Case Study 4: The Cancer Drug Response</h2>
+<p><strong>Clinical Scenario:</strong>
+A pharmaceutical company tests Drug X on cancer cell lines:</p>
+<table>
+<thead>
+<tr>
+<th>Cell Line</th>
+<th>BRCA1 Status</th>
+<th>Drug X IC50</th>
+<th>γH2AX Foci</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cell A</td>
+<td>Wild type</td>
+<td>10 μM</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Cell B</td>
+<td>Mutant</td>
+<td>50 μM</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td>Cell C</td>
+<td>Wild type</td>
+<td>8 μM</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Cell D</td>
+<td>Mutant</td>
+<td>45 μM</td>
+<td>Moderate</td>
+</tr>
+</tbody></table>
+<p><strong>Questions:</strong></p>
+<ol>
+<li>What is the likely mechanism of Drug X?</li>
+<li>Why are BRCA1-mutant cells more resistant?</li>
+<li>Would you develop Drug X as a monotherapy? Why or why not?</li>
+<li>Design a combination therapy strategy using Drug X.</li>
+<li>What biomarker would you use to select patients?</li>
+</ol>
+<hr>
+<h2 id="case-study-5-the-telomerase-mystery">Case Study 5: The Telomerase Mystery</h2>
+<p><strong>Research Scenario:</strong>
+A researcher studies two cancer cell lines:</p>
+<ul>
+<li><strong>Line 1</strong>: Telomerase-positive, stable telomeres (8 kb)</li>
+<li><strong>Line 2</strong>: Telomerase-negative, highly heterogeneous telomeres (2-25 kb), APBs positive, C-circles positive</li>
+</ul>
+<p><strong>Questions:</strong></p>
+<ol>
+<li>What telomere maintenance mechanism does Line 2 use?</li>
+<li>What molecular markers confirm this?</li>
+<li>How does ALT differ from telomerase-mediated maintenance?</li>
+<li>Would telomerase inhibitors be effective against Line 2?</li>
+<li>What therapeutic approach might work for ALT-positive cancers?</li>
+</ol>
+<hr>
+<h2 id="case-study-6-the-replication-fork-analysis">Case Study 6: The Replication Fork Analysis</h2>
+<p><strong>Experimental Data:</strong>
+A researcher performs DNA fiber analysis on cells treated with Drug Y:</p>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>IdU track (μm)</th>
+<th>CldU track (μm)</th>
+<th>Pattern</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Control</td>
+<td>11.0 ± 1.5</td>
+<td>11.5 ± 1.2</td>
+<td>Symmetric</td>
+</tr>
+<tr>
+<td>Drug Y (low)</td>
+<td>10.8 ± 1.4</td>
+<td>5.2 ± 1.8</td>
+<td>Asymmetric</td>
+</tr>
+<tr>
+<td>Drug Y (high)</td>
+<td>10.5 ± 1.3</td>
+<td>2.1 ± 0.9</td>
+<td>Asymmetric</td>
+</tr>
+<tr>
+<td>Drug Y + Rad51 inhibitor</td>
+<td>10.2 ± 1.5</td>
+<td>0.5 ± 0.3</td>
+<td>Collapsed</td>
+</tr>
+</tbody></table>
+<p><strong>Questions:</strong></p>
+<ol>
+<li>What does the asymmetric pattern tell you about Drug Y&#39;s mechanism?</li>
+<li>Why does adding a Rad51 inhibitor cause fork collapse?</li>
+<li>What is the relationship between fork reversal and fork collapse?</li>
+<li>Design an experiment to determine the specific target of Drug Y.</li>
+<li>How would you predict Drug Y would work in BRCA-deficient cells?</li>
+</ol>
+<hr>
+<h2 id="case-study-7-the-okazaki-fragment-puzzle">Case Study 7: The Okazaki Fragment Puzzle</h2>
+<p><strong>Experimental Data:</strong>
+A researcher analyzes Okazaki fragments from patient cells:</p>
+<table>
+<thead>
+<tr>
+<th>Sample</th>
+<th>Fragment Size</th>
+<th>Primer Removal</th>
+<th>Ligation</th>
+<th>MMR Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Normal</td>
+<td>150 ± 30 nt</td>
+<td>Normal</td>
+<td>Normal</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td>Patient 1</td>
+<td>250 ± 50 nt</td>
+<td>Defective</td>
+<td>Normal</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td>Patient 2</td>
+<td>150 ± 30 nt</td>
+<td>Normal</td>
+<td>Defective</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td>Patient 3</td>
+<td>150 ± 30 nt</td>
+<td>Normal</td>
+<td>Normal</td>
+<td>Defective</td>
+</tr>
+</tbody></table>
+<p><strong>Questions:</strong></p>
+<ol>
+<li>What gene is likely mutated in Patient 1?</li>
+<li>What gene is likely mutated in Patient 2?</li>
+<li>What gene is likely mutated in Patient 3?</li>
+<li>For each patient, describe the predicted clinical phenotype.</li>
+<li>How would you confirm each diagnosis?</li>
+</ol>
+<hr>
+<h2 id="case-study-8-the-origin-of-replication-problem">Case Study 8: The Origin of Replication Problem</h2>
+<p><strong>Research Scenario:</strong>
+A researcher deletes a specific origin (Ori-1) from a yeast chromosome:</p>
+<ul>
+<li>Wild type: Origin fires in early S phase</li>
+<li>ΔOri-1: Region replicates in late S phase from adjacent origins</li>
+<li>No growth defect at normal temperature</li>
+<li>Growth defect at 37°C</li>
+<li>Increased chromosome breaks at the deleted origin region</li>
+</ul>
+<p><strong>Questions:</strong></p>
+<ol>
+<li>Why does deletion of a single origin not prevent replication of that region?</li>
+<li>Why is there a growth defect at high temperature?</li>
+<li>Why are chromosome breaks increased at the deletion region?</li>
+<li>What does this tell you about the relationship between origin usage and genome stability?</li>
+<li>How might this relate to common fragile sites in human cells?</li>
+</ol>
+<hr>
+<h2 id="case-study-9-the-dna-polymerase-switch">Case Study 9: The DNA Polymerase Switch</h2>
+<p><strong>Experimental Data:</strong>
+A researcher creates temperature-sensitive mutations in yeast Pol ε and Pol δ:</p>
+<table>
+<thead>
+<tr>
+<th>Mutation</th>
+<th>Leading Strand</th>
+<th>Lagging Strand</th>
+<th>Viability</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pol2-ts (Pol ε)</td>
+<td>Defective</td>
+<td>Normal</td>
+<td>Lethal at 37°C</td>
+</tr>
+<tr>
+<td>pol3-ts (Pol δ)</td>
+<td>Normal</td>
+<td>Defective</td>
+<td>Lethal at 37°C</td>
+</tr>
+<tr>
+<td>pol2-K620A (no Pol ε-Pol δ interaction)</td>
+<td>Slow</td>
+<td>Slow</td>
+<td>Slow growth</td>
+</tr>
+</tbody></table>
+<p><strong>Questions:</strong></p>
+<ol>
+<li>Why is loss of Pol ε lethal while loss of Pol δ might not be (in some contexts)?</li>
+<li>What does the double-slow phenotype of the interaction mutant tell you?</li>
+<li>How do cells compensate when one polymerase is partially impaired?</li>
+<li>What would you predict for a pol2-ts;pol3-ts double mutant?</li>
+<li>How does this experiment support the leading/lagging strand polymerase assignment?</li>
+</ol>
+<hr>
+<h2 id="case-study-10-the-cancer-genomics-case">Case Study 10: The Cancer Genomics Case</h2>
+<p><strong>Data Analysis:</strong>
+A researcher analyzes whole-genome sequencing data from a tumor:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Tumor</th>
+<th>Normal</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SNV burden</td>
+<td>15,000</td>
+<td>5,000</td>
+</tr>
+<tr>
+<td>MSI status</td>
+<td>High</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>LOH at MMR loci</td>
+<td>MLH1 deleted</td>
+<td>MLH1 intact</td>
+</tr>
+<tr>
+<td>TERT promoter</td>
+<td>C228T mutated</td>
+<td>Wild type</td>
+</tr>
+<tr>
+<td>Telomere length</td>
+<td>12 kb</td>
+<td>8 kb</td>
+</tr>
+<tr>
+<td>Aneuploidy</td>
+<td>Moderate</td>
+<td>None</td>
+</tr>
+</tbody></table>
+<p><strong>Questions:</strong></p>
+<ol>
+<li>What explains the high SNV burden?</li>
+<li>What is the relationship between MLH1 deletion and MSI?</li>
+<li>Why are telomeres longer in the tumor despite TERT promoter mutation?</li>
+<li>What is the significance of aneuploidy?</li>
+<li>Design a treatment strategy for this patient based on the molecular profile.</li>
+</ol>
+<hr>
+<h2 id="instructor-answer-key-summary">Instructor Answer Key Summary</h2>
+<h3 id="case-1">Case 1</h3>
+<ol>
+<li><strong>Lynch syndrome</strong> — germline MLH1 mutation (pathogenic frameshift)</li>
+<li><strong>Methylation negative</strong> = hereditary (not sporadic); sporadic cases show MLH1 promoter methylation</li>
+<li><strong>50%</strong> risk for children (autosomal dominant)</li>
+<li><strong>Annual colonoscopy from age 20-25</strong>; endometrial screening</li>
+<li><strong>Anti-PD-1</strong> (pembrolizumab) — MSI-H = high neoantigen load</li>
+</ol>
+<h3 id="case-2">Case 2</h3>
+<ol>
+<li><strong>Dyskeratosis congenita</strong> (TERT mutation)</li>
+<li><strong>Gly761Glu</strong> affects TERT catalytic activity → reduced telomere extension</li>
+<li><strong>Bone marrow</strong> has high cell turnover → most sensitive to telomere shortening</li>
+<li><strong>BMT may help</strong> but conditioning regimen must be reduced (treosulfan-based)</li>
+<li><strong>Links to normal aging</strong> — telomere shortening is part of aging process</li>
+</ol>
+<h3 id="case-3">Case 3</h3>
+<ol>
+<li><strong>Ligase mutant</strong> — gaps between Okazaki fragments (normal fragments but not joined)</li>
+<li><strong>Okazaki fragments synthesized normally</strong> but ligase cannot seal nicks</li>
+<li><strong>Gaps in DNA</strong> → chromosome breaks during next replication → genome instability</li>
+<li><strong>Complementation test</strong> — introduce wild-type ligase gene on plasmid</li>
+<li><strong>Should rescue</strong> if plasmid expresses functional ligase</li>
+</ol>
+<h3 id="case-4">Case 4</h3>
+<ol>
+<li><strong>PARP inhibitor</strong> — causes DSBs during replication</li>
+<li><strong>BRCA1-mutant cells already have HR defect</strong> → PARP inhibition adds less toxicity (but actually more complex — BRCA1-WT cells show more sensitivity because Drug X specifically targets fork restart pathway)</li>
+<li><strong>Not as monotherapy</strong> — resistance develops; use in combination</li>
+<li><strong>Combine with platinum chemotherapy</strong> or immune checkpoint inhibitor</li>
+<li><strong>γH2AX foci, BRCA1/2 status</strong> as biomarkers</li>
+</ol>
+<h3 id="case-5">Case 5</h3>
+<ol>
+<li><strong>ALT</strong> (Alternative Lengthening of Telomeres)</li>
+<li><strong>APBs</strong> (ALT-associated PML bodies), <strong>C-circles</strong>, heterogeneous telomere length</li>
+<li><strong>Homologous recombination</strong> between telomeric sequences (vs. reverse transcriptase)</li>
+<li><strong>No</strong> — telomerase inhibitors won&#39;t work on telomerase-negative cells</li>
+<li><strong>Target recombination</strong> (ATR inhibitors, PARP inhibitors)</li>
+</ol>
+<h3 id="case-6">Case 6</h3>
+<ol>
+<li><strong>Fork slowing</strong> — CldU tracks shortened → drug inhibits fork progression</li>
+<li><strong>Rad51 needed for fork restart</strong> → without it, stalled forks collapse</li>
+<li><strong>Fork reversal is protective</strong> → prevents collapse; loss of reversal = collapse</li>
+<li><strong>Genetic screen</strong> — identify genes that rescue Drug Y sensitivity</li>
+<li><strong>More sensitive</strong> — BRCA-deficient cells already have fork restart defects</li>
+</ol>
+<h3 id="case-7">Case 7</h3>
+<ol>
+<li><strong>Patient 1</strong>: FEN1 or RNase H (primer processing defect)</li>
+<li><strong>Patient 2</strong>: DNA Ligase I (ligation defect)</li>
+<li><strong>Patient 3</strong>: MSH2/MLH1 (mismatch repair defect)</li>
+<li><strong>Patient 1</strong>: Potential cancer predisposition (FEN1 mutations linked to cancer)</li>
+<li><strong>Patient 2</strong>: LIG1 syndrome-like phenotype</li>
+<li><strong>Patient 3</strong>: Lynch syndrome-like phenotype</li>
+</ol>
+<h3 id="case-8">Case 8</h3>
+<ol>
+<li><strong>Adjacent origins compensate</strong> — origins can fire from nearby regions</li>
+<li><strong>Higher temperature = slower fork progression</strong> → origin deletion becomes critical</li>
+<li><strong>Longer distance between origins</strong> → fork stalling at difficult-to-replicate regions</li>
+<li><strong>Origin usage correlates with genome stability</strong> — loss increases fragility</li>
+<li><strong>Common fragile sites may correspond to regions with few origins</strong></li>
+</ol>
+<h3 id="case-9">Case 9</h3>
+<ol>
+<li><strong>Pol ε essential for leading strand</strong> — no compensation possible</li>
+<li><strong>Physical interaction coordinates polymerase switching</strong> at the fork</li>
+<li><strong>Remaining polymerase can partially compensate</strong> (with reduced efficiency)</li>
+<li><strong>Likely lethal</strong> — loss of both leading and lagging strand polymerases</li>
+<li><strong>Confirms Pol ε = leading, Pol δ = lagging</strong> assignments</li>
+</ol>
+<h3 id="case-10">Case 10</h3>
+<ol>
+<li><strong>MLH1 loss</strong> → defective MMR → cannot repair replication errors → SNV accumulation</li>
+<li><strong>LOH (loss of heterozygosity)</strong> — second allele deleted → complete MMR loss</li>
+<li><strong>TERT promoter mutation</strong> → telomerase reactivation → telomere maintenance</li>
+<li><strong>Aneuploidy</strong> → chromosome instability from defective checkpoints</li>
+<li><strong>Immunotherapy</strong> (anti-PD-1 for MSI-H) + <strong>PARP inhibitor</strong> if HR-deficient</li>
+</ol>
+<hr>
+</main></div>
+<footer class="site-footer">
+  <p class="instructor">Dr. Saira Azam — Assistant Professor, Centre of Excellence in Molecular Biology, University of the Punjab, Lahore</p>
+  <p>DNA Replication in Prokaryotes and Eukaryotes · A Complete Molecular Biology Teaching and Learning Module</p>
+</footer>
+</body>
+</html>

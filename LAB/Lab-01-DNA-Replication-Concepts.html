@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DNA Replication in Prokaryotes and Eukaryotes</title>
+<style>
+:root {
+  --primary: #1B4F72; --secondary: #2E86C1; --accent: #16A085;
+  --dark: #2C3E50; --light: #F4F8FB; --border: #D5E5F1;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  margin: 0; color: #22303c; line-height: 1.65;
+  background: #fbfdff;
+}
+.site-header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff; padding: 1.4rem 1rem 1.2rem; text-align: center;
+}
+.site-header .course-title { font-size: 1.35rem; font-weight: 700; margin: 0; }
+.site-header .crumb { font-size: .8rem; opacity: .85; margin: 0 0 .35rem; }
+.site-header a { color: #fff; text-decoration: none; opacity: .92; }
+.site-header a:hover { text-decoration: underline; opacity: 1; }
+.layout { display: flex; max-width: 1180px; margin: 0 auto; gap: 1.5rem; padding: 1.25rem 1rem; }
+nav.sidebar {
+  flex: 0 0 260px; align-self: flex-start; position: sticky; top: 12px;
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1rem 1.1rem; max-height: calc(100vh - 30px); overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--accent); margin: 1.1rem 0 .35rem;
+}
+nav.sidebar h3:first-of-type { margin-top: 0; }
+nav.sidebar a {
+  display: block; color: var(--primary); text-decoration: none;
+  font-size: .9rem; padding: .28rem .5rem; border-radius: 6px;
+}
+nav.sidebar a:hover { background: var(--light); }
+main.content { flex: 1; min-width: 0; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1.6rem 2rem 2.4rem; }
+main.content.wide { width: 100%; }
+main.content h1 { color: var(--primary); font-size: 1.65rem; border-bottom: 3px solid var(--secondary); padding-bottom: .45rem; }
+main.content h2 { color: var(--secondary); font-size: 1.25rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; margin-top: 2rem; }
+main.content h3 { color: var(--accent); font-size: 1.05rem; margin-top: 1.6rem; }
+main.content table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .9rem; display: block; overflow-x: auto; }
+main.content th, main.content td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; vertical-align: top; }
+main.content th { background: var(--primary); color: #fff; }
+main.content tr:nth-child(even) td { background: var(--light); }
+main.content pre {
+  background: #F4F6F8; border: 1px solid #DDE3E9; border-radius: 8px;
+  padding: .9rem 1.1rem; overflow-x: auto; font-size: .82rem; line-height: 1.45;
+}
+main.content code { background: #F0F2F4; border-radius: 4px; padding: .1rem .35rem; font-size: .88em; }
+main.content pre code { background: none; padding: 0; }
+main.content blockquote { border-left: 4px solid var(--secondary); background: var(--light); margin: 1rem 0; padding: .6rem 1.1rem; border-radius: 0 8px 8px 0; }
+main.content a { color: var(--secondary); }
+main.content img { max-width: 100%; }
+.nav-links { margin-top: 2.4rem; padding-top: 1rem; border-top: 2px solid var(--border); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .92rem; }
+footer.site-footer {
+  text-align: center; padding: 1.6rem 1rem 2.2rem; color: #5a6b7a; font-size: .88rem;
+}
+footer.site-footer .instructor { margin: 0 0 .4rem; color: var(--primary); font-weight: 600; }
+
+/* Landing page */
+.hero {
+  background: linear-gradient(160deg, var(--primary) 0%, var(--secondary) 60%, var(--accent) 100%);
+  color: #fff; padding: 3.4rem 1.2rem 3rem; text-align: center;
+}
+.hero h1 { font-size: 2.1rem; margin: 0 0 .6rem; }
+.hero .tagline { font-size: 1.08rem; font-style: italic; opacity: .95; margin: 0 0 1.8rem; }
+.hero .instructor { color: #fff; background: rgba(255,255,255,.12); display: inline-block; padding: .8rem 1.6rem; border-radius: 10px; line-height: 1.5; }
+.hero .instructor strong { font-size: 1.15rem; }
+.btn {
+  display: inline-block; margin-top: 1.6rem; background: #fff; color: var(--primary);
+  font-weight: 700; padding: .7rem 2rem; border-radius: 999px; text-decoration: none; font-size: 1.05rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+}
+.btn:hover { transform: translateY(-1px); }
+.section-card { max-width: 1080px; margin: 1.4rem auto; padding: 0 1rem; }
+.card {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.3rem 1.5rem; margin-bottom: 1.1rem;
+}
+.card h2 { color: var(--primary); margin-top: 0; font-size: 1.25rem; border-bottom: 2px solid var(--border); padding-bottom: .35rem; }
+.card table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+.card th, .card td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; }
+.card th { background: var(--primary); color: #fff; }
+.card tr:nth-child(even) td { background: var(--light); }
+.card a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+.card a:hover { text-decoration: underline; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.grid .card { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .layout { flex-direction: column; padding: .8rem; }
+  nav.sidebar { position: static; max-height: none; flex-basis: auto; }
+  main.content { padding: 1.1rem 1rem 1.8rem; }
+  .hero h1 { font-size: 1.55rem; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <p class="crumb"><a href="../index.html">Course Home</a></p>
+  <p class="course-title">DNA Replication in Prokaryotes and Eukaryotes</p>
+</header>
+<div class="layout"><nav class="sidebar">
+  <h3>Course</h3>
+  <a href="../README.html">Course Home</a>
+  <a href="../REFERENCES.html">References</a>
+  <h3>Teaching Modules</h3>
+  <a href="../MARKDOWN/01-Introduction-to-DNA-Replication.html">Introduction to DNA Replication</a>
+<a href="../MARKDOWN/02-Core-Concepts.html">Core Concepts of DNA Replication</a>
+<a href="../MARKDOWN/03-Prokaryotic-DNA-Replication.html">Prokaryotic DNA Replication</a>
+<a href="../MARKDOWN/04-Eukaryotic-DNA-Replication.html">Eukaryotic DNA Replication</a>
+<a href="../MARKDOWN/05-Replication-Fidelity-and-Repair.html">Replication Fidelity and Repair</a>
+<a href="../MARKDOWN/06-Telomeres-and-Telomerase.html">Telomeres and Telomerase</a>
+<a href="../MARKDOWN/07-Replication-Stress-and-Checkpoints.html">Replication Stress and Checkpoints</a>
+<a href="../MARKDOWN/08-Prokaryote-vs-Eukaryote.html">Prokaryote vs. Eukaryote Comparison</a>
+<a href="../MARKDOWN/09-Experimental-Methods.html">Experimental Methods</a>
+<a href="../MARKDOWN/10-Data-Analysis-and-Interpretation.html">Data Analysis and Interpretation</a>
+<a href="../MARKDOWN/11-Clinical-and-Biotechnology-Applications.html">Clinical and Biotechnology Applications</a>
+<a href="../MARKDOWN/12-Advanced-Topics.html">Advanced Topics in DNA Replication</a>
+  <h3>Laboratory</h3>
+  <a href="../LAB/Lab-01-DNA-Replication-Concepts.html">Lab 01: DNA Structure and Replication Modeling</a>
+<a href="../LAB/Lab-02-DNA-Quantification.html">Lab 02: DNA Quantification and Quality Assessment</a>
+<a href="../LAB/Lab-03-Gel-Electrophoresis.html">Lab 03: Agarose Gel Electrophoresis</a>
+<a href="../LAB/Lab-04-PCR-and-DNA-Amplification.html">Lab 04: PCR and DNA Amplification</a>
+<a href="../LAB/Lab-05-Replication-Data-Analysis.html">Lab 05: Replication Data Analysis</a>
+<a href="../LAB/Lab-06-Capstone-Exercise.html">Lab 06: Capstone Exercise — Integrated Replication Analysis</a>
+  <h3>Workbook & Data</h3>
+  <a href="../WORKBOOK/DNA-Replication-Lab-Workbook.html">Lab Workbook</a>
+  <a href="../DATA/datasets.html">Datasets</a>
+  <h3>Resources</h3>
+  <a href="../CHEAT-SHEET/DNA-Replication-Cheat-Sheet.html">Cheat Sheet</a>
+  <a href="../FAQ/DNA-Replication-FAQs.html">FAQs</a>
+  <h3>Assessment</h3>
+  <a href="../ASSESSMENT/MCQs.html">DNA Replication — Multiple Choice Questions</a>
+<a href="../ASSESSMENT/Short-Questions.html">DNA Replication — Short Answer Questions</a>
+<a href="../ASSESSMENT/Long-Questions.html">DNA Replication — Long Answer / Essay Questions</a>
+<a href="../ASSESSMENT/Viva-Questions.html">DNA Replication — Viva Voce Questions</a>
+<a href="../ASSESSMENT/Case-Studies.html">DNA Replication — Case Studies</a>
+  <h3>Downloads</h3>
+  <a href="../PDF/Complete-Tutorial.pdf">Complete Tutorial (PDF)</a>
+  <a href="../PDF/Lab-Workbook.pdf">Lab Workbook (PDF)</a>
+  <a href="../PDF/Cheat-Sheet.pdf">Cheat Sheet (PDF)</a>
+  <a href="../PDF/FAQs.pdf">FAQs (PDF)</a>
+  <a href="../PDF/Assessment.pdf">Assessment (PDF)</a>
+  <a href="../PPTX/DNA_Replication_Complete_Lecture.pptx">Lecture Slides (PPTX)</a>
+</nav><main class="content"><h1 id="lab-01-dna-structure-and-replication-modeling">Lab 01: DNA Structure and Replication Modeling</h1>
+<hr>
+<h2 id="experiment-title">Experiment Title</h2>
+<p>DNA Structure Recognition and Replication Fork Modeling</p>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<ol>
+<li>Identify key structural features of the DNA double helix relevant to replication</li>
+<li>Construct and interpret a model of the replication fork</li>
+<li>Demonstrate understanding of leading and lagging strand synthesis</li>
+<li>Identify the roles of major replication proteins</li>
+</ol>
+<h2 id="background-theory">Background Theory</h2>
+<p>DNA replication requires understanding of:</p>
+<ul>
+<li>Antiparallel strand orientation (5&#39;→3&#39; and 3&#39;→5&#39;)</li>
+<li>Complementary base pairing (A-T, G-C)</li>
+<li>Semiconservative replication</li>
+<li>Replication fork structure (Y-shaped)</li>
+<li>Okazaki fragments on the lagging strand</li>
+</ul>
+<h2 id="materials">Materials</h2>
+<h3 id="for-modeling-exercise">For Modeling Exercise</h3>
+<table>
+<thead>
+<tr>
+<th>Material</th>
+<th>Quantity</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Colored paper strips (4 colors)</td>
+<td>8 per group</td>
+<td>Represent nucleotides (A, T, G, C)</td>
+</tr>
+<tr>
+<td>Scissors</td>
+<td>1 per group</td>
+<td></td>
+</tr>
+<tr>
+<td>Tape or glue</td>
+<td>As needed</td>
+<td></td>
+</tr>
+<tr>
+<td>Markers/pens</td>
+<td>As needed</td>
+<td></td>
+</tr>
+<tr>
+<td>Printed replication fork diagram</td>
+<td>1 per group</td>
+<td>Reference</td>
+</tr>
+</tbody></table>
+<h2 id="equipment">Equipment</h2>
+<ul>
+<li>None required (paper-based modeling)</li>
+</ul>
+<h2 id="safety-considerations">Safety Considerations</h2>
+<ul>
+<li>Standard classroom safety only</li>
+<li>Handle scissors carefully</li>
+</ul>
+<h2 id="experimental-principle">Experimental Principle</h2>
+<p>The replication fork is a Y-shaped structure where:</p>
+<ul>
+<li>Helicase unwinds the double helix</li>
+<li>Leading strand is synthesized continuously toward the fork</li>
+<li>Lagging strand is synthesized discontinuously away from the fork as Okazaki fragments</li>
+<li>Each Okazaki fragment requires its own RNA primer</li>
+</ul>
+<h2 id="step-by-step-procedure">Step-by-Step Procedure</h2>
+<h3 id="part-a-dna-structure-recognition-15-minutes">Part A: DNA Structure Recognition (15 minutes)</h3>
+<ol>
+<li><p>Using colored paper strips, create a 20-base-pair double-stranded DNA molecule</p>
+<ul>
+<li>Use 4 colors for A, T, G, C</li>
+<li>Ensure complementary base pairing</li>
+<li>Write 5&#39; and 3&#39; labels on each strand</li>
+<li>Ensure strands are antiparallel</li>
+</ul>
+</li>
+<li><p>Answer the following:</p>
+<ul>
+<li>What is the sequence of the top strand? 5&#39;→3&#39;</li>
+<li>What is the sequence of the bottom strand? 5&#39;→3&#39;</li>
+<li>How many hydrogen bonds between A-T? Between G-C?</li>
+<li>Which end would DNA polymerase read from?</li>
+</ul>
+</li>
+</ol>
+<h3 id="part-b-replication-fork-construction-20-minutes">Part B: Replication Fork Construction (20 minutes)</h3>
+<ol start="3">
+<li>Cut your DNA model at the middle to represent helicase unwinding</li>
+<li>Separate the strands to create a Y-shaped fork</li>
+<li>Label the following on your model:<ul>
+<li>5&#39; and 3&#39; ends of each strand</li>
+<li>Template strand for leading strand</li>
+<li>Template strand for lagging strand</li>
+<li>Direction of fork movement</li>
+</ul>
+</li>
+</ol>
+<h3 id="part-c-leading-and-lagging-strand-synthesis-25-minutes">Part C: Leading and Lagging Strand Synthesis (25 minutes)</h3>
+<ol start="6">
+<li><p>Using new colored strips, synthesize the leading strand:</p>
+<ul>
+<li>Identify which template strand to use</li>
+<li>Build the new strand 5&#39;→3&#39; toward the fork</li>
+<li>Only one primer needed (use a different color for RNA primer)</li>
+</ul>
+</li>
+<li><p>Synthesize Okazaki fragments on the lagging strand:</p>
+<ul>
+<li>Use a different color for each fragment</li>
+<li>Each fragment should have an RNA primer (different color) + DNA</li>
+<li>Build fragments 5&#39;→3&#39; but away from the fork</li>
+<li>Make 3-4 fragments</li>
+</ul>
+</li>
+<li><p>Label:</p>
+<ul>
+<li>Leading strand (continuous)</li>
+<li>Lagging strand (discontinuous)</li>
+<li>Okazaki fragments</li>
+<li>RNA primers</li>
+<li>Direction of synthesis on each strand</li>
+</ul>
+</li>
+</ol>
+<h2 id="expected-observations">Expected Observations</h2>
+<table>
+<thead>
+<tr>
+<th>Observation</th>
+<th>Expected Result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Leading strand</td>
+<td>Single continuous strand, one primer at start</td>
+</tr>
+<tr>
+<td>Lagging strand</td>
+<td>Multiple fragments, each with primer</td>
+</tr>
+<tr>
+<td>Fragment orientation</td>
+<td>Each Okazaki fragment 5&#39;→3&#39;</td>
+</tr>
+<tr>
+<td>Overall lagging direction</td>
+<td>Opposite to fork movement</td>
+</tr>
+<tr>
+<td>Complementarity</td>
+<td>New strands complementary to templates</td>
+</tr>
+</tbody></table>
+<h2 id="results-table">Results Table</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Leading Strand</th>
+<th>Lagging Strand</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Synthesis direction</td>
+<td>5&#39;→3&#39; (toward fork)</td>
+<td>5&#39;→3&#39; (away from fork)</td>
+</tr>
+<tr>
+<td>Continuity</td>
+<td>Continuous</td>
+<td>Discontinuous</td>
+</tr>
+<tr>
+<td>Number of primers</td>
+<td>1</td>
+<td>Multiple (one per fragment)</td>
+</tr>
+<tr>
+<td>Okazaki fragments</td>
+<td>None</td>
+<td>Yes (3-4 in model)</td>
+</tr>
+<tr>
+<td>Template strand</td>
+<td>3&#39;→5&#39; (toward fork)</td>
+<td>5&#39;→3&#39; (toward fork)</td>
+</tr>
+</tbody></table>
+<h2 id="calculations">Calculations</h2>
+<h3 id="fork-speed-calculation">Fork Speed Calculation</h3>
+<p>If the replication fork moves at 1,000 nt/second in E. coli:</p>
+<p><strong>Question:</strong> How long would it take to replicate a 2,000 bp Okazaki fragment?</p>
+<p><strong>Answer:</strong></p>
+<ul>
+<li>Speed = 1,000 nt/second</li>
+<li>Okazaki fragment = 2,000 nt</li>
+<li>Time = 2,000 / 1,000 = <strong>2 seconds</strong></li>
+</ul>
+<p><strong>Question:</strong> If E. coli genome is 4.6 × 10⁶ bp and replication is bidirectional from one origin, how many nucleotides does each fork copy?</p>
+<p><strong>Answer:</strong></p>
+<ul>
+<li>Each fork copies half = 2.3 × 10⁶ nt</li>
+<li>Time = 2.3 × 10⁶ / 1,000 = 2,300 seconds ≈ <strong>38 minutes</strong></li>
+</ul>
+<h2 id="interpretation">Interpretation</h2>
+<ol>
+<li>Why can&#39;t both strands be synthesized continuously?</li>
+<li>What would happen if Okazaki fragments were not joined?</li>
+<li>How does the antiparallel nature of DNA necessitate the lagging strand mechanism?</li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Possible Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fragments not oriented correctly</td>
+<td>Confusion about 5&#39;→3&#39; direction</td>
+<td>Re-check polarity of template strand</td>
+</tr>
+<tr>
+<td>Leading strand has multiple primers</td>
+<td>Confused leading/lagging</td>
+<td>Leading strand only needs one primer</td>
+</tr>
+<tr>
+<td>Fragments too large</td>
+<td>Not following template</td>
+<td>Ensure complementary base pairing</td>
+</tr>
+</tbody></table>
+<h2 id="post-lab-questions">Post-Lab Questions</h2>
+<ol>
+<li>In your model, what protein would remove the RNA primers? (See Module 03)</li>
+<li>If a mutation prevented Okazaki fragment ligation, what would be the consequence?</li>
+<li>Why is it important that DNA polymerase only synthesizes in the 5&#39;→3&#39; direction?</li>
+<li>Draw a diagram of your completed replication fork model.</li>
+</ol>
+<h2 id="viva-questions">Viva Questions</h2>
+<ol>
+<li>What is the direction of DNA synthesis? Why?</li>
+<li>Explain why the lagging strand is called &quot;lagging.&quot;</li>
+<li>What would happen if helicase worked in only one direction?</li>
+<li>How many primers are needed per replication fork?</li>
+<li>What is the role of the sliding clamp?</li>
+</ol>
+<h2 id="expected-answers">Expected Answers</h2>
+<ol>
+<li><strong>5&#39;→3&#39; direction</strong> — DNA polymerase can only add nucleotides to the free 3&#39;-OH group.</li>
+<li><strong>Lagging strand</strong> is synthesized in the direction opposite to fork movement, making it &quot;lag behind&quot; the leading strand in overall synthesis.</li>
+<li><strong>If helicase worked unidirectionally</strong> — only one fork would form, doubling replication time.</li>
+<li><strong>Two primers per fork</strong> — one for leading strand, one initially for lagging strand (plus new primers for each Okazaki fragment).</li>
+<li><strong>Sliding clamp</strong> increases polymerase processivity by tethering it to the DNA template.</li>
+</ol>
+<h2 id="instructor-notes">Instructor Notes</h2>
+<ul>
+<li>Common student error: confusing template strand polarity with synthesis direction</li>
+<li>Allow time for students to physically build the model before abstracting</li>
+<li>Use this lab to set up the conceptual foundation for all subsequent labs</li>
+<li>This is a modeling/discussion exercise, not a wet-lab experiment</li>
+<li>Connect to Module 01 and Module 02 lecture content</li>
+</ul>
+<h2 id="related-theory">Related Theory</h2>
+<ul>
+<li><a href="../MARKDOWN/01-Introduction-to-DNA-Replication.html">Module 01: Introduction</a></li>
+<li><a href="../MARKDOWN/02-Core-Concepts.html">Module 02: Core Concepts</a></li>
+<li><a href="../CHEAT-SHEET/DNA-Replication-Cheat-Sheet.html">Cheat Sheet</a></li>
+</ul>
+</main></div>
+<footer class="site-footer">
+  <p class="instructor">Dr. Saira Azam — Assistant Professor, Centre of Excellence in Molecular Biology, University of the Punjab, Lahore</p>
+  <p>DNA Replication in Prokaryotes and Eukaryotes · A Complete Molecular Biology Teaching and Learning Module</p>
+</footer>
+</body>
+</html>

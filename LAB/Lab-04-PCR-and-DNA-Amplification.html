@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DNA Replication in Prokaryotes and Eukaryotes</title>
+<style>
+:root {
+  --primary: #1B4F72; --secondary: #2E86C1; --accent: #16A085;
+  --dark: #2C3E50; --light: #F4F8FB; --border: #D5E5F1;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  margin: 0; color: #22303c; line-height: 1.65;
+  background: #fbfdff;
+}
+.site-header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff; padding: 1.4rem 1rem 1.2rem; text-align: center;
+}
+.site-header .course-title { font-size: 1.35rem; font-weight: 700; margin: 0; }
+.site-header .crumb { font-size: .8rem; opacity: .85; margin: 0 0 .35rem; }
+.site-header a { color: #fff; text-decoration: none; opacity: .92; }
+.site-header a:hover { text-decoration: underline; opacity: 1; }
+.layout { display: flex; max-width: 1180px; margin: 0 auto; gap: 1.5rem; padding: 1.25rem 1rem; }
+nav.sidebar {
+  flex: 0 0 260px; align-self: flex-start; position: sticky; top: 12px;
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1rem 1.1rem; max-height: calc(100vh - 30px); overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--accent); margin: 1.1rem 0 .35rem;
+}
+nav.sidebar h3:first-of-type { margin-top: 0; }
+nav.sidebar a {
+  display: block; color: var(--primary); text-decoration: none;
+  font-size: .9rem; padding: .28rem .5rem; border-radius: 6px;
+}
+nav.sidebar a:hover { background: var(--light); }
+main.content { flex: 1; min-width: 0; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1.6rem 2rem 2.4rem; }
+main.content.wide { width: 100%; }
+main.content h1 { color: var(--primary); font-size: 1.65rem; border-bottom: 3px solid var(--secondary); padding-bottom: .45rem; }
+main.content h2 { color: var(--secondary); font-size: 1.25rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; margin-top: 2rem; }
+main.content h3 { color: var(--accent); font-size: 1.05rem; margin-top: 1.6rem; }
+main.content table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .9rem; display: block; overflow-x: auto; }
+main.content th, main.content td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; vertical-align: top; }
+main.content th { background: var(--primary); color: #fff; }
+main.content tr:nth-child(even) td { background: var(--light); }
+main.content pre {
+  background: #F4F6F8; border: 1px solid #DDE3E9; border-radius: 8px;
+  padding: .9rem 1.1rem; overflow-x: auto; font-size: .82rem; line-height: 1.45;
+}
+main.content code { background: #F0F2F4; border-radius: 4px; padding: .1rem .35rem; font-size: .88em; }
+main.content pre code { background: none; padding: 0; }
+main.content blockquote { border-left: 4px solid var(--secondary); background: var(--light); margin: 1rem 0; padding: .6rem 1.1rem; border-radius: 0 8px 8px 0; }
+main.content a { color: var(--secondary); }
+main.content img { max-width: 100%; }
+.nav-links { margin-top: 2.4rem; padding-top: 1rem; border-top: 2px solid var(--border); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .92rem; }
+footer.site-footer {
+  text-align: center; padding: 1.6rem 1rem 2.2rem; color: #5a6b7a; font-size: .88rem;
+}
+footer.site-footer .instructor { margin: 0 0 .4rem; color: var(--primary); font-weight: 600; }
+
+/* Landing page */
+.hero {
+  background: linear-gradient(160deg, var(--primary) 0%, var(--secondary) 60%, var(--accent) 100%);
+  color: #fff; padding: 3.4rem 1.2rem 3rem; text-align: center;
+}
+.hero h1 { font-size: 2.1rem; margin: 0 0 .6rem; }
+.hero .tagline { font-size: 1.08rem; font-style: italic; opacity: .95; margin: 0 0 1.8rem; }
+.hero .instructor { color: #fff; background: rgba(255,255,255,.12); display: inline-block; padding: .8rem 1.6rem; border-radius: 10px; line-height: 1.5; }
+.hero .instructor strong { font-size: 1.15rem; }
+.btn {
+  display: inline-block; margin-top: 1.6rem; background: #fff; color: var(--primary);
+  font-weight: 700; padding: .7rem 2rem; border-radius: 999px; text-decoration: none; font-size: 1.05rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+}
+.btn:hover { transform: translateY(-1px); }
+.section-card { max-width: 1080px; margin: 1.4rem auto; padding: 0 1rem; }
+.card {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.3rem 1.5rem; margin-bottom: 1.1rem;
+}
+.card h2 { color: var(--primary); margin-top: 0; font-size: 1.25rem; border-bottom: 2px solid var(--border); padding-bottom: .35rem; }
+.card table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+.card th, .card td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; }
+.card th { background: var(--primary); color: #fff; }
+.card tr:nth-child(even) td { background: var(--light); }
+.card a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+.card a:hover { text-decoration: underline; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.grid .card { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .layout { flex-direction: column; padding: .8rem; }
+  nav.sidebar { position: static; max-height: none; flex-basis: auto; }
+  main.content { padding: 1.1rem 1rem 1.8rem; }
+  .hero h1 { font-size: 1.55rem; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <p class="crumb"><a href="../index.html">Course Home</a></p>
+  <p class="course-title">DNA Replication in Prokaryotes and Eukaryotes</p>
+</header>
+<div class="layout"><nav class="sidebar">
+  <h3>Course</h3>
+  <a href="../README.html">Course Home</a>
+  <a href="../REFERENCES.html">References</a>
+  <h3>Teaching Modules</h3>
+  <a href="../MARKDOWN/01-Introduction-to-DNA-Replication.html">Introduction to DNA Replication</a>
+<a href="../MARKDOWN/02-Core-Concepts.html">Core Concepts of DNA Replication</a>
+<a href="../MARKDOWN/03-Prokaryotic-DNA-Replication.html">Prokaryotic DNA Replication</a>
+<a href="../MARKDOWN/04-Eukaryotic-DNA-Replication.html">Eukaryotic DNA Replication</a>
+<a href="../MARKDOWN/05-Replication-Fidelity-and-Repair.html">Replication Fidelity and Repair</a>
+<a href="../MARKDOWN/06-Telomeres-and-Telomerase.html">Telomeres and Telomerase</a>
+<a href="../MARKDOWN/07-Replication-Stress-and-Checkpoints.html">Replication Stress and Checkpoints</a>
+<a href="../MARKDOWN/08-Prokaryote-vs-Eukaryote.html">Prokaryote vs. Eukaryote Comparison</a>
+<a href="../MARKDOWN/09-Experimental-Methods.html">Experimental Methods</a>
+<a href="../MARKDOWN/10-Data-Analysis-and-Interpretation.html">Data Analysis and Interpretation</a>
+<a href="../MARKDOWN/11-Clinical-and-Biotechnology-Applications.html">Clinical and Biotechnology Applications</a>
+<a href="../MARKDOWN/12-Advanced-Topics.html">Advanced Topics in DNA Replication</a>
+  <h3>Laboratory</h3>
+  <a href="../LAB/Lab-01-DNA-Replication-Concepts.html">Lab 01: DNA Structure and Replication Modeling</a>
+<a href="../LAB/Lab-02-DNA-Quantification.html">Lab 02: DNA Quantification and Quality Assessment</a>
+<a href="../LAB/Lab-03-Gel-Electrophoresis.html">Lab 03: Agarose Gel Electrophoresis</a>
+<a href="../LAB/Lab-04-PCR-and-DNA-Amplification.html">Lab 04: PCR and DNA Amplification</a>
+<a href="../LAB/Lab-05-Replication-Data-Analysis.html">Lab 05: Replication Data Analysis</a>
+<a href="../LAB/Lab-06-Capstone-Exercise.html">Lab 06: Capstone Exercise — Integrated Replication Analysis</a>
+  <h3>Workbook & Data</h3>
+  <a href="../WORKBOOK/DNA-Replication-Lab-Workbook.html">Lab Workbook</a>
+  <a href="../DATA/datasets.html">Datasets</a>
+  <h3>Resources</h3>
+  <a href="../CHEAT-SHEET/DNA-Replication-Cheat-Sheet.html">Cheat Sheet</a>
+  <a href="../FAQ/DNA-Replication-FAQs.html">FAQs</a>
+  <h3>Assessment</h3>
+  <a href="../ASSESSMENT/MCQs.html">DNA Replication — Multiple Choice Questions</a>
+<a href="../ASSESSMENT/Short-Questions.html">DNA Replication — Short Answer Questions</a>
+<a href="../ASSESSMENT/Long-Questions.html">DNA Replication — Long Answer / Essay Questions</a>
+<a href="../ASSESSMENT/Viva-Questions.html">DNA Replication — Viva Voce Questions</a>
+<a href="../ASSESSMENT/Case-Studies.html">DNA Replication — Case Studies</a>
+  <h3>Downloads</h3>
+  <a href="../PDF/Complete-Tutorial.pdf">Complete Tutorial (PDF)</a>
+  <a href="../PDF/Lab-Workbook.pdf">Lab Workbook (PDF)</a>
+  <a href="../PDF/Cheat-Sheet.pdf">Cheat Sheet (PDF)</a>
+  <a href="../PDF/FAQs.pdf">FAQs (PDF)</a>
+  <a href="../PDF/Assessment.pdf">Assessment (PDF)</a>
+  <a href="../PPTX/DNA_Replication_Complete_Lecture.pptx">Lecture Slides (PPTX)</a>
+</nav><main class="content"><h1 id="lab-04-pcr-and-dna-amplification">Lab 04: PCR and DNA Amplification</h1>
+<hr>
+<h2 id="experiment-title">Experiment Title</h2>
+<p>Polymerase Chain Reaction (PCR) as an Experimental Model of DNA Synthesis</p>
+<h2 id="⚠️-important-distinction-pcr-≠-cellular-dna-replication">⚠️ Important Distinction: PCR ≠ Cellular DNA Replication</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Cellular Replication</th>
+<th>PCR</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Unwinding</td>
+<td>Helicase enzyme</td>
+<td>Heat denaturation (95°C)</td>
+</tr>
+<tr>
+<td>Priming</td>
+<td>RNA primers (primase)</td>
+<td>DNA primers (synthetic)</td>
+</tr>
+<tr>
+<td>Polymerase</td>
+<td>Pol III/Pol ε/δ (37°C)</td>
+<td>Taq/Pfu (optimal 72°C)</td>
+</tr>
+<tr>
+<td>Processivity</td>
+<td>&gt;50,000 nt (with clamp)</td>
+<td>~1,000-5,000 nt (no clamp)</td>
+</tr>
+<tr>
+<td>Proofreading</td>
+<td>Yes (3&#39;→5&#39; exonuclease)</td>
+<td>Taq: No; Pfu: Yes</td>
+</tr>
+<tr>
+<td>Okazaki fragments</td>
+<td>Yes (lagging strand)</td>
+<td>No (linear amplification)</td>
+</tr>
+<tr>
+<td>Sliding clamp</td>
+<td>Yes (β/PCNA)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Regulation</td>
+<td>Highly regulated</td>
+<td>None (in vitro)</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>~50-1000 nt/s</td>
+<td>~1,000 nt/min</td>
+</tr>
+<tr>
+<td>Starting material</td>
+<td>Whole genome</td>
+<td>Specific target sequence</td>
+</tr>
+<tr>
+<td>Cycles</td>
+<td>Once per cell cycle</td>
+<td>25-40 cycles</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>Key point</strong>: PCR conceptually mimics DNA replication (uses primers, dNTPs, polymerase, template) but uses different strategies for unwinding and lacks the complexity of the cellular replisome.</p>
+</blockquote>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<ol>
+<li>Understand the principles of PCR</li>
+<li>Design and perform a PCR experiment</li>
+<li>Analyze PCR products by agarose gel electrophoresis</li>
+<li>Compare PCR with cellular DNA replication</li>
+<li>Understand applications of PCR in molecular biology</li>
+</ol>
+<h2 id="background-theory">Background Theory</h2>
+<h3 id="pcr-principle">PCR Principle</h3>
+<p>PCR amplifies a specific DNA sequence through repeated cycles of:</p>
+<ol>
+<li><strong>Denaturation</strong> (94-98°C): Separates double-stranded DNA</li>
+<li><strong>Annealing</strong> (50-65°C): Primers bind to complementary sequences</li>
+<li><strong>Extension</strong> (72°C): Taq polymerase synthesizes new DNA</li>
+</ol>
+<h3 id="exponential-amplification">Exponential Amplification</h3>
+<p>After <em>n</em> cycles, product = 2ⁿ copies (theoretically)</p>
+<ul>
+<li>30 cycles → ~10⁹ copies (1 billion)</li>
+<li>The target sequence is amplified exponentially while flanking sequences are amplified linearly</li>
+</ul>
+<h3 id="components">Components</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Role</th>
+<th>Typical Amount</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Template DNA</td>
+<td>Source DNA containing target</td>
+<td>1-100 ng</td>
+</tr>
+<tr>
+<td>Forward primer</td>
+<td>Binds one strand, provides 3&#39;-OH</td>
+<td>0.2-1 μM</td>
+</tr>
+<tr>
+<td>Reverse primer</td>
+<td>Binds other strand, provides 3&#39;-OH</td>
+<td>0.2-1 μM</td>
+</tr>
+<tr>
+<td>dNTPs (dATP, dTTP, dGTP, dCTP)</td>
+<td>Building blocks</td>
+<td>200 μM each</td>
+</tr>
+<tr>
+<td>DNA polymerase (Taq)</td>
+<td>Synthesizes DNA</td>
+<td>1-2.5 U</td>
+</tr>
+<tr>
+<td>MgCl₂</td>
+<td>Cofactor for polymerase</td>
+<td>1.5-2.5 mM</td>
+</tr>
+<tr>
+<td>Buffer</td>
+<td>Provides optimal pH and salts</td>
+<td>1×</td>
+</tr>
+<tr>
+<td>Nuclease-free water</td>
+<td>Volume to 50 μL</td>
+<td>As needed</td>
+</tr>
+</tbody></table>
+<h2 id="materials">Materials</h2>
+<table>
+<thead>
+<tr>
+<th>Material</th>
+<th>Quantity per reaction</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Template DNA (λ phage or human)</td>
+<td>1 μL (10 ng)</td>
+<td>Target: specific region</td>
+</tr>
+<tr>
+<td>Forward primer (20 μM)</td>
+<td>1 μL</td>
+<td>Specific to target</td>
+</tr>
+<tr>
+<td>Reverse primer (20 μM)</td>
+<td>1 μL</td>
+<td>Specific to target</td>
+</tr>
+<tr>
+<td>10× PCR buffer</td>
+<td>5 μL</td>
+<td>With MgCl₂</td>
+</tr>
+<tr>
+<td>dNTP mix (10 mM each)</td>
+<td>1 μL</td>
+<td></td>
+</tr>
+<tr>
+<td>Taq DNA polymerase (5 U/μL)</td>
+<td>0.25 μL</td>
+<td></td>
+</tr>
+<tr>
+<td>Nuclease-free water</td>
+<td>40.75 μL</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="equipment">Equipment</h2>
+<ul>
+<li>Thermal cycler (PCR machine)</li>
+<li>Micropipettes (P10, P20, P200)</li>
+<li>PCR tubes or 96-well plate</li>
+<li>Agarose gel electrophoresis system</li>
+<li>UV transilluminator</li>
+</ul>
+<h2 id="safety-considerations">Safety Considerations</h2>
+<p>⚠️ <strong>Ethidium bromide</strong> — mutagen (use gloves, handle carefully)
+⚠️ <strong>UV light</strong> — use protective goggles
+⚠️ <strong>Hot surfaces</strong> — thermal cycler reaches 98°C
+⚠️ <strong>Biological hazard</strong> — follow institutional guidelines for DNA handling
+⚠️ Wear gloves and lab coat throughout</p>
+<h2 id="experimental-principle">Experimental Principle</h2>
+<p>PCR uses thermocycling to achieve exponential amplification of a target sequence. Each cycle doubles the amount of target DNA. The reaction is specific due to primer design (primers only bind to complementary sequences in the template).</p>
+<h2 id="step-by-step-procedure">Step-by-Step Procedure</h2>
+<h3 id="part-a-pcr-setup-15-minutes">Part A: PCR Setup (15 minutes)</h3>
+<ol>
+<li><p>Label PCR tubes: Positive, Negative, Marker control</p>
+</li>
+<li><p>Prepare master mix (for 3 reactions):</p>
+<ul>
+<li>15 μL 10× buffer</li>
+<li>3 μL dNTP mix</li>
+<li>3 μL Forward primer</li>
+<li>3 μL Reverse primer</li>
+<li>0.75 μL Taq polymerase</li>
+<li>122.25 μL water</li>
+<li>Total: 147 μL master mix</li>
+</ul>
+</li>
+<li><p>Aliquot 49 μL master mix into each tube</p>
+</li>
+<li><p>Add 1 μL template DNA to positive reaction tube</p>
+</li>
+<li><p>Add 1 μL water to negative control tube</p>
+</li>
+<li><p>Vortex briefly and spin down</p>
+</li>
+</ol>
+<h3 id="part-b-pcr-cycling-90-minutes">Part B: PCR Cycling (90 minutes)</h3>
+<ol start="7">
+<li>Place tubes in thermal cycler</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Temperature</th>
+<th>Time</th>
+<th>Purpose</th>
+<th>Cycles</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Initial denaturation</td>
+<td>95°C</td>
+<td>3 min</td>
+<td>Complete denaturation</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Denaturation</td>
+<td>95°C</td>
+<td>30 sec</td>
+<td>Separate strands</td>
+<td>30</td>
+</tr>
+<tr>
+<td>Annealing</td>
+<td>55°C</td>
+<td>30 sec</td>
+<td>Primers bind</td>
+<td>30</td>
+</tr>
+<tr>
+<td>Extension</td>
+<td>72°C</td>
+<td>1 min</td>
+<td>Taq polymerase extends</td>
+<td>30</td>
+</tr>
+<tr>
+<td>Final extension</td>
+<td>72°C</td>
+<td>5 min</td>
+<td>Complete synthesis</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Hold</td>
+<td>4°C</td>
+<td>∞</td>
+<td>Storage</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<h3 id="part-c-analysis-by-gel-electrophoresis-30-minutes">Part C: Analysis by Gel Electrophoresis (30 minutes)</h3>
+<ol start="8">
+<li>Prepare 1.5% agarose gel (see Lab 03)</li>
+<li>Mix 5 μL PCR product + 1 μL loading dye</li>
+<li>Load samples: Ladder, Positive, Negative</li>
+<li>Run at 100 V for 25-30 minutes</li>
+<li>Visualize under UV light</li>
+<li>Photograph gel</li>
+</ol>
+<h2 id="expected-observations">Expected Observations</h2>
+<table>
+<thead>
+<tr>
+<th>Lane</th>
+<th>Expected Result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ladder</td>
+<td>Multiple bands at known sizes</td>
+</tr>
+<tr>
+<td>Positive</td>
+<td>Single sharp band at expected product size</td>
+</tr>
+<tr>
+<td>Negative</td>
+<td>No band (no contamination)</td>
+</tr>
+<tr>
+<td>Positive control</td>
+<td>Band at expected size</td>
+</tr>
+</tbody></table>
+<h2 id="results-table">Results Table</h2>
+<table>
+<thead>
+<tr>
+<th>Lane</th>
+<th>Sample</th>
+<th>Expected Size</th>
+<th>Observed Size</th>
+<th>Band Intensity</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Ladder</td>
+<td>Multiple</td>
+<td></td>
+<td></td>
+<td>Reference</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Positive</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Negative</td>
+<td>None</td>
+<td></td>
+<td></td>
+<td>Clean/no contamination</td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="calculations">Calculations</h2>
+<h3 id="amplification-efficiency">Amplification Efficiency</h3>
+<p>For 30 cycles with 100% efficiency:</p>
+<ul>
+<li>Final copies = Initial copies × 2³⁰</li>
+<li>= 10 ng × (10⁹ / 660 × 3.2 × 10⁶) × 2³⁰</li>
+<li>≈ millions of copies</li>
+</ul>
+<h3 id="annealing-temperature">Annealing Temperature</h3>
+<p>Tm = 2(A+T) + 4(G+C) °C (for primers &lt;20 nt)</p>
+<p><strong>Example:</strong> Primer sequence: 5&#39;-GCGATCGATCGATCGATCG-3&#39;</p>
+<ul>
+<li>A+T = 4; G+C = 14</li>
+<li>Tm = 2(4) + 4(14) = 8 + 56 = 64°C</li>
+<li>Annealing temperature: Tm - 5°C = 59°C</li>
+</ul>
+<h2 id="interpretation">Interpretation</h2>
+<ol>
+<li>Why is a negative control important?</li>
+<li>What would happen if you forgot to add Taq polymerase?</li>
+<li>How does the annealing temperature affect specificity?</li>
+<li>Compare the mechanism of PCR with cellular DNA replication.</li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Possible Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>No band in positive</td>
+<td>Insufficient template; primer design issue</td>
+<td>Increase template; redesign primers</td>
+</tr>
+<tr>
+<td>Band in negative control</td>
+<td>Contamination</td>
+<td>Use fresh reagents; UV-treat workspace</td>
+</tr>
+<tr>
+<td>Multiple bands</td>
+<td>Non-specific annealing</td>
+<td>Increase annealing temperature</td>
+</tr>
+<tr>
+<td>Smear</td>
+<td>Over-cycling; non-specific</td>
+<td>Reduce cycles; optimize annealing temp</td>
+</tr>
+<tr>
+<td>Weak band</td>
+<td>Low template; old Taq</td>
+<td>Increase template; use fresh Taq</td>
+</tr>
+<tr>
+<td>Band at wrong size</td>
+<td>Primer dimers; non-specific</td>
+<td>Check primer design; optimize conditions</td>
+</tr>
+</tbody></table>
+<h2 id="post-lab-questions">Post-Lab Questions</h2>
+<ol>
+<li>A researcher gets no PCR product. List 5 possible reasons.</li>
+<li>Why is 72°C the optimal extension temperature for Taq polymerase?</li>
+<li>How does Pfu polymerase differ from Taq? When would you choose Pfu?</li>
+<li>Calculate the theoretical yield after 25 cycles starting from 10 molecules.</li>
+<li>Design a simple PCR experiment to detect a specific gene.</li>
+</ol>
+<h2 id="viva-questions">Viva Questions</h2>
+<ol>
+<li>What temperature is used for denaturation and why?</li>
+<li>Why are two primers needed for PCR?</li>
+<li>What determines the size of the PCR product?</li>
+<li>How does the annealing temperature affect PCR specificity?</li>
+<li>Why is Taq polymerase used instead of E. coli DNA polymerase?</li>
+</ol>
+<h2 id="expected-answers">Expected Answers</h2>
+<ol>
+<li><strong>Possible causes</strong>: No template DNA, incorrect primers, missing Taq, insufficient cycles, inhibitors in sample, incorrect annealing temperature.</li>
+<li><strong>72°C</strong> is the optimal temperature for Taq polymerase activity (isolated from <em>Thermus aquaticus</em>, a thermophilic bacterium).</li>
+<li><strong>Pfu has proofreading</strong> (3&#39;→5&#39; exonuclease) but is slower; use Pfu when high fidelity is needed (cloning, sequencing).</li>
+<li><strong>10 × 2²⁵ = 10 × 33,554,432 ≈ 3.36 × 10⁸ copies</strong>.</li>
+<li><strong>Design primers flanking the target gene</strong>, choose annealing temperature based on Tm, run PCR, analyze by gel electrophoresis.</li>
+</ol>
+<h2 id="instructor-notes">Instructor Notes</h2>
+<ul>
+<li>This is a wet-lab exercise requiring a thermal cycler</li>
+<li>Use a simple, well-characterized target (e.g., human Alu element, λ phage gene)</li>
+<li>Prepare reagents in advance; keep Taq on ice</li>
+<li>Discuss PCR optimization (annealing temperature, Mg²⁺ concentration)</li>
+<li>Emphasize the distinction between PCR and cellular replication</li>
+<li>Connect to Module 03 (prokaryotic replication) and Module 04 (eukaryotic replication)</li>
+</ul>
+<h2 id="related-theory">Related Theory</h2>
+<ul>
+<li><a href="../MARKDOWN/03-Prokaryotic-DNA-Replication.html">Module 03: Prokaryotic Replication</a></li>
+<li><a href="../MARKDOWN/04-Eukaryotic-DNA-Replication.html">Module 04: Eukaryotic Replication</a></li>
+<li><a href="../MARKDOWN/09-Experimental-Methods.html">Module 09: Experimental Methods</a></li>
+<li><a href="../MARKDOWN/11-Clinical-and-Biotechnology-Applications.html">Module 11: Clinical Applications</a></li>
+</ul>
+</main></div>
+<footer class="site-footer">
+  <p class="instructor">Dr. Saira Azam — Assistant Professor, Centre of Excellence in Molecular Biology, University of the Punjab, Lahore</p>
+  <p>DNA Replication in Prokaryotes and Eukaryotes · A Complete Molecular Biology Teaching and Learning Module</p>
+</footer>
+</body>
+</html>

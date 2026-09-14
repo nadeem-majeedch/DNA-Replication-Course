@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DNA Replication in Prokaryotes and Eukaryotes</title>
+<style>
+:root {
+  --primary: #1B4F72; --secondary: #2E86C1; --accent: #16A085;
+  --dark: #2C3E50; --light: #F4F8FB; --border: #D5E5F1;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  margin: 0; color: #22303c; line-height: 1.65;
+  background: #fbfdff;
+}
+.site-header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff; padding: 1.4rem 1rem 1.2rem; text-align: center;
+}
+.site-header .course-title { font-size: 1.35rem; font-weight: 700; margin: 0; }
+.site-header .crumb { font-size: .8rem; opacity: .85; margin: 0 0 .35rem; }
+.site-header a { color: #fff; text-decoration: none; opacity: .92; }
+.site-header a:hover { text-decoration: underline; opacity: 1; }
+.layout { display: flex; max-width: 1180px; margin: 0 auto; gap: 1.5rem; padding: 1.25rem 1rem; }
+nav.sidebar {
+  flex: 0 0 260px; align-self: flex-start; position: sticky; top: 12px;
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1rem 1.1rem; max-height: calc(100vh - 30px); overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--accent); margin: 1.1rem 0 .35rem;
+}
+nav.sidebar h3:first-of-type { margin-top: 0; }
+nav.sidebar a {
+  display: block; color: var(--primary); text-decoration: none;
+  font-size: .9rem; padding: .28rem .5rem; border-radius: 6px;
+}
+nav.sidebar a:hover { background: var(--light); }
+main.content { flex: 1; min-width: 0; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1.6rem 2rem 2.4rem; }
+main.content.wide { width: 100%; }
+main.content h1 { color: var(--primary); font-size: 1.65rem; border-bottom: 3px solid var(--secondary); padding-bottom: .45rem; }
+main.content h2 { color: var(--secondary); font-size: 1.25rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; margin-top: 2rem; }
+main.content h3 { color: var(--accent); font-size: 1.05rem; margin-top: 1.6rem; }
+main.content table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .9rem; display: block; overflow-x: auto; }
+main.content th, main.content td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; vertical-align: top; }
+main.content th { background: var(--primary); color: #fff; }
+main.content tr:nth-child(even) td { background: var(--light); }
+main.content pre {
+  background: #F4F6F8; border: 1px solid #DDE3E9; border-radius: 8px;
+  padding: .9rem 1.1rem; overflow-x: auto; font-size: .82rem; line-height: 1.45;
+}
+main.content code { background: #F0F2F4; border-radius: 4px; padding: .1rem .35rem; font-size: .88em; }
+main.content pre code { background: none; padding: 0; }
+main.content blockquote { border-left: 4px solid var(--secondary); background: var(--light); margin: 1rem 0; padding: .6rem 1.1rem; border-radius: 0 8px 8px 0; }
+main.content a { color: var(--secondary); }
+main.content img { max-width: 100%; }
+.nav-links { margin-top: 2.4rem; padding-top: 1rem; border-top: 2px solid var(--border); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .92rem; }
+footer.site-footer {
+  text-align: center; padding: 1.6rem 1rem 2.2rem; color: #5a6b7a; font-size: .88rem;
+}
+footer.site-footer .instructor { margin: 0 0 .4rem; color: var(--primary); font-weight: 600; }
+
+/* Landing page */
+.hero {
+  background: linear-gradient(160deg, var(--primary) 0%, var(--secondary) 60%, var(--accent) 100%);
+  color: #fff; padding: 3.4rem 1.2rem 3rem; text-align: center;
+}
+.hero h1 { font-size: 2.1rem; margin: 0 0 .6rem; }
+.hero .tagline { font-size: 1.08rem; font-style: italic; opacity: .95; margin: 0 0 1.8rem; }
+.hero .instructor { color: #fff; background: rgba(255,255,255,.12); display: inline-block; padding: .8rem 1.6rem; border-radius: 10px; line-height: 1.5; }
+.hero .instructor strong { font-size: 1.15rem; }
+.btn {
+  display: inline-block; margin-top: 1.6rem; background: #fff; color: var(--primary);
+  font-weight: 700; padding: .7rem 2rem; border-radius: 999px; text-decoration: none; font-size: 1.05rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+}
+.btn:hover { transform: translateY(-1px); }
+.section-card { max-width: 1080px; margin: 1.4rem auto; padding: 0 1rem; }
+.card {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.3rem 1.5rem; margin-bottom: 1.1rem;
+}
+.card h2 { color: var(--primary); margin-top: 0; font-size: 1.25rem; border-bottom: 2px solid var(--border); padding-bottom: .35rem; }
+.card table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+.card th, .card td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; }
+.card th { background: var(--primary); color: #fff; }
+.card tr:nth-child(even) td { background: var(--light); }
+.card a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+.card a:hover { text-decoration: underline; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.grid .card { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .layout { flex-direction: column; padding: .8rem; }
+  nav.sidebar { position: static; max-height: none; flex-basis: auto; }
+  main.content { padding: 1.1rem 1rem 1.8rem; }
+  .hero h1 { font-size: 1.55rem; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <p class="crumb"><a href="../index.html">Course Home</a></p>
+  <p class="course-title">DNA Replication in Prokaryotes and Eukaryotes</p>
+</header>
+<div class="layout"><nav class="sidebar">
+  <h3>Course</h3>
+  <a href="../README.html">Course Home</a>
+  <a href="../REFERENCES.html">References</a>
+  <h3>Teaching Modules</h3>
+  <a href="../MARKDOWN/01-Introduction-to-DNA-Replication.html">Introduction to DNA Replication</a>
+<a href="../MARKDOWN/02-Core-Concepts.html">Core Concepts of DNA Replication</a>
+<a href="../MARKDOWN/03-Prokaryotic-DNA-Replication.html">Prokaryotic DNA Replication</a>
+<a href="../MARKDOWN/04-Eukaryotic-DNA-Replication.html">Eukaryotic DNA Replication</a>
+<a href="../MARKDOWN/05-Replication-Fidelity-and-Repair.html">Replication Fidelity and Repair</a>
+<a href="../MARKDOWN/06-Telomeres-and-Telomerase.html">Telomeres and Telomerase</a>
+<a href="../MARKDOWN/07-Replication-Stress-and-Checkpoints.html">Replication Stress and Checkpoints</a>
+<a href="../MARKDOWN/08-Prokaryote-vs-Eukaryote.html">Prokaryote vs. Eukaryote Comparison</a>
+<a href="../MARKDOWN/09-Experimental-Methods.html">Experimental Methods</a>
+<a href="../MARKDOWN/10-Data-Analysis-and-Interpretation.html">Data Analysis and Interpretation</a>
+<a href="../MARKDOWN/11-Clinical-and-Biotechnology-Applications.html">Clinical and Biotechnology Applications</a>
+<a href="../MARKDOWN/12-Advanced-Topics.html">Advanced Topics in DNA Replication</a>
+  <h3>Laboratory</h3>
+  <a href="../LAB/Lab-01-DNA-Replication-Concepts.html">Lab 01: DNA Structure and Replication Modeling</a>
+<a href="../LAB/Lab-02-DNA-Quantification.html">Lab 02: DNA Quantification and Quality Assessment</a>
+<a href="../LAB/Lab-03-Gel-Electrophoresis.html">Lab 03: Agarose Gel Electrophoresis</a>
+<a href="../LAB/Lab-04-PCR-and-DNA-Amplification.html">Lab 04: PCR and DNA Amplification</a>
+<a href="../LAB/Lab-05-Replication-Data-Analysis.html">Lab 05: Replication Data Analysis</a>
+<a href="../LAB/Lab-06-Capstone-Exercise.html">Lab 06: Capstone Exercise — Integrated Replication Analysis</a>
+  <h3>Workbook & Data</h3>
+  <a href="../WORKBOOK/DNA-Replication-Lab-Workbook.html">Lab Workbook</a>
+  <a href="../DATA/datasets.html">Datasets</a>
+  <h3>Resources</h3>
+  <a href="../CHEAT-SHEET/DNA-Replication-Cheat-Sheet.html">Cheat Sheet</a>
+  <a href="../FAQ/DNA-Replication-FAQs.html">FAQs</a>
+  <h3>Assessment</h3>
+  <a href="../ASSESSMENT/MCQs.html">DNA Replication — Multiple Choice Questions</a>
+<a href="../ASSESSMENT/Short-Questions.html">DNA Replication — Short Answer Questions</a>
+<a href="../ASSESSMENT/Long-Questions.html">DNA Replication — Long Answer / Essay Questions</a>
+<a href="../ASSESSMENT/Viva-Questions.html">DNA Replication — Viva Voce Questions</a>
+<a href="../ASSESSMENT/Case-Studies.html">DNA Replication — Case Studies</a>
+  <h3>Downloads</h3>
+  <a href="../PDF/Complete-Tutorial.pdf">Complete Tutorial (PDF)</a>
+  <a href="../PDF/Lab-Workbook.pdf">Lab Workbook (PDF)</a>
+  <a href="../PDF/Cheat-Sheet.pdf">Cheat Sheet (PDF)</a>
+  <a href="../PDF/FAQs.pdf">FAQs (PDF)</a>
+  <a href="../PDF/Assessment.pdf">Assessment (PDF)</a>
+  <a href="../PPTX/DNA_Replication_Complete_Lecture.pptx">Lecture Slides (PPTX)</a>
+</nav><main class="content"><h1 id="module-03-prokaryotic-dna-replication">Module 03: Prokaryotic DNA Replication</h1>
+<hr>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<ol>
+<li>Describe the E. coli circular chromosome and oriC</li>
+<li>Explain each step of prokaryotic replication initiation</li>
+<li>Describe the roles of DnaA, DnaB, DnaC, and DnaG</li>
+<li>Explain the mechanism of the Pol III holoenzyme</li>
+<li>Describe leading and lagging strand synthesis in E. coli</li>
+<li>Explain Okazaki fragment processing by Pol I</li>
+<li>Describe termination using the Tus/Ter system</li>
+<li>Understand replication fidelity mechanisms</li>
+</ol>
+<hr>
+<h2 id="overview-e-coli-as-a-model-system">Overview: E. coli as a Model System</h2>
+<h3 id="concept">Concept</h3>
+<p><em>Escherichia coli</em> has been the primary model for understanding DNA replication since the 1960s. Its relatively small genome (4.6 × 10⁶ bp), fast growth rate, and well-characterized genetics make it ideal for mechanistic studies.</p>
+<h3 id="key-features">Key Features</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Genome size</td>
+<td>4,641,652 bp (circular)</td>
+</tr>
+<tr>
+<td>Number of origins</td>
+<td>1 (oriC)</td>
+</tr>
+<tr>
+<td>Replication forks</td>
+<td>2 (bidirectional)</td>
+</tr>
+<tr>
+<td>Replication time</td>
+<td>~40 minutes</td>
+</tr>
+<tr>
+<td>Fork speed</td>
+<td>~1,000 nt/second</td>
+</tr>
+<tr>
+<td>Okazaki fragment size</td>
+<td>1,000–2,000 nt</td>
+</tr>
+<tr>
+<td>Number of genes</td>
+<td>~4,300</td>
+</tr>
+<tr>
+<td>Generation time (optimal)</td>
+<td>~20 minutes</td>
+</tr>
+</tbody></table>
+<h3 id="why-e-coli">Why E. coli?</h3>
+<ul>
+<li>Well-defined genetics (complete mutant collection)</li>
+<li>Reconstituted systems in vitro</li>
+<li>Many replication proteins identified and purified</li>
+<li>Structural information available for most components</li>
+<li>Clinical relevance (antibiotic targets)</li>
+</ul>
+<hr>
+<h2 id="1-the-e-coli-chromosome">1. The E. coli Chromosome</h2>
+<h3 id="concept-1">Concept</h3>
+<p>The <em>E. coli</em> chromosome is a single circular double-stranded DNA molecule of approximately 4.6 × 10⁶ base pairs. It is organized into a compact nucleoid structure.</p>
+<h3 id="key-features-1">Key Features</h3>
+<pre><code>E. coli CHROMOSOME MAP (simplified)
+════════════════════════════════════
+
+           oriC (46 min)
+              ↓
+    ┌─────────●─────────┐
+    │         │         │
+    │    ← Fork 1       │
+    │         │         │
+    │         │         │
+    │    Fork 2 →       │
+    │         │         │
+    └─────────●─────────┘
+              ↑
+          ter region
+          (bidirectional termination)
+</code></pre>
+<h3 id="chromosome-organization">Chromosome Organization</h3>
+<ul>
+<li><strong>Circular</strong>: No ends, no telomere problem</li>
+<li><strong>Supercoiled</strong>: Negatively supercoiled (superhelical density ~-0.06)</li>
+<li><strong>Nucleoid</strong>: DNA organized with HU, H-NS, IHF, FIS proteins</li>
+<li><strong>Macrodomain structure</strong>: Organized into topological domains</li>
+</ul>
+<hr>
+<h2 id="2-origin-of-replication-oric">2. Origin of Replication: oriC</h2>
+<h3 id="concept-2">Concept</h3>
+<p>oriC is the single origin of replication in <em>E. coli</em>, located at 84.3 minutes on the genetic map.</p>
+<h3 id="structure-of-oric">Structure of oriC</h3>
+<pre><code>oriC (245 bp)
+═══════════════
+
+Region 1 (13-mer repeats): AT-rich, easily melted
+┌─────────────────────────────────────┐
+│ AT-rich  AT-rich  AT-rich          │
+│ 13-mer   13-mer   13-mer           │
+│ (easy to unwind — fewer H-bonds)    │
+└─────────────────────────────────────┘
+
+Region 2 (9-mer repeats / DnaA boxes): 
+┌─────────────────────────────────────┐
+│ R1    R2    R3    R4    R5         │
+│ GATCTNTTNTTNCAG  (DnaA consensus) │
+│ (DnaA binding sites)               │
+└─────────────────────────────────────┘
+
+- R1, R2, R4, R5: High-affinity DnaA binding sites
+- R3: Lower affinity (autoregulation)
+- When enough DnaA-ATP accumulates → R3 binding → origin melts
+</code></pre>
+<h3 id="why-oric-is-special">Why oriC is Special</h3>
+<ol>
+<li><strong>AT-rich 13-mers</strong>: A-T pairs have only 2 H-bonds (vs. 3 for G-C), so they melt more easily</li>
+<li><strong>Multiple DnaA boxes</strong>: Allow cooperative binding of initiator protein</li>
+<li><strong>Small size</strong>: 245 bp is sufficient for autonomous replication</li>
+<li><strong>Unique in genome</strong>: No other sequence works as efficiently as oriC</li>
+</ol>
+<hr>
+<h2 id="3-initiation--step-by-step">3. Initiation — Step by Step</h2>
+<h3 id="step-1-dnaa-atp-accumulation">Step 1: DnaA-ATP Accumulation</h3>
+<p><strong>What happens:</strong></p>
+<ul>
+<li>DnaA is the initiator protein</li>
+<li>DnaA binds ATP and ADP, but only DnaA-ATP is active for initiation</li>
+<li>The ratio of DnaA-ATP/DnaA-ADP increases during G1 phase</li>
+<li>When DnaA-ATP reaches a critical concentration, initiation begins</li>
+</ul>
+<p><strong>Which protein:</strong> DnaA (4×)
+<strong>Why necessary:</strong> Ensures replication initiates only once per cell cycle</p>
+<h3 id="step-2-dnaa-binding-to-oric">Step 2: DnaA Binding to oriC</h3>
+<p><strong>What happens:</strong></p>
+<ul>
+<li>DnaA-ATP binds cooperatively to the 9-mer DnaA boxes (R1-R5)</li>
+<li>Forms a helical filament on DNA</li>
+<li>DnaA-ATP oligomerization induces positive supercoiling</li>
+<li>This destabilizes the adjacent AT-rich 13-mer region</li>
+</ul>
+<p><strong>Which protein:</strong> DnaA-ATP (20-30 molecules)
+<strong>Why necessary:</strong> Creates the initial opening (bubble) at the origin</p>
+<h3 id="step-3-origin-melting-strand-separation">Step 3: Origin Melting (Strand Separation)</h3>
+<p><strong>What happens:</strong></p>
+<ul>
+<li>The AT-rich 13-mer repeats melt (separate into single strands)</li>
+<li>Creates an open complex (replication bubble)</li>
+<li>45 bp of DNA is initially unwound</li>
+<li>This is the rate-limiting step of initiation</li>
+</ul>
+<p><strong>Which protein:</strong> DnaA-ATP (indirect), thermal energy
+<strong>Why necessary:</strong> Provides single-stranded template for helicase loading</p>
+<h3 id="step-4-dnab-helicase-loading">Step 4: DnaB (Helicase) Loading</h3>
+<p><strong>What happens:</strong></p>
+<ul>
+<li>DnaC (helicase loader) delivers DnaB to the melted origin</li>
+<li>DnaB is a hexameric ring helicase</li>
+<li>DnaC holds DnaB in an inactive state during loading</li>
+<li>DnaB encircles one strand of single-stranded DNA</li>
+<li>Once loaded, DnaC dissociates (ATP-dependent)</li>
+</ul>
+<p><strong>Which protein:</strong> DnaB (helicase, 2 hexamers loaded), DnaC (loader)
+<strong>Why necessary:</strong> DnaB unwinds DNA ahead of the replication fork</p>
+<h3 id="step-5-replication-bubble-formation">Step 5: Replication Bubble Formation</h3>
+<p><strong>What happens:</strong></p>
+<ul>
+<li>Two DnaB helicases are loaded (one per fork)</li>
+<li>They move in opposite directions (bidirectional replication)</li>
+<li>DnaB uses ATP hydrolysis to unwind DNA (5&#39;→3&#39; direction on the strand it encircles)</li>
+<li>Creates two replication forks</li>
+</ul>
+<p><strong>Which protein:</strong> DnaB helicase (×2)
+<strong>Why necessary:</strong> Generates the Y-shaped replication fork structure</p>
+<h3 id="visual-explanation-initiation">Visual Explanation: Initiation</h3>
+<pre><code>INITIATION AT oriC
+═══════════════════
+
+Step 1: DnaA-ATP binds to DnaA boxes
+    ─────[R1][R2][R3][R4][R5]─────
+              DnaA    DnaA
+              DnaA    DnaA
+    
+Step 2: AT-rich region melts
+    ─────[R1]═══════════[R5]─────
+              ↑ Melted region ↑
+    
+Step 3: DnaC delivers DnaB to each fork
+    ─────[R1]═══Helicase═══[R5]─────
+              DnaB         DnaB
+              (→)          (←)
+    
+Step 4: Bidirectional replication begins
+              ← Fork 1        Fork 2 →
+    ─────[R1]═════════════════[R5]─────
+</code></pre>
+<hr>
+<h2 id="4-elongation--the-replisome">4. Elongation — The Replisome</h2>
+<h3 id="concept-3">Concept</h3>
+<p>Once replication forks are established, the replisome — a complex molecular machine — carries out coordinated leading and lagging strand synthesis.</p>
+<h3 id="components-of-the-e-coli-replisome">Components of the E. coli Replisome</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Function</th>
+<th>Copies/Fork</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>DnaB helicase</strong></td>
+<td>Unwinds dsDNA (5&#39;→3&#39;)</td>
+<td>1 hexamer</td>
+</tr>
+<tr>
+<td><strong>DnaG primase</strong></td>
+<td>Synthesizes RNA primers</td>
+<td>1–2</td>
+</tr>
+<tr>
+<td><strong>DNA Pol III</strong></td>
+<td>Synthesizes new DNA</td>
+<td>2 (one per strand)</td>
+</tr>
+<tr>
+<td><strong>β sliding clamp</strong></td>
+<td>Increases processivity</td>
+<td>2</td>
+</tr>
+<tr>
+<td><strong>Clamp loader (γ complex)</strong></td>
+<td>Loads β clamp</td>
+<td>1 pentamer</td>
+</tr>
+<tr>
+<td><strong>SSB</strong></td>
+<td>Stabilizes ssDNA</td>
+<td>Many</td>
+</tr>
+<tr>
+<td><strong>Topoisomerase II (Gyrase)</strong></td>
+<td>Relieves positive supercoiling</td>
+<td>Ahead of fork</td>
+</tr>
+</tbody></table>
+<h3 id="dna-polymerase-iii-holoenzyme">DNA Polymerase III Holoenzyme</h3>
+<p>The Pol III holoenzyme is the primary replicative polymerase in <em>E. coli</em>.</p>
+<pre><code>Pol III HOLOENZYME STRUCTURE
+════════════════════════════
+
+                    α  ε  θ
+                   ┌───────┐
+    Leading →      │ Pol III│ → Leading strand
+    strand         │ Core   │
+                   └───┬───┘
+                       │
+              ┌────────┴────────┐
+              │   β sliding     │
+              │   clamp         │
+              └────────┬────────┘
+                       │
+              ┌────────┴────────┐
+              │  τ (tau) subunit │
+              │  (dimerizes)     │
+              └────────┬────────┘
+                       │
+                   ┌───┴───┐
+    Lagging →     │ Pol III│ → Lagging strand
+    strand        │ Core   │
+                  └───────┘
+                    α  ε  θ
+
+Subunits:
+- α (dnaE): Polymerase activity (5&#39;→3&#39;)
+- ε (dnaQ): Proofreading exonuclease (3&#39;→5&#39;)
+- θ: Stimulates ε activity
+- τ (dnaX): Dimerizes core, connects to helicase
+- γ/δ/δ&#39;/χ/ψ: Clamp loader complex
+- β (dnaN): Sliding clamp (processivity factor)
+</code></pre>
+<h3 id="pol-iii-core-function">Pol III Core Function</h3>
+<table>
+<thead>
+<tr>
+<th>Subunit</th>
+<th>Gene</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>α</td>
+<td>dnaE</td>
+<td>DNA polymerase (5&#39;→3&#39; synthesis)</td>
+</tr>
+<tr>
+<td>ε</td>
+<td>dnaQ</td>
+<td>3&#39;→5&#39; exonuclease (proofreading)</td>
+</tr>
+<tr>
+<td>θ</td>
+<td>holE</td>
+<td>Enhances ε stability</td>
+</tr>
+</tbody></table>
+<p><strong>Combined error rate of Pol III core</strong>: ~10⁻⁵ (before proofreading by ε: ~10⁻⁷)</p>
+<hr>
+<h2 id="5-β-sliding-clamp">5. β Sliding Clamp</h2>
+<h3 id="concept-4">Concept</h3>
+<p>The β sliding clamp is a ring-shaped protein that encircles DNA and tethers DNA polymerase to the template, dramatically increasing processivity.</p>
+<h3 id="why-it-matters">Why It Matters</h3>
+<p>Without the β clamp:</p>
+<ul>
+<li>Pol III synthesizes only <strong>10–20 nucleotides</strong> before falling off</li>
+<li>With the β clamp: Pol III synthesizes <strong>&gt;50,000 nucleotides</strong> without dissociating</li>
+</ul>
+<h3 id="structure">Structure</h3>
+<pre><code>β SLIDING CLAMP
+═══════════════
+
+    ┌─────────────┐
+    │  ╔═══════╗  │
+    │  ║       ║  │
+    │  ║  DNA  ║  │  ← Ring-shaped homodimer
+    │  ║       ║  │     Inner diameter: ~35 Å
+    │  ╚═══════╝  │     Fits dsDNA snugly
+    └─────────────┘
+    
+- Homodimer (β₂)
+- 6-fold symmetry
+- Slides freely along DNA (no sequence specificity)
+- Interacts with Pol III core and clamp loader
+</code></pre>
+<h3 id="advanced-explanation">Advanced Explanation</h3>
+<p>The β clamp is a <strong>toroidal (ring-shaped)</strong> protein with remarkable properties:</p>
+<ul>
+<li>It slides along DNA at the same speed as the polymerase</li>
+<li>It has <strong>no intrinsic enzymatic activity</strong> — it is purely a processivity factor</li>
+<li>Its structure is conserved: the eukaryotic equivalent (PCNA) has a similar ring shape but is a <strong>trimer</strong> (vs. dimer in prokaryotes)</li>
+</ul>
+<hr>
+<h2 id="6-clamp-loader-γ-complex">6. Clamp Loader (γ Complex)</h2>
+<h3 id="concept-5">Concept</h3>
+<p>The clamp loader (also called the γ complex) uses ATP hydrolysis to open the β sliding clamp ring and load it onto primer-template junctions.</p>
+<h3 id="components">Components</h3>
+<table>
+<thead>
+<tr>
+<th>Subunit</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>γ (gamma)</td>
+<td>ATPase, motor activity</td>
+</tr>
+<tr>
+<td>δ (delta)</td>
+<td>Opens β clamp</td>
+</tr>
+<tr>
+<td>δ&#39; (delta-prime)</td>
+<td>Structural scaffold</td>
+</tr>
+<tr>
+<td>χ (chi)</td>
+<td>Interacts with SSB</td>
+</tr>
+<tr>
+<td>ψ (psi)</td>
+<td>Bridges γ and χ</td>
+</tr>
+</tbody></table>
+<h3 id="mechanism">Mechanism</h3>
+<ol>
+<li>γ complex binds ATP</li>
+<li>γ-ATP complex binds β clamp → opens the ring</li>
+<li>β-clamp-loaded complex binds primer-template DNA</li>
+<li>ATP hydrolysis → β clamp closes around DNA</li>
+<li>γ complex releases, leaving β clamp on DNA</li>
+<li>Pol III core binds β clamp → polymerase is now processive</li>
+</ol>
+<hr>
+<h2 id="7-leading-strand-synthesis">7. Leading Strand Synthesis</h2>
+<h3 id="step-by-step-mechanism">Step-by-Step Mechanism</h3>
+<pre><code>LEADING STRAND SYNTHESIS
+═════════════════════════
+
+1. DnaB helicase unwinds DNA at the fork
+2. SSB proteins coat the exposed single-stranded template
+3. DnaG primase synthesizes a short RNA primer (~10-12 nt)
+4. Clamp loader loads β clamp at the primer-template junction
+5. Pol III core binds β clamp → now highly processive
+6. Pol III extends primer continuously in 5&#39;→3&#39; direction
+7. Pol III follows DnaB helicase at the fork
+
+Direction: same as fork movement →
+Speed: ~1,000 nt/second
+Processivity: &gt;50,000 nt (with β clamp)
+Only ONE primer needed per fork
+</code></pre>
+<h3 id="key-point">Key Point</h3>
+<p>The leading strand only needs <strong>one primer</strong> because synthesis is continuous. Once primed, Pol III follows the helicase around the entire chromosome.</p>
+<hr>
+<h2 id="8-lagging-strand-synthesis--okazaki-fragments">8. Lagging Strand Synthesis — Okazaki Fragments</h2>
+<h3 id="concept-6">Concept</h3>
+<p>The lagging strand is synthesized discontinuously as short fragments called <strong>Okazaki fragments</strong> (named after Reiji and Tuneko Okazaki, who discovered them in the 1960s).</p>
+<h3 id="why-okazaki-fragments-exist">Why Okazaki Fragments Exist</h3>
+<p>The lagging strand template runs 5&#39;→3&#39; in the direction of fork movement. Since DNA polymerase can only synthesize 5&#39;→3&#39;, synthesis on this strand must proceed <strong>away from</strong> the fork. As the fork unwinds more template, a new primer must be laid down and a new fragment synthesized.</p>
+<h3 id="step-by-step-mechanism-1">Step-by-Step Mechanism</h3>
+<pre><code>LAGGING STRAND SYNTHESIS (cycle repeats)
+════════════════════════════════════════
+
+Fork movement →
+3&#39;════════════════════════════════════5&#39; (lagging template)
+
+Step 1: Fork exposes new ssDNA
+Step 2: DnaG primase synthesizes RNA primer (→ direction)
+        5&#39;─rN─rN─rN─rN─rN─rN─rN─rN─rN─rN─3&#39;
+Step 3: Clamp loader loads β clamp
+Step 4: Pol III synthesizes Okazaki fragment (5&#39;→3&#39;, away from fork)
+        5&#39;─rN─rN─dN─dN─dN─dN─dN─dN─dN─dN─3&#39;
+        [RNA]──────────[DNA]────────────────→
+Step 5: Pol III reaches RNA primer of previous Okazaki fragment
+Step 6: Pol III releases (collision with previous fragment)
+Step 7: β clamp recycled to new primer
+Step 8: Cycle repeats
+
+Okazaki fragment size: 1,000–2,000 nt
+Each fragment: RNA primer (10-12 nt) + DNA (~1,000-2,000 nt)
+</code></pre>
+<h3 id="the-trombone-model">The Trombone Model</h3>
+<p>The lagging strand template loops back so that both Pol III cores can move in the same physical direction at the fork:</p>
+<pre><code>THE TROMBONE MODEL
+═══════════════════
+
+                    DnaB (helicase)
+                         │
+    Leading template →   │   ← Lagging template
+    ───────────────→     │     ←───────────────
+                         │
+              Pol III (leading) →  ← Pol III (lagging)
+                         │         │
+                    β clamp     β clamp
+                    (leading)    (lagging)
+                                  ↑
+                              Loop forms and
+                              releases as each
+                              Okazaki fragment
+                              is completed
+                              (&quot;trombone slide&quot;)
+</code></pre>
+<h3 id="common-misconception">Common Misconception</h3>
+<p><strong>Misconception:</strong> Okazaki fragments on the lagging strand are synthesized simultaneously.
+<strong>Reality:</strong> Only one Okazaki fragment is being actively synthesized at a time. The lagging strand Pol III cycles between primers, completing one fragment before starting the next.</p>
+<hr>
+<h2 id="9-primer-removal-and-gap-filling">9. Primer Removal and Gap Filling</h2>
+<h3 id="concept-7">Concept</h3>
+<p>After Okazaki fragments are synthesized, the RNA primers must be removed and replaced with DNA to create a continuous strand.</p>
+<h3 id="mechanism-in-e-coli">Mechanism in E. coli</h3>
+<p><strong>DNA Polymerase I</strong> (Pol I) performs primer removal and gap filling:</p>
+<pre><code>PRIMER REMOVAL BY POL I
+════════════════════════
+
+Before:
+    5&#39;─rNrN──────────────────dN──────────3&#39; (Okazaki fragment 1)
+    3&#39;────────────────────────────────────5&#39; (template)
+                         5&#39;─rNrN──────────dN──3&#39; (Okazaki fragment 2)
+
+Step 1: Pol I binds to 5&#39; end of Okazaki fragment 2
+        (at the nick between fragments)
+Step 2: Pol I uses 5&#39;→3&#39; exonuclease to remove RNA primer
+Step 3: Pol I simultaneously fills gap with DNA (nick translation)
+Step 4: RNA is degraded, replaced with DNA
+Step 5: A nick remains between the two DNA fragments
+
+After:
+    5&#39;─dN────────────────────────────────3&#39; 
+    3&#39;────────────────────────────────────5&#39;
+                         5&#39;─dN────────────3&#39;
+    
+    Nick at the junction → sealed by DNA ligase
+</code></pre>
+<h3 id="pol-i--a-unique-polymerase">Pol I — A Unique Polymerase</h3>
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Direction</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5&#39;→3&#39; polymerase</td>
+<td>5&#39;→3&#39;</td>
+<td>Fills gaps (DNA synthesis)</td>
+</tr>
+<tr>
+<td>3&#39;→5&#39; exonuclease</td>
+<td>3&#39;→5&#39;</td>
+<td>Proofreading</td>
+</tr>
+<tr>
+<td><strong>5&#39;→3&#39; exonuclease</strong></td>
+<td>5&#39;→3&#39;</td>
+<td><strong>Removes RNA primers</strong> (unique to Pol I among E. coli polymerases)</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>The 5&#39;→3&#39; exonuclease activity of Pol I is critical — it is the only enzyme that can remove RNA primers ahead of the polymerase in <em>E. coli</em>.</p>
+</blockquote>
+<hr>
+<h2 id="10-dna-ligase">10. DNA Ligase</h2>
+<h3 id="concept-8">Concept</h3>
+<p>DNA ligase seals the nicks (breaks in the sugar-phosphate backbone) between Okazaki fragments after primer removal and gap filling, creating a continuous DNA strand.</p>
+<h3 id="mechanism-1">Mechanism</h3>
+<pre><code>DNA LIGASE REACTION
+═══════════════════
+
+Before ligase:
+    5&#39;─────────────p─── 3&#39; OH──────3&#39;
+                   ↑
+              Nick (break in backbone)
+
+Ligase mechanism:
+1. Ligase binds NAD⁺ (in E. coli) or ATP (in eukaryotes/viruses)
+2. Ligase-AMP intermediate forms (AMP attached to lysine)
+3. AMP transferred to 5&#39;-phosphate at nick
+4. 3&#39;-OH attacks activated 5&#39;-phosphate → phosphodiester bond
+5. AMP released
+
+After ligase:
+    5&#39;────────────────────────────3&#39;
+                   └── phosphodiester bond
+</code></pre>
+<h3 id="important-note">Important Note</h3>
+<p>In <em>E. coli</em>, DNA ligase uses <strong>NAD⁺</strong> as a cofactor (not ATP). This is different from eukaryotic DNA ligases, which use ATP.</p>
+<hr>
+<h2 id="11-topoisomerases-and-dna-gyrase">11. Topoisomerases and DNA Gyrase</h2>
+<h3 id="concept-9">Concept</h3>
+<p>As the helicase unwinds DNA ahead of the replication fork, positive supercoils accumulate. Topoisomerases relieve this torsional stress to prevent the DNA from tangling and breaking.</p>
+<h3 id="why-it-matters-1">Why It Matters</h3>
+<p>Without topoisomerase activity:</p>
+<ul>
+<li>Positive supercoils accumulate ahead of the fork</li>
+<li>DNA becomes increasingly difficult to unwind</li>
+<li>Fork progression stops (fork stalling)</li>
+<li>DNA can break under torsional stress</li>
+</ul>
+<h3 id="types-of-topoisomerases-in-e-coli">Types of Topoisomerases in E. coli</h3>
+<table>
+<thead>
+<tr>
+<th>Enzyme</th>
+<th>Type</th>
+<th>Mechanism</th>
+<th>Function in Replication</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>DNA Gyrase</strong></td>
+<td>Type II</td>
+<td>Cuts both strands, passes another duplex through, reseals</td>
+<td>Introduces negative supercoils; relieves positive supercoils ahead of fork</td>
+</tr>
+<tr>
+<td><strong>Topoisomerase I</strong></td>
+<td>Type I</td>
+<td>Cuts one strand, allows rotation, reseals</td>
+<td>Relieves negative supercoils</td>
+</tr>
+<tr>
+<td><strong>Topoisomerase IV</strong></td>
+<td>Type II</td>
+<td>Similar to gyrase</td>
+<td>Decatenates (separates) daughter chromosomes after replication</td>
+</tr>
+</tbody></table>
+<h3 id="dna-gyrase--unique-to-bacteria">DNA Gyrase — Unique to Bacteria</h3>
+<p>DNA gyrase is unique because it is the <strong>only topoisomerase that can introduce negative supercoils</strong> into DNA. It:</p>
+<ul>
+<li>Uses ATP hydrolysis</li>
+<li>Creates a double-strand break</li>
+<li>Passes another segment of DNA through the break</li>
+<li>Reseals the break</li>
+<li>Results in net introduction of negative supercoils</li>
+</ul>
+<blockquote>
+<p><strong>Clinical relevance</strong>: DNA gyrase is the target of <strong>fluoroquinolone antibiotics</strong> (ciprofloxacin, levofloxacin) — they trap the gyrase-DNA complex, causing lethal DNA breaks.</p>
+</blockquote>
+<hr>
+<h2 id="12-complete-replication-fork--all-components">12. Complete Replication Fork — All Components</h2>
+<h3 id="visual-explanation">Visual Explanation</h3>
+<pre><code>COMPLETE E. coli REPLICATION FORK
+══════════════════════════════════════════════
+
+Direction of fork movement →
+                                    
+    Topoisomerase/Gyrase
+    (relieves positive supercoiling)
+         ↓
+    ─═══════════════════════════════════
+    ← Parental dsDNA (ahead of fork)
+    ─═══════════════════════════════════
+              │
+              │ DnaB Helicase
+              │ (unwinds dsDNA)
+              ↓
+         ╱ ╲
+        ╱   ╲
+       ╱ SSB  ╲
+      ╱  protein ╲
+     ╱             ╲
+    ╱               ╲
+    
+LEADING STRAND (top):
+    5&#39;────────────────→3&#39; template
+    ←3&#39;═════════════════5&#39; new (continuous)
+         [Pol III + β clamp]
+         
+LAGGING STRAND (bottom):
+    3&#39;══════════════════→5&#39; template
+    ←──Fragment 1──→←Fragment 2──→  (discontinuous)
+    [RNA][DNA]       [RNA][DNA]
+         [Pol III + β clamp]
+         
+AFTER the fork (lagging strand processing):
+    ┌─────────────────────────────────────┐
+    │ Pol I: removes RNA, fills gaps     │
+    │ DNA ligase: seals nicks            │
+    │ → Continuous lagging strand        │
+    └─────────────────────────────────────┘
+</code></pre>
+<hr>
+<h2 id="13-bidirectional-replication">13. Bidirectional Replication</h2>
+<h3 id="concept-10">Concept</h3>
+<p>Replication from oriC proceeds bidirectionally — two replication forks move in opposite directions around the circular chromosome until they meet at the termination region.</p>
+<h3 id="why-bidirectional">Why Bidirectional?</h3>
+<ul>
+<li>Two DnaB helicases are loaded at oriC (one for each fork)</li>
+<li>Each fork has its own complete replisome</li>
+<li>Doubles the speed of genome replication (40 min instead of 80 min)</li>
+</ul>
+<h3 id="replication-timing">Replication Timing</h3>
+<pre><code>E. coli CHROMOSOME REPLICATION
+══════════════════════════════
+
+                    oriC
+                      ●
+                     / \
+                    /   \
+                   /     \
+    Fork 1 →     /       \     ← Fork 2
+                 /         \
+                /           \
+               /             \
+              /               \
+    ─────────●─────────────────●─────────
+          TerB              TerA
+          (termination region)
+          
+- Both forks travel at ~1,000 nt/second
+- Complete replication: ~40 minutes
+- Forks meet in the Ter region (opposite side from oriC)
+</code></pre>
+<hr>
+<h2 id="14-termination">14. Termination</h2>
+<h3 id="concept-11">Concept</h3>
+<p>Replication terminates when the two converging replication forks meet in the termination region, opposite to oriC on the circular chromosome.</p>
+<h3 id="the-tuster-system">The Tus/Ter System</h3>
+<p><em>E. coli</em> uses a <strong>polar replication fork trap</strong> to ensure termination occurs in the correct region:</p>
+<pre><code>Tus/Ter SYSTEM
+══════════════
+
+Ter sites: 10 sequences (TerA-TerJ) arranged as a &quot;trap&quot;
+Tus protein: Binds Ter sequences
+
+Tus binds Ter → creates a polar fork barrier:
+    
+    TerB ←─── Fork 2 can pass through → allowed
+              Fork 1 ←─── blocked by Tus-TerB
+    
+    TerA ←─── Fork 1 can pass through → allowed
+              Fork 2 ←─── blocked by Tus-TerA
+
+Result: Both forks are trapped in the Ter region
+        → They meet and terminate there
+</code></pre>
+<h3 id="what-happens-at-termination">What Happens at Termination</h3>
+<ol>
+<li><strong>Forks converge</strong>: The two replisomes meet</li>
+<li><strong>Replication machinery disassembles</strong>: Helicase, polymerase, etc. are removed</li>
+<li><strong>Catenanes form</strong>: The two daughter chromosomes are interlinked (like chain links)</li>
+<li><strong>Topoisomerase IV decatenates</strong>: Separates the interlinked circles</li>
+<li><strong>Two daughter chromosomes</strong>: Each is a complete circular molecule</li>
+</ol>
+<h3 id="post-termination-events">Post-Termination Events</h3>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Enzyme</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fork convergence</td>
+<td>—</td>
+<td>Both replisomes meet</td>
+</tr>
+<tr>
+<td>Replisome disassembly</td>
+<td>Tus, proteases</td>
+<td>Release replication machinery</td>
+</tr>
+<tr>
+<td>Catenane formation</td>
+<td>—</td>
+<td>Topological consequence of bidirectional replication</td>
+</tr>
+<tr>
+<td>Decatenation</td>
+<td>Topoisomerase IV</td>
+<td>Separates daughter chromosomes</td>
+</tr>
+<tr>
+<td>Chromosome segregation</td>
+<td>FtsK, MukBEF</td>
+<td>Ensures each daughter cell gets one chromosome</td>
+</tr>
+<tr>
+<td>Cell division</td>
+<td>FtsZ ring</td>
+<td>Cytokinesis</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="15-replication-fidelity">15. Replication Fidelity</h2>
+<h3 id="concept-12">Concept</h3>
+<p>DNA replication in <em>E. coli</em> achieves an extraordinary error rate of approximately <strong>one mistake per 10⁹–10¹⁰ nucleotides</strong> incorporated. This is achieved through three layers of error correction.</p>
+<h3 id="three-layers-of-fidelity">Three Layers of Fidelity</h3>
+<pre><code>REPLICATION FIDELITY
+═════════════════════
+
+Layer 1: BASE SELECTION by Pol III
+─────────────────────────────────
+- Polymerase active site favors correct Watson-Crick pairs
+- Geometric selection: only correct pairs fit
+- Error rate: ~1 in 10⁵ (10⁻⁵)
+
+Layer 2: PROOFREADING by ε (3&#39;→5&#39; exonuclease)
+────────────────────────────────────────────────
+- After incorrect nucleotide incorporation:
+  - Polymerase stalls (mismatch distorts geometry)
+  - DNA transfers from polymerase site to exonuclease site
+  - Incorrect nucleotide excised (3&#39;→5&#39;)
+  - Correct nucleotide incorporated
+- Error rate: improves to ~1 in 10⁷ (10⁻⁷)
+
+Layer 3: POST-REPLICATIVE MISMATCH REPAIR (MMR)
+────────────────────────────────────────────────
+- MutS: recognizes mismatches and small insertion/deletion loops
+- MutL: coordinates repair
+- MutH: nicks the unmethylated (new) strand
+- Exonuclease removes incorrect nucleotide from new strand
+- Pol III resynthesizes
+- Final error rate: ~1 in 10⁹–10¹⁰ (10⁻⁹ to 10⁻¹⁰)
+</code></pre>
+<h3 id="strand-discrimination-in-mmr">Strand Discrimination in MMR</h3>
+<p>How does MutH know which strand is new?</p>
+<p><strong>Methylation-based discrimination in E. coli:</strong></p>
+<ul>
+<li>Dam methylase methylates adenine in GATC sequences</li>
+<li>Immediately after replication, the parental strand is methylated but the new strand is <strong>not yet methylated</strong> (hemimethylated state)</li>
+<li>MutH specifically nicks the <strong>unmethylated</strong> strand → ensures only the new strand is repaired</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong>: In eukaryotes, strand discrimination in mismatch repair is thought to involve strand breaks (nicks) rather than methylation.</p>
+</blockquote>
+<hr>
+<h2 id="16-replication-speed-and-processivity">16. Replication Speed and Processivity</h2>
+<h3 id="speed">Speed</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fork speed</td>
+<td>~1,000 nt/second</td>
+</tr>
+<tr>
+<td>Replication time</td>
+<td>~40 minutes</td>
+</tr>
+<tr>
+<td>Total nucleotides per fork</td>
+<td>~2.3 × 10⁶</td>
+</tr>
+<tr>
+<td>dNTP consumption</td>
+<td>~2,000 nt/second (both forks combined)</td>
+</tr>
+</tbody></table>
+<h3 id="processivity">Processivity</h3>
+<table>
+<thead>
+<tr>
+<th>Without β clamp</th>
+<th>With β clamp</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10–20 nt</td>
+<td>&gt;50,000 nt</td>
+</tr>
+<tr>
+<td>Pol III falls off easily</td>
+<td>Pol III stays on for long stretches</td>
+</tr>
+</tbody></table>
+<h3 id="dntp-pool">dNTP Pool</h3>
+<ul>
+<li><em>E. coli</em> maintains a balanced pool of all four dNTPs</li>
+<li>Imbalanced dNTP pools increase mutation rates</li>
+<li>Ribonucleotide reductase (RNR) converts NDPs → dNDPs</li>
+<li>Nucleoside diphosphate kinase converts dNDPs → dNTPs</li>
+</ul>
+<hr>
+<h2 id="17-special-topics-in-prokaryotic-replication">17. Special Topics in Prokaryotic Replication</h2>
+<h3 id="replication-coupled-to-cell-division">Replication Coupled to Cell Division</h3>
+<p>In rapidly growing <em>E. coli</em> (doubling time &lt; 40 min):</p>
+<ul>
+<li>A new round of replication initiates before the previous round finishes</li>
+<li><strong>Multiple replication forks</strong> are present simultaneously</li>
+<li><strong>Nested replication forks</strong>: Up to 4 forks can be active</li>
+<li>This allows generation times shorter than replication time</li>
+</ul>
+<pre><code>RAPID GROWTH — MULTIPLE ROUNDS
+═══════════════════════════════
+
+Generation time: 20 min
+Replication time: 40 min
+
+Solution: Initiate new rounds before previous rounds finish
+
+Time 0:   ← Fork 1     oriC     Fork 2 →
+Time 10:  ← Fork 1    ╱    ╲    Fork 2 →
+                    ← F3    F4 →
+Time 20: Cell divides!
+          Each daughter has partially replicated chromosome
+          + new initiation at oriC
+</code></pre>
+<h3 id="archaeal-replication-brief-comparison">Archaeal Replication (Brief Comparison)</h3>
+<p>Archaea share more similarities with eukaryotes than with bacteria:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Bacteria</th>
+<th>Archaea</th>
+<th>Eukaryotes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Origin</td>
+<td>oriC</td>
+<td>Multiple (similar to ORC)</td>
+<td>Multiple ORIs</td>
+</tr>
+<tr>
+<td>Initiator</td>
+<td>DnaA</td>
+<td>Orc1/Cdc6</td>
+<td>ORC complex</td>
+</tr>
+<tr>
+<td>Helicase</td>
+<td>DnaB (3&#39;→5&#39;)</td>
+<td>MCM (5&#39;→3&#39;)</td>
+<td>MCM2-7 (5&#39;→3&#39;)</td>
+</tr>
+<tr>
+<td>Clamp</td>
+<td>β (dimer)</td>
+<td>PCNA (trimer)</td>
+<td>PCNA (trimer)</td>
+</tr>
+<tr>
+<td>Polymerase</td>
+<td>Pol III</td>
+<td>PolB/PolD</td>
+<td>Pol α, δ, ε</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Archaeal replication machinery is remarkably similar to eukaryotic, reflecting their shared evolutionary ancestry (both are in the supergroup Asgard/OPh group, or share common ancestry as prokaryotic/eukaryotic split).</p>
+</blockquote>
+<hr>
+<h2 id="complete-e-coli-replication-workflow">Complete E. coli Replication Workflow</h2>
+<pre><code>E. coli DNA REPLICATION — COMPLETE WORKFLOW
+══════════════════════════════════════════════
+
+INITIATION
+│
+├→ DnaA-ATP accumulates in the cell
+├→ DnaA binds DnaA boxes in oriC (9-mer repeats)
+├→ Cooperative binding + DNA wrapping
+├→ AT-rich 13-mer region melts (open complex)
+├→ DnaC loads DnaB helicase onto each strand
+├→ DnaC dissociates (ATP-dependent)
+├→ Two DnaB hexamers move in opposite directions
+│
+PRIMING
+│
+├→ DnaG primase interacts with DnaB
+├→ DnaG synthesizes RNA primer (10-12 nt)
+├→ Leading strand: one primer per fork
+├→ Lagging strand: new primer every 1,000-2,000 nt
+│
+ELONGATION
+│
+├→ Clamp loader loads β sliding clamp at each primer
+├→ Pol III core binds β clamp → processive complex
+├→ LEADING STRAND:
+│   ├→ Pol III extends primer continuously (5&#39;→3&#39;)
+│   ├→ Follows helicase
+│   └→ No discontinuities
+│
+├→ LAGGING STRAND:
+│   ├→ Pol III synthesizes Okazaki fragments (1-2 kb)
+│   ├→ Each fragment made 5&#39;→3&#39; (away from fork)
+│   ├→ Pol III cycles to new primer when it reaches previous fragment
+│   └→ &quot;Trombone model&quot; — lagging template loops
+│
+├→ PROOFREADING: ε subunit excises misincorporated bases
+│
+PRIMER REMOVAL
+│
+├→ Pol I uses 5&#39;→3&#39; exonuclease to remove RNA primers
+├→ Pol I simultaneously fills gaps with DNA (nick translation)
+├→ Gap is filled completely with DNA
+│
+LIGATION
+│
+├→ DNA ligase (NAD⁺) seals nicks between Okazaki fragments
+├→ Creates continuous lagging strand
+│
+TERMINATION
+│
+├→ Forks converge in Ter region
+├→ Tus-Ter system traps forks
+├→ Replisomes disassemble
+├→ Catenanes (interlinked daughter chromosomes) form
+├→ Topoisomerase IV decatenates daughter chromosomes
+│
+QUALITY CONTROL
+│
+├→ Proofreading (ε exonuclease) during synthesis
+├→ Mismatch repair (MutS/L/H) after replication
+├→ Strand discrimination via Dam methylation
+│
+COMPLETE: Two identical daughter chromosomes
+</code></pre>
+<hr>
+<h2 id="quick-check">Quick Check</h2>
+<ol>
+<li>What is the role of DnaA in initiation? What happens when DnaA cannot bind ATP?</li>
+<li>Why is the 13-mer region of oriC AT-rich? What would happen if it were GC-rich?</li>
+<li>A mutation in the ε subunit (dnaQ) eliminates proofreading. What would be the effect on mutation rate?</li>
+<li>Explain why the β sliding clamp is essential for rapid replication but not for short DNA synthesis.</li>
+<li>How does the Tus/Ter system ensure termination occurs in the correct region?</li>
+<li>If DNA ligase is inactivated in <em>E. coli</em>, what would you observe?</li>
+<li>Compare the roles of DnaB and DNA gyrase. Why are both necessary?</li>
+</ol>
+<hr>
+</main></div>
+<footer class="site-footer">
+  <p class="instructor">Dr. Saira Azam — Assistant Professor, Centre of Excellence in Molecular Biology, University of the Punjab, Lahore</p>
+  <p>DNA Replication in Prokaryotes and Eukaryotes · A Complete Molecular Biology Teaching and Learning Module</p>
+</footer>
+</body>
+</html>

@@ -1,200 +1,128 @@
 # DNA Replication Teaching Package — Build Report
 
-**Date:** August 2026
-**Version:** 1.0
+**Course:** DNA Replication in Prokaryotes and Eukaryotes
+**A Complete Molecular Biology Teaching and Learning Module**
+
+**Instructor:**
+Dr. Saira Azam
+Assistant Professor
+Centre of Excellence in Molecular Biology
+University of the Punjab, Lahore
+
+**Date:** September 2026
+**Version:** 2.0 (final, web-published edition)
 
 ---
 
-## Files Created
+## Files
 
-### Markdown Teaching Materials (12 modules)
-| File | Module | Content |
-|------|--------|---------|
-| `MARKDOWN/01-Introduction-to-DNA-Replication.md` | 01 | Introduction, Meselson-Stahl, historical context |
-| `MARKDOWN/02-Core-Concepts.md` | 02 | Semiconservative model, requirements, fork, leading/lagging |
-| `MARKDOWN/03-Prokaryotic-DNA-Replication.md` | 03 | Complete E. coli mechanism (24 pages) |
-| `MARKDOWN/04-Eukaryotic-DNA-Replication.md` | 04 | Complete human cell mechanism (24 pages) |
-| `MARKDOWN/05-Replication-Fidelity-and-Repair.md` | 05 | Three layers of fidelity, MMR, clinical significance |
-| `MARKDOWN/06-Telomeres-and-Telomerase.md` | 06 | End-replication problem, telomerase, aging, cancer |
-| `MARKDOWN/07-Replication-Stress-and-Checkpoints.md` | 07 | ATR-CHK1, fork dynamics, genome instability |
-| `MARKDOWN/08-Prokaryote-vs-Eukaryote.md` | 08 | Detailed comparison tables (15+ comparisons) |
-| `MARKDOWN/09-Experimental-Methods.md` | 09 | In vitro, fiber analysis, origin mapping |
-| `MARKDOWN/10-Data-Analysis-and-Interpretation.md` | 10 | Bioinformatics exercises, data interpretation |
-| `MARKDOWN/11-Clinical-and-Biotechnology-Applications.md` | 11 | Antibiotics, cancer therapy, diagnostics |
-| `MARKDOWN/12-Advanced-Topics.md` | 12 | Fork dynamics, R-loops, fragile sites, ALT |
+### Markdown (26 files)
+| Group | Count | Location |
+|-------|-------|----------|
+| Teaching modules | 12 | `MARKDOWN/01…12-*.md` |
+| Laboratory exercises | 6 | `LAB/Lab-01…Lab-06*.md` |
+| Lab workbook | 1 | `WORKBOOK/DNA-Replication-Lab-Workbook.md` |
+| Cheat sheet | 1 | `CHEAT-SHEET/DNA-Replication-Cheat-Sheet.md` |
+| FAQs | 1 | `FAQ/DNA-Replication-FAQs.md` |
+| Assessments | 5 | `ASSESSMENT/{MCQs, Short, Long, Viva, Case-Studies}.md` |
+| Datasets | 1 | `DATA/datasets.md` |
+| References | 1 | `REFERENCES.md` |
+| Course home | 1 | `README.md` |
 
-### Laboratory Exercises (6 labs)
-| File | Type | Duration |
-|------|------|----------|
-| `LAB/Lab-01-DNA-Replication-Concepts.md` | Modeling/Discussion | 60 min |
-| `LAB/Lab-02-DNA-Quantification.md` | Wet lab | 60 min |
-| `LAB/Lab-03-Gel-Electrophoresis.md` | Wet lab | 75 min |
-| `LAB/Lab-04-PCR-and-DNA-Amplification.md` | Wet lab | 90 min |
-| `LAB/Lab-05-Replication-Data-Analysis.md` | Computational | 60 min |
-| `LAB/Lab-06-Capstone-Exercise.md` | Integrated analysis | 100 min |
+### PDF (5 files, generated from Markdown via marked + headless Chrome)
+| File | Pages | Content |
+|------|-------|---------|
+| `PDF/Complete-Tutorial.pdf` | 113 | All 12 modules + references, cover page, TOC, instructor block, page numbers |
+| `PDF/Lab-Workbook.pdf` | 43 | Workbook + all 6 labs |
+| `PDF/Cheat-Sheet.pdf` | 8 | Rapid-revision reference |
+| `PDF/FAQs.pdf` | 11 | 62 FAQs |
+| `PDF/Assessment.pdf` | 25 | MCQs, short, long, viva, case studies |
 
-### Supplementary Materials
-| File | Description |
-|------|-------------|
-| `WORKBOOK/DNA-Replication-Lab-Workbook.md` | Printable student workbook |
-| `CHEAT-SHEET/DNA-Replication-Cheat-Sheet.md` | Quick reference (2-4 pages) |
-| `FAQ/DNA-Replication-FAQs.md` | 62 frequently asked questions |
-| `REFERENCES.md` | 52 references (textbooks, papers, databases) |
-| `DATA/datasets.md` | 10 simulated datasets for exercises |
-| `README.md` | Course homepage with navigation |
+### Presentation (1 file)
+| File | Slides |
+|------|--------|
+| `PPTX/DNA_Replication_Complete_Lecture.pptx` | ~65 slides, 12 modules, speaker notes, instructor on title slide |
 
-### Assessment Package
-| File | Type | Count |
-|------|------|-------|
-| `ASSESSMENT/MCQs.md` | Multiple choice | 40 questions |
-| `ASSESSMENT/Short-Questions.md` | Short answer | 25 questions |
-| `ASSESSMENT/Long-Questions.md` | Essay/long answer | 15 questions |
-| `ASSESSMENT/Viva-Questions.md` | Oral examination | 33 questions |
-| `ASSESSMENT/Case-Studies.md` | Clinical/research cases | 10 cases |
-
----
-
-## Presentation
-
-| Feature | Details |
-|---------|---------|
-| File | `PPTX/DNA_Replication_Complete_Lecture.pptx` |
-| Format | Microsoft PowerPoint (pptxgenjs) |
-| Layout | Widescreen (16:9) |
-| Total slides | **~65 slides** |
-| Modules covered | 12 modules |
-| Diagrams included | ASCII/text-based diagrams on dedicated slides |
-| Color scheme | Professional blue/teal theme |
-
-### Slide Breakdown by Module
-| Module | Slides | Topics |
-|--------|--------|--------|
-| Module 1: Introduction | 6 | Title, overview, Meselson-Stahl |
-| Module 2: Core Concepts | 5 | Semiconservative, requirements, fork |
-| Module 3: Prokaryotic | 8 | E. coli, oriC, replisome, termination |
-| Module 4: Eukaryotic | 9 | Licensing, CMG, polymerases, chromatin |
-| Module 5: Fidelity | 3 | Three layers, MMR comparison |
-| Module 6: Telomeres | 4 | End-replication, telomerase, disease |
-| Module 7: Checkpoints | 3 | ATR-CHK1, stress, cancer |
-| Module 8: Comparison | 2 | Comprehensive comparison table |
-| Module 9: Methods | 2 | Experimental approaches |
-| Module 10: Data Analysis | 1 | Bioinformatics |
-| Module 11: Clinical | 2 | Drugs, disease |
-| Module 12: Advanced | 3 | Fork dynamics, cancer |
-| Summary/Closing | 2 | Course summary, thank you |
-
----
-
-## PDF Generation
-
-| File | Source | Status |
-|------|--------|--------|
-| `PDF/DNA_Replication_Complete_Tutorial.html` | All 12 modules combined | ✅ Generated |
-| `PDF/DNA_Replication_Lab_Workbook.html` | Workbook | ✅ Generated |
-| `PDF/DNA_Replication_Cheat_Sheet.html` | Cheat sheet | ✅ Generated |
-| `PDF/DNA_Replication_FAQs.html` | FAQs | ✅ Generated |
-| `PDF/DNA_Replication_Assessment.html` | All assessment files | ✅ Generated |
-
-**Note:** HTML files are generated and can be converted to PDF using any browser's Print > Save as PDF function, or using tools like pandoc, wkhtmltopdf, or weasyprint.
-
----
-
-## Statistics
-
+### Content totals
 | Metric | Count |
 |--------|-------|
-| **Total Markdown files** | 24 |
-| **Total lab exercises** | 6 |
-| **Total assessment questions** | 113 (40 MCQ + 25 short + 15 long + 33 viva) |
-| **Case studies** | 10 |
-| **FAQs** | 62 |
-| **References** | 52 |
-| **Simulated datasets** | 10 |
-| **Lecture slides** | ~65 |
-| **HTML/PDF-ready files** | 5 |
+| Assessment questions | 113 (40 MCQ + 25 short + 15 long + 33 viva) |
+| Case studies | 10 |
+| FAQs | 62 |
+| References | 52 |
+| Simulated datasets | 10 |
+| Labs | 6 |
+
+### Build tooling (in course root)
+| File | Purpose |
+|------|---------|
+| `generate_pdf.js` | Markdown → styled HTML → PDF (marked + Puppeteer/Chrome) |
+| `generate_pptx.js` | Lecture deck generator (pptxgenjs) |
+| `generate_site.js` | GitHub Pages site generator (in place — the course directory is the Pages root) |
+| `validate_site.js` | Link validator for generated site |
 
 ---
 
-## Content Quality Assurance
+## Website
 
-### Scientific QA Checklist
-- [x] DNA directionality (5'→3') consistent throughout
-- [x] Leading/lagging strand explanations correct
-- [x] Polymerase assignments correct (Pol ε = leading, Pol δ = lagging)
-- [x] Prokaryotic vs eukaryotic differences accurate
-- [x] Telomere mechanism correctly described
-- [x] Checkpoint pathway (ATR-CHK1) accurately presented
-- [x] Error rates correctly stated (10⁻⁵ → 10⁻⁷ → 10⁻⁹–10⁻¹⁰)
-- [x] Okazaki fragment sizes correct (E. coli: 1-2 kb, Human: 100-200 bp)
-- [x] Protein names and functions verified
-- [x] Clinical applications (Lynch syndrome, PARP inhibitors) accurate
-- [x] Sliding clamp structure correct (β₂ dimer vs PCNA trimer)
-- [x] Telomerase mechanism correctly described (TERT + TERC)
-- [x] MMR strand discrimination mechanisms correct (methylation vs nicks)
+| Item | Detail |
+|------|--------|
+| Framework | Static HTML generated from Markdown (`generate_site.js`), no runtime dependencies |
+| Location | `DNA-Replication-Course/` itself — the course directory is the Pages deployment root; GitHub Actions requires the workflow file to remain under `.github/workflows/` |
+| Landing page | `DNA-Replication-Course/index.html` — course hero, instructor card, Start Learning button, module roadmap, labs, datasets, slides, downloads, assessments, references |
+| Course pages | `DNA-Replication-Course/**` — 34 HTML pages with shared sidebar navigation, header, footer credits |
+| Assets | 5 PDFs + 1 PPTX already inside `DNA-Replication-Course/{PDF,PPTX}/` — published as-is |
+| GitHub Pages integration | `.github/workflows/deploy-pages.yml` — official Pages workflow (actions/configure-pages + deploy-pages); rebuilds PDFs and site HTML from Markdown on every push to `main`, prunes `node_modules/`, and deploys the contents of `DNA-Replication-Course/` as the Pages artifact |
+| One-time setup needed | Repo Settings → Pages → Source → **GitHub Actions** |
+| Base path | Repo-root serving (dedicated repo `nadeem-majeedch/DNA-Replication-Course`); all links relative |
+| Link validation | `validate_site.js`: 1,121 internal links checked across 34 pages — **0 broken** |
+| Build validation | PDFs regenerated in CI and presence-checked; `.nojekyll` added |
+| Visual QA | Landing page, module pages (03, 04, 08), cheat sheet inspected at desktop (1366×900) and mobile (430px, device-emulated) — hero, sidebar, tables, instructor block, navigation all render correctly; no horizontal overflow at mobile width; wide tables scroll internally |
+| Mobile QA | No page-level horizontal overflow at 430px; long tables use in-table horizontal scroll |
+
+---
+
+## Git
+
+**No commit performed.**
+**No push performed.**
+
+All changes are left uncommitted in the working directory. No GMO course content exists in this repository and none was created or modified. Scope of changes: `DNA-Replication-Course/**`, `.github/workflows/deploy-pages.yml`.
+
+---
+
+## QA Checks Performed
+
+### Scientific
+- [x] 5'→3' directionality consistent throughout
+- [x] Polymerase assignments correct (Pol ε leading, Pol δ lagging in eukaryotes)
+- [x] Error rates correct (10⁻⁵ → 10⁻⁷ → 10⁻⁹–10⁻¹⁰)
+- [x] Okazaki fragment sizes correct (E. coli 1–2 kb; human 100–200 nt)
+- [x] Telomerase mechanism (TERT + TERC) correct
+- [x] ATR–CHK1 checkpoint pathway correct
 - [x] No fabricated references
 
-### Educational QA Checklist
-- [x] Beginner concepts precede advanced concepts
-- [x] Terminology defined before use
-- [x] Examples progress in difficulty
-- [x] Students can follow procedures independently
-- [x] Every major concept has questions/examples
-- [x] Labs connect directly to theory
-- [x] Assessment covers all difficulty levels
-- [x] Navigation links work between files
-- [x] Consistent formatting throughout
+### Educational
+- [x] Beginner → advanced progression maintained
+- [x] Every module links related lab(s), assessment, cheat sheet, FAQ
+- [x] Labs connect to theory modules
 
-### Technical QA Checklist
-- [x] All Markdown files created and readable
-- [x] PPTX generated successfully
-- [x] HTML files generated for PDF conversion
+### Technical
+- [x] All 5 PDFs generated and visually inspected (cover, TOC, body, tables, page numbers, headers/footers)
+- [x] Fixed: blank page after PDF cover; body text touching page edges
+- [x] PPTX regenerated with instructor title slide; verified openable
+- [x] 1,121 site links validated — 0 broken (fixed: doubled `.md.html` links, sidebar relative paths, missing BUILD_REPORT page)
+- [x] Fixed: duplicated page header on course subpages
+- [x] PDF/PPTX links verified over HTTP (200)
+- [x] Mobile (430px) and desktop (1366px) rendering verified via screenshots
 - [x] No placeholder text remaining
-- [x] All tables properly formatted
-- [x] All code blocks properly formatted
-- [x] File structure logical and navigable
 
 ---
 
 ## Limitations and Assumptions
 
-1. **PDF Generation**: HTML files are provided as intermediate format. Full PDF generation requires pandoc, wkhtmltopdf, or similar tools. These can be converted using browser Print > Save as PDF.
-
-2. **Diagrams**: Diagrams are provided as ASCII/text-based representations within Markdown. For publication-quality figures, these should be recreated using专业 diagramming software (BioRender, Adobe Illustrator, etc.).
-
-3. **PPTX Animations**: The generated PPTX does not include slide animations or transitions. These can be added manually in PowerPoint.
-
-4. **Interactive Elements**: Some lab exercises (especially computational ones) may require internet access for bioinformatics databases.
-
-5. **Wet Lab Safety**: Laboratory exercises follow general educational protocols. Institutions must adapt procedures to their specific safety requirements and SOPs.
-
-6. **Language**: Content is in English. Translation may be needed for non-English speaking institutions.
-
----
-
-## How to Use This Package
-
-### For Instructors
-1. Use `PPTX/DNA_Replication_Complete_Lecture.pptx` for lectures
-2. Assign labs from `LAB/` directory
-3. Use `ASSESSMENT/` for exams and quizzes
-4. Reference `FAQ/` for common student questions
-
-### For Students
-1. Start with `README.md` for course overview
-2. Follow the recommended study sequence
-3. Complete each module before moving to the next
-4. Do the associated lab after each module
-5. Use `CHEAT-SHEET/` for revision
-6. Test yourself with `ASSESSMENT/`
-
-### For PDF Generation
-1. Open any `PDF/*.html` file in a web browser
-2. Use Print (Ctrl+P / Cmd+P)
-3. Select "Save as PDF" as destination
-4. Adjust margins and layout as needed
-5. Save the PDF
-
----
-
-*Generated by Buffy (Codebuff) — Molecular Biology Teaching Package*
-*August 2026*
+1. **PDF diagrams** are ASCII/text-based inside styled code blocks; publication figures would need BioRender/Illustrator.
+2. **Datasets are simulated** for teaching; they are labeled as such in the course material.
+3. **CI Chrome**: the workflow installs Chrome via `npx puppeteer browsers install chrome`; if Chrome versions shift, pin as needed.
+4. **Pages activation**: the maintainer must select "GitHub Actions" as the Pages source once (Settings → Pages); the workflow handles everything after that. The deployment source is `DNA-Replication-Course/`; the workflow file itself must physically remain under `.github/workflows/` for GitHub Actions to detect it.
+5. **Lab SOPs**: wet-lab parameters are educational defaults; institutions must follow their own approved SOPs and biosafety rules.

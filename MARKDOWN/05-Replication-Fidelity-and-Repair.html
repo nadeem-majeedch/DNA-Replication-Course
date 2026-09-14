@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DNA Replication in Prokaryotes and Eukaryotes</title>
+<style>
+:root {
+  --primary: #1B4F72; --secondary: #2E86C1; --accent: #16A085;
+  --dark: #2C3E50; --light: #F4F8FB; --border: #D5E5F1;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  margin: 0; color: #22303c; line-height: 1.65;
+  background: #fbfdff;
+}
+.site-header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff; padding: 1.4rem 1rem 1.2rem; text-align: center;
+}
+.site-header .course-title { font-size: 1.35rem; font-weight: 700; margin: 0; }
+.site-header .crumb { font-size: .8rem; opacity: .85; margin: 0 0 .35rem; }
+.site-header a { color: #fff; text-decoration: none; opacity: .92; }
+.site-header a:hover { text-decoration: underline; opacity: 1; }
+.layout { display: flex; max-width: 1180px; margin: 0 auto; gap: 1.5rem; padding: 1.25rem 1rem; }
+nav.sidebar {
+  flex: 0 0 260px; align-self: flex-start; position: sticky; top: 12px;
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1rem 1.1rem; max-height: calc(100vh - 30px); overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--accent); margin: 1.1rem 0 .35rem;
+}
+nav.sidebar h3:first-of-type { margin-top: 0; }
+nav.sidebar a {
+  display: block; color: var(--primary); text-decoration: none;
+  font-size: .9rem; padding: .28rem .5rem; border-radius: 6px;
+}
+nav.sidebar a:hover { background: var(--light); }
+main.content { flex: 1; min-width: 0; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1.6rem 2rem 2.4rem; }
+main.content.wide { width: 100%; }
+main.content h1 { color: var(--primary); font-size: 1.65rem; border-bottom: 3px solid var(--secondary); padding-bottom: .45rem; }
+main.content h2 { color: var(--secondary); font-size: 1.25rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; margin-top: 2rem; }
+main.content h3 { color: var(--accent); font-size: 1.05rem; margin-top: 1.6rem; }
+main.content table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .9rem; display: block; overflow-x: auto; }
+main.content th, main.content td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; vertical-align: top; }
+main.content th { background: var(--primary); color: #fff; }
+main.content tr:nth-child(even) td { background: var(--light); }
+main.content pre {
+  background: #F4F6F8; border: 1px solid #DDE3E9; border-radius: 8px;
+  padding: .9rem 1.1rem; overflow-x: auto; font-size: .82rem; line-height: 1.45;
+}
+main.content code { background: #F0F2F4; border-radius: 4px; padding: .1rem .35rem; font-size: .88em; }
+main.content pre code { background: none; padding: 0; }
+main.content blockquote { border-left: 4px solid var(--secondary); background: var(--light); margin: 1rem 0; padding: .6rem 1.1rem; border-radius: 0 8px 8px 0; }
+main.content a { color: var(--secondary); }
+main.content img { max-width: 100%; }
+.nav-links { margin-top: 2.4rem; padding-top: 1rem; border-top: 2px solid var(--border); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .92rem; }
+footer.site-footer {
+  text-align: center; padding: 1.6rem 1rem 2.2rem; color: #5a6b7a; font-size: .88rem;
+}
+footer.site-footer .instructor { margin: 0 0 .4rem; color: var(--primary); font-weight: 600; }
+
+/* Landing page */
+.hero {
+  background: linear-gradient(160deg, var(--primary) 0%, var(--secondary) 60%, var(--accent) 100%);
+  color: #fff; padding: 3.4rem 1.2rem 3rem; text-align: center;
+}
+.hero h1 { font-size: 2.1rem; margin: 0 0 .6rem; }
+.hero .tagline { font-size: 1.08rem; font-style: italic; opacity: .95; margin: 0 0 1.8rem; }
+.hero .instructor { color: #fff; background: rgba(255,255,255,.12); display: inline-block; padding: .8rem 1.6rem; border-radius: 10px; line-height: 1.5; }
+.hero .instructor strong { font-size: 1.15rem; }
+.btn {
+  display: inline-block; margin-top: 1.6rem; background: #fff; color: var(--primary);
+  font-weight: 700; padding: .7rem 2rem; border-radius: 999px; text-decoration: none; font-size: 1.05rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+}
+.btn:hover { transform: translateY(-1px); }
+.section-card { max-width: 1080px; margin: 1.4rem auto; padding: 0 1rem; }
+.card {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.3rem 1.5rem; margin-bottom: 1.1rem;
+}
+.card h2 { color: var(--primary); margin-top: 0; font-size: 1.25rem; border-bottom: 2px solid var(--border); padding-bottom: .35rem; }
+.card table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+.card th, .card td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; }
+.card th { background: var(--primary); color: #fff; }
+.card tr:nth-child(even) td { background: var(--light); }
+.card a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+.card a:hover { text-decoration: underline; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.grid .card { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .layout { flex-direction: column; padding: .8rem; }
+  nav.sidebar { position: static; max-height: none; flex-basis: auto; }
+  main.content { padding: 1.1rem 1rem 1.8rem; }
+  .hero h1 { font-size: 1.55rem; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <p class="crumb"><a href="../index.html">Course Home</a></p>
+  <p class="course-title">DNA Replication in Prokaryotes and Eukaryotes</p>
+</header>
+<div class="layout"><nav class="sidebar">
+  <h3>Course</h3>
+  <a href="../README.html">Course Home</a>
+  <a href="../REFERENCES.html">References</a>
+  <h3>Teaching Modules</h3>
+  <a href="../MARKDOWN/01-Introduction-to-DNA-Replication.html">Introduction to DNA Replication</a>
+<a href="../MARKDOWN/02-Core-Concepts.html">Core Concepts of DNA Replication</a>
+<a href="../MARKDOWN/03-Prokaryotic-DNA-Replication.html">Prokaryotic DNA Replication</a>
+<a href="../MARKDOWN/04-Eukaryotic-DNA-Replication.html">Eukaryotic DNA Replication</a>
+<a href="../MARKDOWN/05-Replication-Fidelity-and-Repair.html">Replication Fidelity and Repair</a>
+<a href="../MARKDOWN/06-Telomeres-and-Telomerase.html">Telomeres and Telomerase</a>
+<a href="../MARKDOWN/07-Replication-Stress-and-Checkpoints.html">Replication Stress and Checkpoints</a>
+<a href="../MARKDOWN/08-Prokaryote-vs-Eukaryote.html">Prokaryote vs. Eukaryote Comparison</a>
+<a href="../MARKDOWN/09-Experimental-Methods.html">Experimental Methods</a>
+<a href="../MARKDOWN/10-Data-Analysis-and-Interpretation.html">Data Analysis and Interpretation</a>
+<a href="../MARKDOWN/11-Clinical-and-Biotechnology-Applications.html">Clinical and Biotechnology Applications</a>
+<a href="../MARKDOWN/12-Advanced-Topics.html">Advanced Topics in DNA Replication</a>
+  <h3>Laboratory</h3>
+  <a href="../LAB/Lab-01-DNA-Replication-Concepts.html">Lab 01: DNA Structure and Replication Modeling</a>
+<a href="../LAB/Lab-02-DNA-Quantification.html">Lab 02: DNA Quantification and Quality Assessment</a>
+<a href="../LAB/Lab-03-Gel-Electrophoresis.html">Lab 03: Agarose Gel Electrophoresis</a>
+<a href="../LAB/Lab-04-PCR-and-DNA-Amplification.html">Lab 04: PCR and DNA Amplification</a>
+<a href="../LAB/Lab-05-Replication-Data-Analysis.html">Lab 05: Replication Data Analysis</a>
+<a href="../LAB/Lab-06-Capstone-Exercise.html">Lab 06: Capstone Exercise — Integrated Replication Analysis</a>
+  <h3>Workbook & Data</h3>
+  <a href="../WORKBOOK/DNA-Replication-Lab-Workbook.html">Lab Workbook</a>
+  <a href="../DATA/datasets.html">Datasets</a>
+  <h3>Resources</h3>
+  <a href="../CHEAT-SHEET/DNA-Replication-Cheat-Sheet.html">Cheat Sheet</a>
+  <a href="../FAQ/DNA-Replication-FAQs.html">FAQs</a>
+  <h3>Assessment</h3>
+  <a href="../ASSESSMENT/MCQs.html">DNA Replication — Multiple Choice Questions</a>
+<a href="../ASSESSMENT/Short-Questions.html">DNA Replication — Short Answer Questions</a>
+<a href="../ASSESSMENT/Long-Questions.html">DNA Replication — Long Answer / Essay Questions</a>
+<a href="../ASSESSMENT/Viva-Questions.html">DNA Replication — Viva Voce Questions</a>
+<a href="../ASSESSMENT/Case-Studies.html">DNA Replication — Case Studies</a>
+  <h3>Downloads</h3>
+  <a href="../PDF/Complete-Tutorial.pdf">Complete Tutorial (PDF)</a>
+  <a href="../PDF/Lab-Workbook.pdf">Lab Workbook (PDF)</a>
+  <a href="../PDF/Cheat-Sheet.pdf">Cheat Sheet (PDF)</a>
+  <a href="../PDF/FAQs.pdf">FAQs (PDF)</a>
+  <a href="../PDF/Assessment.pdf">Assessment (PDF)</a>
+  <a href="../PPTX/DNA_Replication_Complete_Lecture.pptx">Lecture Slides (PPTX)</a>
+</nav><main class="content"><h1 id="module-05-replication-fidelity-and-repair">Module 05: Replication Fidelity and Repair</h1>
+<hr>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<ol>
+<li>Explain the three layers of replication fidelity</li>
+<li>Describe the mechanism of proofreading</li>
+<li>Explain mismatch repair (MMR) in detail</li>
+<li>Compare bacterial and eukaryotic mismatch repair</li>
+<li>Understand the consequences of replication errors</li>
+</ol>
+<hr>
+<h2 id="1-overview-of-replication-fidelity">1. Overview of Replication Fidelity</h2>
+<h3 id="concept">Concept</h3>
+<p><strong>Replication fidelity</strong> refers to the accuracy with which DNA is copied. Multiple layers of error correction ensure that the final error rate is approximately <strong>one mistake per 10⁹–10¹⁰ nucleotides</strong>.</p>
+<h3 id="the-error-cascade">The Error Cascade</h3>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Mechanism</th>
+<th>Error Rate</th>
+<th>Improvement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>1. Base selection</strong></td>
+<td>Polymerase active site geometry</td>
+<td>~10⁻⁵</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>2. Proofreading</strong></td>
+<td>3&#39;→5&#39; exonuclease</td>
+<td>~10⁻⁷</td>
+<td>100-fold</td>
+</tr>
+<tr>
+<td><strong>3. Mismatch repair</strong></td>
+<td>Post-replicative correction</td>
+<td>~10⁻⁹ to 10⁻¹⁰</td>
+<td>100–1000-fold</td>
+</tr>
+</tbody></table>
+<h3 id="why-fidelity-matters">Why Fidelity Matters</h3>
+<ul>
+<li>Human genome: 3.2 × 10⁹ bp</li>
+<li>Without any correction: ~3.2 × 10⁴ errors per cell division</li>
+<li>With all three layers: ~0.3–3 errors per cell division</li>
+<li>Most remaining errors occur in non-coding DNA → few functional consequences</li>
+</ul>
+<hr>
+<h2 id="2-base-selection--layer-1">2. Base Selection — Layer 1</h2>
+<h3 id="concept-1">Concept</h3>
+<p>DNA polymerases discriminate between correct and incorrect nucleotides based on the geometry of Watson-Crick base pairs.</p>
+<h3 id="mechanism">Mechanism</h3>
+<p>The polymerase active site acts as a <strong>molecular caliper</strong>:</p>
+<ul>
+<li>Correct base pairs (A-T, G-C) have a specific geometry</li>
+<li>Incorrect pairs (mismatches) have altered geometry</li>
+<li>Only correctly shaped pairs fit → catalysis proceeds</li>
+<li>Incorrectly shaped pairs → rejection (kinetic discrimination)</li>
+</ul>
+<h3 id="two-mechanisms-of-selection">Two Mechanisms of Selection</h3>
+<ol>
+<li><strong>Geometric selection</strong>: Active site only accommodates correct pair geometry</li>
+<li><strong>Induced-fit mechanism</strong>: Correct binding triggers conformational change → catalysis proceeds; incorrect binding → no conformational change → no catalysis</li>
+</ol>
+<h3 id="visual-explanation">Visual Explanation</h3>
+<pre><code>BASE SELECTION BY DNA POLYMERASE
+════════════════════════════════
+
+Correct pair (A-T):
+    Template: T    Incoming: A
+    ┌─────────────┐
+    │  T ═══ A    │  ← Correct geometry fits active site
+    │  (2 H-bonds) │  ← Induced fit → catalysis
+    └─────────────┘
+    → dNTP incorporated ✓
+
+Incorrect pair (A-C):
+    Template: T    Incoming: C  
+    ┌─────────────┐
+    │  T ═══ C    │  ← Mismatched geometry
+    │  (doesn&#39;t fit)│  ← No induced fit → rejection
+    └─────────────┘
+    → dNTP rejected ✗
+</code></pre>
+<hr>
+<h2 id="3-proofreading--layer-2">3. Proofreading — Layer 2</h2>
+<h3 id="concept-2">Concept</h3>
+<p><strong>Proofreading</strong> is the immediate correction of misincorporated nucleotides by the 3&#39;→5&#39; exonuclease activity of DNA polymerase.</p>
+<h3 id="mechanism-1">Mechanism</h3>
+<pre><code>PROOFREADING BY 3&#39;→5&#39; EXONUCLEASE
+══════════════════════════════════
+
+Normal synthesis:
+    3&#39;──Template──5&#39;
+    5&#39;──New DNA────→ 3&#39; (growing end)
+    
+Misincorporation occurs:
+    3&#39;──Template──5&#39;
+    5&#39;──New DNA───X→ 3&#39;  (X = wrong nucleotide)
+                      ↑
+                Mismatch detected!
+                
+Step 1: Polymerase stalls at mismatch
+        → Distorted geometry at 3&#39; end
+        
+Step 2: 3&#39;→5&#39; exonuclease domain activates
+        → DNA partitions from polymerase site to exonuclease site
+        
+Step 3: Exonuclease removes the mismatched nucleotide
+        → 3&#39;→5&#39; direction → removes last nucleotide(s)
+        
+Step 4: DNA returns to polymerase site
+        → Correct nucleotide incorporated
+        
+    3&#39;──Template──5&#39;
+    5&#39;──New DNA────→ 3&#39; (correct synthesis continues)
+</code></pre>
+<h3 id="e-coli-vs-eukaryotic-proofreading">E. coli vs. Eukaryotic Proofreading</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>E. coli</th>
+<th>Eukaryotic</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Polymerase</td>
+<td>Pol III (ε subunit)</td>
+<td>Pol ε (leading), Pol δ (lagging)</td>
+</tr>
+<tr>
+<td>Exonuclease domain</td>
+<td>ε (dnaQ)</td>
+<td>Built into Pol ε and Pol δ</td>
+</tr>
+<tr>
+<td>Removal direction</td>
+<td>3&#39;→5&#39;</td>
+<td>3&#39;→5&#39;</td>
+</tr>
+<tr>
+<td>Processing rate</td>
+<td>~100 nt/s</td>
+<td>~10 nt/s</td>
+</tr>
+</tbody></table>
+<h3 id="consequences-of-proofreading-deficiency">Consequences of Proofreading Deficiency</h3>
+<table>
+<thead>
+<tr>
+<th>Organism</th>
+<th>Mutation</th>
+<th>Phenotype</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>E. coli</td>
+<td>dnaQ49 (ε mutant)</td>
+<td>100-fold increase in mutation rate; often lethal</td>
+</tr>
+<tr>
+<td>Mouse</td>
+<td>Pol ε exonuclease dead</td>
+<td>Embryonic lethal</td>
+</tr>
+<tr>
+<td>Human</td>
+<td>POLE/POLD1 exonuclease domain mutations</td>
+<td>Cancer predisposition (Lynch-like syndrome)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="4-mismatch-repair-mmr--layer-3">4. Mismatch Repair (MMR) — Layer 3</h2>
+<h3 id="concept-3">Concept</h3>
+<p>Mismatch repair corrects errors that escape proofreading. It recognizes mismatched bases and small insertion/deletion loops that occur during replication.</p>
+<h3 id="why-it-matters">Why It Matters</h3>
+<ul>
+<li>Catches ~99% of errors that escape proofreading</li>
+<li>Reduces error rate from ~10⁻⁷ to ~10⁻⁹–10⁻¹⁰</li>
+<li><strong>Defective MMR → Lynch syndrome (hereditary nonpolyposis colorectal cancer, HNPCC)</strong></li>
+</ul>
+<hr>
+<h3 id="e-coli-mismatch-repair--muthls-system">E. coli Mismatch Repair — MutHLS System</h3>
+<pre><code>E. coli MISMATCH REPAIR (MutHLS)
+══════════════════════════════════
+
+Step 1: RECOGNITION
+    MutS homodimer (MutS₂) scans DNA
+    → Recognizes mismatches and small IDLs (insertion/deletion loops)
+    → MutS binds mismatch → ADP → ATP exchange → sliding clamp on DNA
+    
+Step 2: RECRUITMENT
+    MutS recruits MutL (MutL homodimer)
+    → MutL acts as a molecular matchmaker
+    → MutL recruits MutH (endonuclease)
+    
+Step 3: STRAND DISCRIMINATION
+    MutH nicks the UNMETHYLATED (new) strand
+    → E. coli Dam methylase methylates GATC sequences
+    → Immediately after replication: hemimethylated state
+    → Parental strand: methylated
+    → New strand: unmethylated (for ~2 minutes)
+    → MutH nicks unmethylated strand at nearest GATC
+    
+Step 4: EXCISION
+    UvrD (helicase II) unwinds DNA from nick toward mismatch
+    → Exonuclease (ExoI, ExoVII, ExoX, or RecJ) degrades nicked strand
+    → Degrades past the mismatch
+    
+Step 5: RESYNTHESIS
+    Pol III fills gap using methylated (parental) strand as template
+    
+Step 6: LIGATION
+    DNA ligase seals the nick
+</code></pre>
+<h3 id="visual-explanation-1">Visual Explanation</h3>
+<pre><code>MISMATCH REPAIR — STRAND DISCRIMINATION
+═══════════════════════════════════════
+
+Before repair:
+    5&#39;─G─A─T─C─A─T─G─[X]─C─A─T─G─A─T─C─3&#39;  ← New strand (unmethylated)
+    3&#39;─C─T─A─G─T─A─C─[Y]─G─T─A─C─T─A─G─5&#39;  ← Parent strand (methylated)
+                  ↑
+              Mismatch (X-Y)
+              e.g., A-C mismatch
+
+Dam methylase methylates adenine in GATC:
+    - Parent strand: methylated (─N⁶methyl─A─)
+    - New strand: unmethylated (─A─)
+
+MutH recognizes hemimethylated GATC:
+    → Nicks unmethylated strand
+    
+After repair:
+    5&#39;─G─A─T─C─A─T─G─[T]─C─A─T─G─A─T─C─3&#39;  ← Corrected new strand
+    3&#39;─C─T─A─G─T─A─C─[A]─G─T─A─C─T─A─G─5&#39;  ← Parent strand
+</code></pre>
+<hr>
+<h3 id="eukaryotic-mismatch-repair">Eukaryotic Mismatch Repair</h3>
+<p>Eukaryotes lack MutH and do not use methylation for strand discrimination. Instead, strand breaks (nicks) mark the new strand.</p>
+<pre><code>EUKARYOTIC MISMATCH REPAIR
+═══════════════════════════
+
+Step 1: RECOGNITION
+    MSH2-MSH6 (MutSα): recognizes base-base mismatches and small IDLs (1 nt)
+    MSH2-MSH3 (MutSβ): recognizes larger IDLs (2-13 nt)
+    
+Step 2: RECRUITMENT
+    MLH1-PMS2 (MutLα): endonuclease, nicks new strand
+    MLH1-PMS1 (MutLβ): additional function
+    MLH1-MLH3 (MutLγ): trinucleotide repeat instability
+    
+Step 3: STRAND DISCRIMINATION
+    No methylation system!
+    Instead: nicks in the new strand serve as marks
+    → Okazaki fragment nicks (3&#39; ends)
+    → PCNA-dependent strand discrimination
+    → RFC loads PCNA → MutLα recognizes PCNA orientation
+    
+Step 4: EXCISION
+    EXO1 (5&#39;→3&#39; exonuclease) degrades nicked strand past mismatch
+    RPA stabilizes remaining ssDNA
+    
+Step 5: RESYNTHESIS
+    Pol δ fills gap (with PCNA)
+    
+Step 6: LIGATION
+    DNA Ligase I seals nick
+</code></pre>
+<h3 id="comparison-bacterial-vs-eukaryotic-mmr">Comparison: Bacterial vs. Eukaryotic MMR</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>E. coli (MutHLS)</th>
+<th>Eukaryotes (MutS/MutL)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MutS equivalent</td>
+<td>MutS (homodimer)</td>
+<td>MSH2-MSH6 (MutSα)</td>
+</tr>
+<tr>
+<td>MutL equivalent</td>
+<td>MutL (homodimer)</td>
+<td>MLH1-PMS2 (MutLα)</td>
+</tr>
+<tr>
+<td>Strand discrimination</td>
+<td>Dam methylation (GATC)</td>
+<td>Strand nicks (Okazaki fragments)</td>
+</tr>
+<tr>
+<td>Helicase</td>
+<td>UvrD</td>
+<td>(role not fully defined)</td>
+</tr>
+<tr>
+<td>Exonuclease</td>
+<td>ExoI, VII, X, RecJ</td>
+<td>EXO1</td>
+</tr>
+<tr>
+<td>Polymerase</td>
+<td>Pol III</td>
+<td>Pol δ</td>
+</tr>
+</tbody></table>
+<h3 id="clinical-significance">Clinical Significance</h3>
+<p><strong>Lynch Syndrome (HNPCC)</strong>:</p>
+<ul>
+<li>Most common hereditary cancer syndrome</li>
+<li>Caused by germline mutations in MMR genes (MSH2, MLH1, MSH6, PMS2)</li>
+<li>~1 in 300 individuals carry a mutation</li>
+<li>50-80% lifetime risk of colorectal cancer</li>
+<li>Also increased risk of endometrial, ovarian, gastric cancers</li>
+<li><strong>Diagnosis</strong>: Microsatellite instability (MSI) in tumors</li>
+<li><strong>Treatment</strong>: May respond to immune checkpoint inhibitors (anti-PD-1)</li>
+</ul>
+<hr>
+<h2 id="5-additional-repair-pathways">5. Additional Repair Pathways</h2>
+<h3 id="base-excision-repair-ber">Base Excision Repair (BER)</h3>
+<p>Repairs small, non-helix-distorting lesions (oxidized bases, deaminated bases, abasic sites):</p>
+<ol>
+<li>DNA glycosylase recognizes lesion → removes damaged base</li>
+<li>AP endonuclease cuts backbone at abasic site</li>
+<li>DNA polymerase (Pol β in eukaryotes) fills gap</li>
+<li>DNA ligase seals nick</li>
+</ol>
+<h3 id="nucleotide-excision-repair-ner">Nucleotide Excision Repair (NER)</h3>
+<p>Repairs bulky, helix-distorting lesions (UV-induced pyrimidine dimers, chemical adducts):</p>
+<ol>
+<li>Damage recognition (XPC-RAD23B in eukaryotes)</li>
+<li>Unwinding around damage (TFIIH helicases XPB, XPD)</li>
+<li>Dual incision (XPF-ERCC1 5&#39;, XPG 3&#39;)</li>
+<li>Gap filling (Pol δ/ε)</li>
+<li>Ligation (ligase I)</li>
+</ol>
+<blockquote>
+<p><strong>Clinical</strong>: Defects in NER → Xeroderma Pigmentosum (extreme UV sensitivity, skin cancer)</p>
+</blockquote>
+<hr>
+<h2 id="6-consequences-of-replication-errors">6. Consequences of Replication Errors</h2>
+<table>
+<thead>
+<tr>
+<th>Error Type</th>
+<th>Frequency</th>
+<th>Consequence</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Point mutations (transitions)</td>
+<td>~10⁻⁹ per bp per division</td>
+<td>May change protein function</td>
+</tr>
+<tr>
+<td>Point mutations (transversions)</td>
+<td>~10⁻⁹ per bp per division</td>
+<td>May change protein function</td>
+</tr>
+<tr>
+<td>Frameshifts (IDLs)</td>
+<td>Very rare with MMR</td>
+<td>Protein truncation/function loss</td>
+</tr>
+<tr>
+<td>Replication slippage</td>
+<td>Common at repeats</td>
+<td>Expansion/contraction of repeats</td>
+</tr>
+</tbody></table>
+<h3 id="mutation-rates">Mutation Rates</h3>
+<table>
+<thead>
+<tr>
+<th>Organism</th>
+<th>Mutation rate (per bp per generation)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>E. coli</td>
+<td>~5 × 10⁻¹⁰</td>
+</tr>
+<tr>
+<td>Yeast (S. cerevisiae)</td>
+<td>~2 × 10⁻¹⁰</td>
+</tr>
+<tr>
+<td>Humans</td>
+<td>~1 × 10⁻⁸ (per cell division)</td>
+</tr>
+<tr>
+<td>Per individual per generation</td>
+<td>~70 new mutations</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="quick-check">Quick Check</h2>
+<ol>
+<li>If you could only remove one layer of replication fidelity (base selection, proofreading, or mismatch repair), which would have the most severe consequences? Explain.</li>
+<li>Why can&#39;t E. coli use methylation for strand discrimination if Dam methylase is inactivated?</li>
+<li>A patient presents with microsatellite instability in their colorectal cancer. Which genes would you suspect are mutated? What syndrome does this suggest?</li>
+<li>Explain how PCNA orientation helps eukaryotic cells distinguish the new strand from the parent strand during mismatch repair.</li>
+<li>Why are point mutations at G:C → A:T transitions the most common type of spontaneous mutation?</li>
+</ol>
+<hr>
+</main></div>
+<footer class="site-footer">
+  <p class="instructor">Dr. Saira Azam — Assistant Professor, Centre of Excellence in Molecular Biology, University of the Punjab, Lahore</p>
+  <p>DNA Replication in Prokaryotes and Eukaryotes · A Complete Molecular Biology Teaching and Learning Module</p>
+</footer>
+</body>
+</html>

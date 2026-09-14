@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DNA Replication in Prokaryotes and Eukaryotes</title>
+<style>
+:root {
+  --primary: #1B4F72; --secondary: #2E86C1; --accent: #16A085;
+  --dark: #2C3E50; --light: #F4F8FB; --border: #D5E5F1;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  margin: 0; color: #22303c; line-height: 1.65;
+  background: #fbfdff;
+}
+.site-header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff; padding: 1.4rem 1rem 1.2rem; text-align: center;
+}
+.site-header .course-title { font-size: 1.35rem; font-weight: 700; margin: 0; }
+.site-header .crumb { font-size: .8rem; opacity: .85; margin: 0 0 .35rem; }
+.site-header a { color: #fff; text-decoration: none; opacity: .92; }
+.site-header a:hover { text-decoration: underline; opacity: 1; }
+.layout { display: flex; max-width: 1180px; margin: 0 auto; gap: 1.5rem; padding: 1.25rem 1rem; }
+nav.sidebar {
+  flex: 0 0 260px; align-self: flex-start; position: sticky; top: 12px;
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1rem 1.1rem; max-height: calc(100vh - 30px); overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--accent); margin: 1.1rem 0 .35rem;
+}
+nav.sidebar h3:first-of-type { margin-top: 0; }
+nav.sidebar a {
+  display: block; color: var(--primary); text-decoration: none;
+  font-size: .9rem; padding: .28rem .5rem; border-radius: 6px;
+}
+nav.sidebar a:hover { background: var(--light); }
+main.content { flex: 1; min-width: 0; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1.6rem 2rem 2.4rem; }
+main.content.wide { width: 100%; }
+main.content h1 { color: var(--primary); font-size: 1.65rem; border-bottom: 3px solid var(--secondary); padding-bottom: .45rem; }
+main.content h2 { color: var(--secondary); font-size: 1.25rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; margin-top: 2rem; }
+main.content h3 { color: var(--accent); font-size: 1.05rem; margin-top: 1.6rem; }
+main.content table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .9rem; display: block; overflow-x: auto; }
+main.content th, main.content td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; vertical-align: top; }
+main.content th { background: var(--primary); color: #fff; }
+main.content tr:nth-child(even) td { background: var(--light); }
+main.content pre {
+  background: #F4F6F8; border: 1px solid #DDE3E9; border-radius: 8px;
+  padding: .9rem 1.1rem; overflow-x: auto; font-size: .82rem; line-height: 1.45;
+}
+main.content code { background: #F0F2F4; border-radius: 4px; padding: .1rem .35rem; font-size: .88em; }
+main.content pre code { background: none; padding: 0; }
+main.content blockquote { border-left: 4px solid var(--secondary); background: var(--light); margin: 1rem 0; padding: .6rem 1.1rem; border-radius: 0 8px 8px 0; }
+main.content a { color: var(--secondary); }
+main.content img { max-width: 100%; }
+.nav-links { margin-top: 2.4rem; padding-top: 1rem; border-top: 2px solid var(--border); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .92rem; }
+footer.site-footer {
+  text-align: center; padding: 1.6rem 1rem 2.2rem; color: #5a6b7a; font-size: .88rem;
+}
+footer.site-footer .instructor { margin: 0 0 .4rem; color: var(--primary); font-weight: 600; }
+
+/* Landing page */
+.hero {
+  background: linear-gradient(160deg, var(--primary) 0%, var(--secondary) 60%, var(--accent) 100%);
+  color: #fff; padding: 3.4rem 1.2rem 3rem; text-align: center;
+}
+.hero h1 { font-size: 2.1rem; margin: 0 0 .6rem; }
+.hero .tagline { font-size: 1.08rem; font-style: italic; opacity: .95; margin: 0 0 1.8rem; }
+.hero .instructor { color: #fff; background: rgba(255,255,255,.12); display: inline-block; padding: .8rem 1.6rem; border-radius: 10px; line-height: 1.5; }
+.hero .instructor strong { font-size: 1.15rem; }
+.btn {
+  display: inline-block; margin-top: 1.6rem; background: #fff; color: var(--primary);
+  font-weight: 700; padding: .7rem 2rem; border-radius: 999px; text-decoration: none; font-size: 1.05rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+}
+.btn:hover { transform: translateY(-1px); }
+.section-card { max-width: 1080px; margin: 1.4rem auto; padding: 0 1rem; }
+.card {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.3rem 1.5rem; margin-bottom: 1.1rem;
+}
+.card h2 { color: var(--primary); margin-top: 0; font-size: 1.25rem; border-bottom: 2px solid var(--border); padding-bottom: .35rem; }
+.card table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+.card th, .card td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; }
+.card th { background: var(--primary); color: #fff; }
+.card tr:nth-child(even) td { background: var(--light); }
+.card a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+.card a:hover { text-decoration: underline; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.grid .card { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .layout { flex-direction: column; padding: .8rem; }
+  nav.sidebar { position: static; max-height: none; flex-basis: auto; }
+  main.content { padding: 1.1rem 1rem 1.8rem; }
+  .hero h1 { font-size: 1.55rem; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <p class="crumb"><a href="../index.html">Course Home</a></p>
+  <p class="course-title">DNA Replication in Prokaryotes and Eukaryotes</p>
+</header>
+<div class="layout"><nav class="sidebar">
+  <h3>Course</h3>
+  <a href="../README.html">Course Home</a>
+  <a href="../REFERENCES.html">References</a>
+  <h3>Teaching Modules</h3>
+  <a href="../MARKDOWN/01-Introduction-to-DNA-Replication.html">Introduction to DNA Replication</a>
+<a href="../MARKDOWN/02-Core-Concepts.html">Core Concepts of DNA Replication</a>
+<a href="../MARKDOWN/03-Prokaryotic-DNA-Replication.html">Prokaryotic DNA Replication</a>
+<a href="../MARKDOWN/04-Eukaryotic-DNA-Replication.html">Eukaryotic DNA Replication</a>
+<a href="../MARKDOWN/05-Replication-Fidelity-and-Repair.html">Replication Fidelity and Repair</a>
+<a href="../MARKDOWN/06-Telomeres-and-Telomerase.html">Telomeres and Telomerase</a>
+<a href="../MARKDOWN/07-Replication-Stress-and-Checkpoints.html">Replication Stress and Checkpoints</a>
+<a href="../MARKDOWN/08-Prokaryote-vs-Eukaryote.html">Prokaryote vs. Eukaryote Comparison</a>
+<a href="../MARKDOWN/09-Experimental-Methods.html">Experimental Methods</a>
+<a href="../MARKDOWN/10-Data-Analysis-and-Interpretation.html">Data Analysis and Interpretation</a>
+<a href="../MARKDOWN/11-Clinical-and-Biotechnology-Applications.html">Clinical and Biotechnology Applications</a>
+<a href="../MARKDOWN/12-Advanced-Topics.html">Advanced Topics in DNA Replication</a>
+  <h3>Laboratory</h3>
+  <a href="../LAB/Lab-01-DNA-Replication-Concepts.html">Lab 01: DNA Structure and Replication Modeling</a>
+<a href="../LAB/Lab-02-DNA-Quantification.html">Lab 02: DNA Quantification and Quality Assessment</a>
+<a href="../LAB/Lab-03-Gel-Electrophoresis.html">Lab 03: Agarose Gel Electrophoresis</a>
+<a href="../LAB/Lab-04-PCR-and-DNA-Amplification.html">Lab 04: PCR and DNA Amplification</a>
+<a href="../LAB/Lab-05-Replication-Data-Analysis.html">Lab 05: Replication Data Analysis</a>
+<a href="../LAB/Lab-06-Capstone-Exercise.html">Lab 06: Capstone Exercise — Integrated Replication Analysis</a>
+  <h3>Workbook & Data</h3>
+  <a href="../WORKBOOK/DNA-Replication-Lab-Workbook.html">Lab Workbook</a>
+  <a href="../DATA/datasets.html">Datasets</a>
+  <h3>Resources</h3>
+  <a href="../CHEAT-SHEET/DNA-Replication-Cheat-Sheet.html">Cheat Sheet</a>
+  <a href="../FAQ/DNA-Replication-FAQs.html">FAQs</a>
+  <h3>Assessment</h3>
+  <a href="../ASSESSMENT/MCQs.html">DNA Replication — Multiple Choice Questions</a>
+<a href="../ASSESSMENT/Short-Questions.html">DNA Replication — Short Answer Questions</a>
+<a href="../ASSESSMENT/Long-Questions.html">DNA Replication — Long Answer / Essay Questions</a>
+<a href="../ASSESSMENT/Viva-Questions.html">DNA Replication — Viva Voce Questions</a>
+<a href="../ASSESSMENT/Case-Studies.html">DNA Replication — Case Studies</a>
+  <h3>Downloads</h3>
+  <a href="../PDF/Complete-Tutorial.pdf">Complete Tutorial (PDF)</a>
+  <a href="../PDF/Lab-Workbook.pdf">Lab Workbook (PDF)</a>
+  <a href="../PDF/Cheat-Sheet.pdf">Cheat Sheet (PDF)</a>
+  <a href="../PDF/FAQs.pdf">FAQs (PDF)</a>
+  <a href="../PDF/Assessment.pdf">Assessment (PDF)</a>
+  <a href="../PPTX/DNA_Replication_Complete_Lecture.pptx">Lecture Slides (PPTX)</a>
+</nav><main class="content"><h1 id="dna-replication--multiple-choice-questions">DNA Replication — Multiple Choice Questions</h1>
+<p><strong>40 Questions with Answers and Explanations</strong></p>
+<hr>
+<h2 id="questions-1-10-fundamentals">Questions 1-10: Fundamentals</h2>
+<p><strong>1. The Meselson-Stahl experiment demonstrated that DNA replication is:</strong></p>
+<ul>
+<li>A) Conservative</li>
+<li>B) Semiconservative</li>
+<li>C) Dispersive</li>
+<li>D) Discontinuous</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — After one generation in ¹⁴N, all DNA was hybrid density (one ¹⁵N strand, one ¹⁴N strand), confirming semiconservative replication.</p>
+<hr>
+<p><strong>2. DNA polymerase can synthesize DNA in which direction?</strong></p>
+<ul>
+<li>A) 3&#39;→5&#39; only</li>
+<li>B) 5&#39;→3&#39; only</li>
+<li>C) Both 3&#39;→5&#39; and 5&#39;→3&#39;</li>
+<li>D) Direction depends on the template</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — DNA polymerase catalyzes nucleophilic attack by 3&#39;-OH on the α-phosphate of incoming dNTP. This reaction only works in the 5&#39;→3&#39; direction. No known exception exists.</p>
+<hr>
+<p><strong>3. Why does DNA replication require a primer?</strong></p>
+<ul>
+<li>A) To provide energy for the reaction</li>
+<li>B) To stabilize the DNA helix</li>
+<li>C) To provide a free 3&#39;-OH group for DNA polymerase</li>
+<li>D) To recruit helicase to the origin</li>
+</ul>
+<p>✅ <strong>Answer: C</strong> — DNA polymerase cannot initiate synthesis de novo. It requires a pre-existing 3&#39;-OH group to extend from. Primase synthesizes RNA primers to provide this.</p>
+<hr>
+<p><strong>4. In the lagging strand, Okazaki fragments are oriented:</strong></p>
+<ul>
+<li>A) 3&#39;→5&#39; relative to fork movement</li>
+<li>B) 5&#39;→3&#39; away from the fork</li>
+<li>C) 5&#39;→3&#39; toward the fork</li>
+<li>D) Randomly</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — Each Okazaki fragment is synthesized 5&#39;→3&#39; (always), but the overall direction of lagging strand synthesis is away from the replication fork.</p>
+<hr>
+<p><strong>5. The sliding clamp in E. coli is:</strong></p>
+<ul>
+<li>A) A monomer that binds DNA</li>
+<li>B) A homodimer forming a ring</li>
+<li>C) A homotrimer forming a ring</li>
+<li>D) A hexamer that unwinds DNA</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — The β sliding clamp is a homodimer (β₂) forming a toroidal ring. The eukaryotic equivalent (PCNA) is a homotrimer.</p>
+<hr>
+<p><strong>6. Which E. coli polymerase has 5&#39;→3&#39; exonuclease activity?</strong></p>
+<ul>
+<li>A) Pol I</li>
+<li>B) Pol II</li>
+<li>C) Pol III</li>
+<li>D) All of them</li>
+</ul>
+<p>✅ <strong>Answer: A</strong> — Pol I is unique among E. coli polymerases in having 5&#39;→3&#39; exonuclease activity, which is essential for removing RNA primers.</p>
+<hr>
+<p><strong>7. DNA gyrase is unique because it:</strong></p>
+<ul>
+<li>A) Can only relax positive supercoils</li>
+<li>B) Can introduce negative supercoils using ATP</li>
+<li>C) Is a type I topoisomerase</li>
+<li>D) Is found in both bacteria and humans</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — DNA gyrase is the only topoisomerase that can introduce negative supercoils. It uses ATP and creates a double-strand break to pass another segment through.</p>
+<hr>
+<p><strong>8. The end-replication problem affects:</strong></p>
+<ul>
+<li>A) Both linear and circular chromosomes equally</li>
+<li>B) Only circular chromosomes</li>
+<li>C) Only linear chromosomes</li>
+<li>D) Prokaryotic chromosomes only</li>
+</ul>
+<p>✅ <strong>Answer: C</strong> — Linear chromosomes cannot fully replicate at their 5&#39; ends because RNA primers at the lagging strand terminus are removed but cannot be replaced. Circular chromosomes don&#39;t have ends.</p>
+<hr>
+<p><strong>9. In E. coli, the origin of replication is called:</strong></p>
+<ul>
+<li>A) ARS</li>
+<li>B) oriC</li>
+<li>C) ORC</li>
+<li>D) TER</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — oriC is the single origin in E. coli. ARS (Autonomously Replicating Sequence) is used in yeast; ORC is the origin recognition complex in eukaryotes.</p>
+<hr>
+<p><strong>10. Semiconservative replication was proven by:</strong></p>
+<ul>
+<li>A) Watson and Crick</li>
+<li>B) Kornberg</li>
+<li>C) Meselson and Stahl</li>
+<li>D) Okazaki</li>
+</ul>
+<p>✅ <strong>Answer: C</strong> — Meselson and Stahl (1958) used ¹⁵N/¹⁴N density gradient centrifugation to demonstrate semiconservative replication.</p>
+<hr>
+<h2 id="questions-11-20-prokaryotic-replication">Questions 11-20: Prokaryotic Replication</h2>
+<p><strong>11. DnaA protein functions in:</strong></p>
+<ul>
+<li>A) Unwinding DNA at the replication fork</li>
+<li>B) Synthesizing RNA primers</li>
+<li>C) Initiating replication at oriC</li>
+<li>D) Joining Okazaki fragments</li>
+</ul>
+<p>✅ <strong>Answer: C</strong> — DnaA-ATP binds DnaA boxes at oriC and induces melting of the AT-rich region, initiating replication.</p>
+<hr>
+<p><strong>12. DnaB helicase moves in which direction on DNA?</strong></p>
+<ul>
+<li>A) 3&#39;→5&#39;</li>
+<li>B) 5&#39;→3&#39;</li>
+<li>C) Bidirectionally</li>
+<li>D) Direction depends on strand</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — DnaB is a 5&#39;→3&#39; helicase. It encircles the lagging strand template and translocates 5&#39;→3&#39; to unwind DNA.</p>
+<hr>
+<p><strong>13. The function of DnaC is to:</strong></p>
+<ul>
+<li>A) Synthesize RNA primers</li>
+<li>B) Load DnaB helicase onto DNA</li>
+<li>C) Remove RNA primers</li>
+<li>D) Seal nicks between Okazaki fragments</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — DnaC is a helicase loader that delivers DnaB to single-stranded DNA at the origin. It holds DnaB inactive during loading, then dissociates.</p>
+<hr>
+<p><strong>14. The τ (tau) subunit of Pol III is important for:</strong></p>
+<ul>
+<li>A) Proofreading</li>
+<li>B) Dimerizing two Pol III cores (one per strand)</li>
+<li>C) Loading the β clamp</li>
+<li>D) Removing RNA primers</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — τ subunit dimerizes two Pol III core complexes and connects them to DnaB helicase, coordinating leading and lagging strand synthesis.</p>
+<hr>
+<p><strong>15. What is the size of Okazaki fragments in E. coli?</strong></p>
+<ul>
+<li>A) 100-200 nt</li>
+<li>B) 500-700 nt</li>
+<li>C) 1,000-2,000 nt</li>
+<li>D) 5,000-10,000 nt</li>
+</ul>
+<p>✅ <strong>Answer: C</strong> — E. coli Okazaki fragments are 1,000-2,000 nt. In eukaryotes, they are 100-200 nt.</p>
+<hr>
+<p><strong>16. In E. coli mismatch repair, strand discrimination is based on:</strong></p>
+<ul>
+<li>A) Strand breaks at Okazaki fragment junctions</li>
+<li>B) Dam methylation of GATC sequences</li>
+<li>C) PCNA orientation</li>
+<li>D) Histone modification</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — E. coli uses Dam methylation. The parental strand is methylated; the new strand is temporarily unmethylated (hemimethylated). MutH nicks the unmethylated strand.</p>
+<hr>
+<p><strong>17. The Tus/Ter system in E. coli functions to:</strong></p>
+<ul>
+<li>A) Initiate replication</li>
+<li>B) Increase fork speed</li>
+<li>C) Trap replication forks at termination</li>
+<li>D) Remove RNA primers</li>
+</ul>
+<p>✅ <strong>Answer: C</strong> — Tus binds Ter sequences and creates a polar fork barrier, trapping converging forks in the termination region.</p>
+<hr>
+<p><strong>18. DNA ligase in E. coli uses which cofactor?</strong></p>
+<ul>
+<li>A) ATP</li>
+<li>B) GTP</li>
+<li>C) NAD⁺</li>
+<li>D) FAD</li>
+</ul>
+<p>✅ <strong>Answer: C</strong> — E. coli DNA ligase uses NAD⁺. Eukaryotic DNA ligases use ATP. This is a key biochemical difference.</p>
+<hr>
+<p><strong>19. The &quot;trombone model&quot; describes:</strong></p>
+<ul>
+<li>A) How helicase moves along DNA</li>
+<li>B) How the lagging strand template loops to coordinate synthesis with the leading strand</li>
+<li>C) How primase interacts with DnaB</li>
+<li>D) How topoisomerase relieves supercoiling</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — The trombone model describes how the lagging strand template loops back so that both Pol III cores at the fork can physically move in the same direction.</p>
+<hr>
+<p><strong>20. DNA gyrase is inhibited by:</strong></p>
+<ul>
+<li>A) Rifampicin</li>
+<li>B) Fluoroquinolones (ciprofloxacin)</li>
+<li>C) Ampicillin</li>
+<li>D) Tetracycline</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — Fluoroquinolones trap the gyrase-DNA covalent complex, causing lethal double-strand breaks. Rifampicin targets RNA polymerase.</p>
+<hr>
+<h2 id="questions-21-30-eukaryotic-replication">Questions 21-30: Eukaryotic Replication</h2>
+<p><strong>21. The eukaryotic sliding clamp is:</strong></p>
+<ul>
+<li>A) β₂ homodimer</li>
+<li>B) PCNA homotrimer</li>
+<li>C) RFC pentamer</li>
+<li>D) MCM2-7 hexamer</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — PCNA (Proliferating Cell Nuclear Antigen) is a homotrimer forming a ring, similar in function to the bacterial β₂ dimer.</p>
+<hr>
+<p><strong>22. Which eukaryotic polymerase synthesizes the leading strand?</strong></p>
+<ul>
+<li>A) Pol α</li>
+<li>B) Pol δ</li>
+<li>C) Pol ε</li>
+<li>D) Pol γ</li>
+</ul>
+<p>✅ <strong>Answer: C</strong> — Pol ε is the primary leading strand polymerase. Pol δ synthesizes the lagging strand. Pol α/primase initiates synthesis.</p>
+<hr>
+<p><strong>23. What is the function of geminin?</strong></p>
+<ul>
+<li>A) Activates origins in S phase</li>
+<li>B) Inhibits Cdt1 to prevent re-replication</li>
+<li>C) Loads MCM helicase</li>
+<li>D) Phosphorylates CDK substrates</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — Geminin binds and inhibits Cdt1 in S/G2 phase, preventing new MCM loading and thus preventing re-replication.</p>
+<hr>
+<p><strong>24. The CMG helicase consists of:</strong></p>
+<ul>
+<li>A) DnaB + DnaC + SSB</li>
+<li>B) Cdc45 + MCM2-7 + GINS</li>
+<li>C) ORC + Cdc6 + Cdt1</li>
+<li>D) Pol ε + PCNA + RFC</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — CMG = Cdc45-MCM-GINS. It is the active replicative helicase in eukaryotes, formed when Cdc45 and GINS bind phosphorylated MCM2-7.</p>
+<hr>
+<p><strong>25. PCNA is loaded onto DNA by:</strong></p>
+<ul>
+<li>A) Pol α/primase</li>
+<li>B) RPA</li>
+<li>C) RFC (Replication Factor C)</li>
+<li>D) MCM2-7</li>
+</ul>
+<p>✅ <strong>Answer: C</strong> — RFC (clamp loader) uses ATP hydrolysis to open the PCNA ring and load it onto primer-template junctions.</p>
+<hr>
+<p><strong>26. RNase H2 in eukaryotes functions to:</strong></p>
+<ul>
+<li>A) Remove DNA mismatches</li>
+<li>B) Remove RNA primers during Okazaki fragment processing</li>
+<li>C) Unwind DNA at the replication fork</li>
+<li>D) Synthesize RNA primers</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — RNase H2 degrades most of the RNA primer, leaving 1-2 ribonucleotides that are then removed by FEN1.</p>
+<hr>
+<p><strong>27. Replication licensing occurs in which cell cycle phase?</strong></p>
+<ul>
+<li>A) S phase</li>
+<li>B) G2 phase</li>
+<li>C) M phase</li>
+<li>D) G1 phase</li>
+</ul>
+<p>✅ <strong>Answer: D</strong> — Licensing occurs in G1 when CDK activity is low. Pre-RC assembly (ORC → Cdc6 → Cdt1 → MCM) can only occur when CDK is inactive.</p>
+<hr>
+<p><strong>28. How many origins of replication does a human cell have approximately?</strong></p>
+<ul>
+<li>A) 1</li>
+<li>B) 100</li>
+<li>C) 30,000-50,000</li>
+<li>D) 1,000,000</li>
+</ul>
+<p>✅ <strong>Answer: C</strong> — Human cells have approximately 30,000-50,000 origins. This allows the large genome to be replicated in ~6-8 hours.</p>
+<hr>
+<p><strong>29. The size of Okazaki fragments in human cells is approximately:</strong></p>
+<ul>
+<li>A) 1,000-2,000 nt</li>
+<li>B) 500-1,000 nt</li>
+<li>C) 100-200 nt</li>
+<li>D) 50-100 nt</li>
+</ul>
+<p>✅ <strong>Answer: C</strong> — Human Okazaki fragments are 100-200 nt, much shorter than E. coli&#39;s 1-2 kb fragments (due to nucleosome obstacles).</p>
+<hr>
+<p><strong>30. FEN1 functions in:</strong></p>
+<ul>
+<li>A) Unwinding DNA</li>
+<li>B) Removing RNA primers and DNA flaps</li>
+<li>C) Loading PCNA</li>
+<li>D) Synthesizing RNA primers</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — FEN1 (Flap Endonuclease 1) removes 5&#39; flap structures created during Okazaki fragment processing after Pol δ displacement synthesis.</p>
+<hr>
+<h2 id="questions-31-40-advanced-topics">Questions 31-40: Advanced Topics</h2>
+<p><strong>31. Lynch syndrome is caused by mutations in:</strong></p>
+<ul>
+<li>A) BRCA1/BRCA2</li>
+<li>B) MLH1/MSH2/MSH6/PMS2</li>
+<li>C) TP53</li>
+<li>D) APC</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — Lynch syndrome (HNPCC) is caused by germline mutations in mismatch repair genes (MLH1, MSH2, MSH6, PMS2), leading to microsatellite instability.</p>
+<hr>
+<p><strong>32. Telomerase is:</strong></p>
+<ul>
+<li>A) A DNA-dependent DNA polymerase</li>
+<li>B) An RNA-dependent DNA polymerase (reverse transcriptase)</li>
+<li>C) An RNA-dependent RNA polymerase</li>
+<li>D) A DNA-dependent RNA polymerase</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — Telomerase (TERT) is a reverse transcriptase that uses its RNA component (TERC) as a template to synthesize telomeric DNA.</p>
+<hr>
+<p><strong>33. The TERT promoter mutations found in cancer:</strong></p>
+<ul>
+<li>A) Inactivate telomerase</li>
+<li>B) Create new transcription factor binding sites → increase TERT expression</li>
+<li>C) Change the telomere repeat sequence</li>
+<li>D) Delete the entire TERT gene</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — C228T and C250T mutations create new ETS/GABP binding sites, increasing TERT transcription and telomerase activity.</p>
+<hr>
+<p><strong>34. ALT (Alternative Lengthening of Telomeres) uses:</strong></p>
+<ul>
+<li>A) Telomerase</li>
+<li>B) Homologous recombination</li>
+<li>C) Translesion synthesis</li>
+<li>D) Non-homologous end joining</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — ALT uses homologous recombination between telomeric sequences to maintain telomeres without telomerase. It results in highly heterogeneous telomere lengths.</p>
+<hr>
+<p><strong>35. The ATR-CHK1 checkpoint is activated by:</strong></p>
+<ul>
+<li>A) Double-strand breaks</li>
+<li>B) Excessive single-stranded DNA at stalled replication forks</li>
+<li>C) Unattached kinetochores</li>
+<li>D) Telomere shortening</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — ATR is activated by RPA-coated ssDNA, which accumulates at stalled replication forks. ATRIP binds RPA-ssDNA and recruits ATR.</p>
+<hr>
+<p><strong>36. Translesion synthesis differs from template switching in that:</strong></p>
+<ul>
+<li>A) TLS is error-free; template switching is error-prone</li>
+<li>B) TLS uses specialized polymerases; template switching uses the sister chromatid</li>
+<li>C) TLS requires PCNA; template switching does not</li>
+<li>D) TLS only occurs in bacteria</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — Translesion synthesis uses low-fidelity specialized polymerases (Pol η, ι, κ) to bypass lesions (error-prone). Template switching uses the intact sister chromatid as template (error-free).</p>
+<hr>
+<p><strong>37. Common fragile sites in cancer are:</strong></p>
+<ul>
+<li>A) Regions where tumor suppressors are located</li>
+<li>B) Large, gene-rich regions prone to breakage under replication stress</li>
+<li>C) Regions where telomeres are located</li>
+<li>D) Origins of replication</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — Common fragile sites are large genomic regions (&gt;1 Mb genes) that are difficult to replicate. They show gaps/breaks under replication stress and are frequent breakpoints in cancer.</p>
+<hr>
+<p><strong>38. Oncogene-induced replication stress is caused by:</strong></p>
+<ul>
+<li>A) Telomere shortening</li>
+<li>B) Excessive origin firing, transcription-replication conflicts, and dNTP imbalance</li>
+<li>C) Loss of p53</li>
+<li>D) Telomerase activation</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — Oncogenes (Ras, Myc, Cyclin E) cause aberrant origin firing, increase transcription, and create dNTP imbalances, all contributing to replication stress.</p>
+<hr>
+<p><strong>39. BRCA1/BRCA2 mutations increase cancer risk because they impair:</strong></p>
+<ul>
+<li>A) Mismatch repair</li>
+<li>B) Base excision repair</li>
+<li>C) Homologous recombination</li>
+<li>D) Nucleotide excision repair</li>
+</ul>
+<p>✅ <strong>Answer: C</strong> — BRCA1 and BRCA2 are essential for homologous recombination. Loss of HR → genome instability → cancer predisposition (breast, ovarian).</p>
+<hr>
+<p><strong>40. PARP inhibitors exploit synthetic lethality in:</strong></p>
+<ul>
+<li>A) All cancer cells</li>
+<li>B) BRCA1/BRCA2-mutant cancer cells</li>
+<li>C) Telomerase-positive cancer cells</li>
+<li>D) MSI-High cancer cells</li>
+</ul>
+<p>✅ <strong>Answer: B</strong> — PARP inhibitors prevent SSB repair → SSBs converted to DSBs during replication → in BRCA-deficient cells (no HR), DSBs cannot be repaired → cell death. Normal cells survive because HR is intact.</p>
+<hr>
+<p><em>Total: 40 MCQs covering all major topics</em></p>
+</main></div>
+<footer class="site-footer">
+  <p class="instructor">Dr. Saira Azam — Assistant Professor, Centre of Excellence in Molecular Biology, University of the Punjab, Lahore</p>
+  <p>DNA Replication in Prokaryotes and Eukaryotes · A Complete Molecular Biology Teaching and Learning Module</p>
+</footer>
+</body>
+</html>

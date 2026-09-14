@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DNA Replication in Prokaryotes and Eukaryotes</title>
+<style>
+:root {
+  --primary: #1B4F72; --secondary: #2E86C1; --accent: #16A085;
+  --dark: #2C3E50; --light: #F4F8FB; --border: #D5E5F1;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  margin: 0; color: #22303c; line-height: 1.65;
+  background: #fbfdff;
+}
+.site-header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff; padding: 1.4rem 1rem 1.2rem; text-align: center;
+}
+.site-header .course-title { font-size: 1.35rem; font-weight: 700; margin: 0; }
+.site-header .crumb { font-size: .8rem; opacity: .85; margin: 0 0 .35rem; }
+.site-header a { color: #fff; text-decoration: none; opacity: .92; }
+.site-header a:hover { text-decoration: underline; opacity: 1; }
+.layout { display: flex; max-width: 1180px; margin: 0 auto; gap: 1.5rem; padding: 1.25rem 1rem; }
+nav.sidebar {
+  flex: 0 0 260px; align-self: flex-start; position: sticky; top: 12px;
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1rem 1.1rem; max-height: calc(100vh - 30px); overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--accent); margin: 1.1rem 0 .35rem;
+}
+nav.sidebar h3:first-of-type { margin-top: 0; }
+nav.sidebar a {
+  display: block; color: var(--primary); text-decoration: none;
+  font-size: .9rem; padding: .28rem .5rem; border-radius: 6px;
+}
+nav.sidebar a:hover { background: var(--light); }
+main.content { flex: 1; min-width: 0; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1.6rem 2rem 2.4rem; }
+main.content.wide { width: 100%; }
+main.content h1 { color: var(--primary); font-size: 1.65rem; border-bottom: 3px solid var(--secondary); padding-bottom: .45rem; }
+main.content h2 { color: var(--secondary); font-size: 1.25rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; margin-top: 2rem; }
+main.content h3 { color: var(--accent); font-size: 1.05rem; margin-top: 1.6rem; }
+main.content table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .9rem; display: block; overflow-x: auto; }
+main.content th, main.content td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; vertical-align: top; }
+main.content th { background: var(--primary); color: #fff; }
+main.content tr:nth-child(even) td { background: var(--light); }
+main.content pre {
+  background: #F4F6F8; border: 1px solid #DDE3E9; border-radius: 8px;
+  padding: .9rem 1.1rem; overflow-x: auto; font-size: .82rem; line-height: 1.45;
+}
+main.content code { background: #F0F2F4; border-radius: 4px; padding: .1rem .35rem; font-size: .88em; }
+main.content pre code { background: none; padding: 0; }
+main.content blockquote { border-left: 4px solid var(--secondary); background: var(--light); margin: 1rem 0; padding: .6rem 1.1rem; border-radius: 0 8px 8px 0; }
+main.content a { color: var(--secondary); }
+main.content img { max-width: 100%; }
+.nav-links { margin-top: 2.4rem; padding-top: 1rem; border-top: 2px solid var(--border); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .92rem; }
+footer.site-footer {
+  text-align: center; padding: 1.6rem 1rem 2.2rem; color: #5a6b7a; font-size: .88rem;
+}
+footer.site-footer .instructor { margin: 0 0 .4rem; color: var(--primary); font-weight: 600; }
+
+/* Landing page */
+.hero {
+  background: linear-gradient(160deg, var(--primary) 0%, var(--secondary) 60%, var(--accent) 100%);
+  color: #fff; padding: 3.4rem 1.2rem 3rem; text-align: center;
+}
+.hero h1 { font-size: 2.1rem; margin: 0 0 .6rem; }
+.hero .tagline { font-size: 1.08rem; font-style: italic; opacity: .95; margin: 0 0 1.8rem; }
+.hero .instructor { color: #fff; background: rgba(255,255,255,.12); display: inline-block; padding: .8rem 1.6rem; border-radius: 10px; line-height: 1.5; }
+.hero .instructor strong { font-size: 1.15rem; }
+.btn {
+  display: inline-block; margin-top: 1.6rem; background: #fff; color: var(--primary);
+  font-weight: 700; padding: .7rem 2rem; border-radius: 999px; text-decoration: none; font-size: 1.05rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+}
+.btn:hover { transform: translateY(-1px); }
+.section-card { max-width: 1080px; margin: 1.4rem auto; padding: 0 1rem; }
+.card {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.3rem 1.5rem; margin-bottom: 1.1rem;
+}
+.card h2 { color: var(--primary); margin-top: 0; font-size: 1.25rem; border-bottom: 2px solid var(--border); padding-bottom: .35rem; }
+.card table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+.card th, .card td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; }
+.card th { background: var(--primary); color: #fff; }
+.card tr:nth-child(even) td { background: var(--light); }
+.card a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+.card a:hover { text-decoration: underline; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.grid .card { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .layout { flex-direction: column; padding: .8rem; }
+  nav.sidebar { position: static; max-height: none; flex-basis: auto; }
+  main.content { padding: 1.1rem 1rem 1.8rem; }
+  .hero h1 { font-size: 1.55rem; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <p class="crumb"><a href="../index.html">Course Home</a></p>
+  <p class="course-title">DNA Replication in Prokaryotes and Eukaryotes</p>
+</header>
+<div class="layout"><nav class="sidebar">
+  <h3>Course</h3>
+  <a href="../README.html">Course Home</a>
+  <a href="../REFERENCES.html">References</a>
+  <h3>Teaching Modules</h3>
+  <a href="../MARKDOWN/01-Introduction-to-DNA-Replication.html">Introduction to DNA Replication</a>
+<a href="../MARKDOWN/02-Core-Concepts.html">Core Concepts of DNA Replication</a>
+<a href="../MARKDOWN/03-Prokaryotic-DNA-Replication.html">Prokaryotic DNA Replication</a>
+<a href="../MARKDOWN/04-Eukaryotic-DNA-Replication.html">Eukaryotic DNA Replication</a>
+<a href="../MARKDOWN/05-Replication-Fidelity-and-Repair.html">Replication Fidelity and Repair</a>
+<a href="../MARKDOWN/06-Telomeres-and-Telomerase.html">Telomeres and Telomerase</a>
+<a href="../MARKDOWN/07-Replication-Stress-and-Checkpoints.html">Replication Stress and Checkpoints</a>
+<a href="../MARKDOWN/08-Prokaryote-vs-Eukaryote.html">Prokaryote vs. Eukaryote Comparison</a>
+<a href="../MARKDOWN/09-Experimental-Methods.html">Experimental Methods</a>
+<a href="../MARKDOWN/10-Data-Analysis-and-Interpretation.html">Data Analysis and Interpretation</a>
+<a href="../MARKDOWN/11-Clinical-and-Biotechnology-Applications.html">Clinical and Biotechnology Applications</a>
+<a href="../MARKDOWN/12-Advanced-Topics.html">Advanced Topics in DNA Replication</a>
+  <h3>Laboratory</h3>
+  <a href="../LAB/Lab-01-DNA-Replication-Concepts.html">Lab 01: DNA Structure and Replication Modeling</a>
+<a href="../LAB/Lab-02-DNA-Quantification.html">Lab 02: DNA Quantification and Quality Assessment</a>
+<a href="../LAB/Lab-03-Gel-Electrophoresis.html">Lab 03: Agarose Gel Electrophoresis</a>
+<a href="../LAB/Lab-04-PCR-and-DNA-Amplification.html">Lab 04: PCR and DNA Amplification</a>
+<a href="../LAB/Lab-05-Replication-Data-Analysis.html">Lab 05: Replication Data Analysis</a>
+<a href="../LAB/Lab-06-Capstone-Exercise.html">Lab 06: Capstone Exercise — Integrated Replication Analysis</a>
+  <h3>Workbook & Data</h3>
+  <a href="../WORKBOOK/DNA-Replication-Lab-Workbook.html">Lab Workbook</a>
+  <a href="../DATA/datasets.html">Datasets</a>
+  <h3>Resources</h3>
+  <a href="../CHEAT-SHEET/DNA-Replication-Cheat-Sheet.html">Cheat Sheet</a>
+  <a href="../FAQ/DNA-Replication-FAQs.html">FAQs</a>
+  <h3>Assessment</h3>
+  <a href="../ASSESSMENT/MCQs.html">DNA Replication — Multiple Choice Questions</a>
+<a href="../ASSESSMENT/Short-Questions.html">DNA Replication — Short Answer Questions</a>
+<a href="../ASSESSMENT/Long-Questions.html">DNA Replication — Long Answer / Essay Questions</a>
+<a href="../ASSESSMENT/Viva-Questions.html">DNA Replication — Viva Voce Questions</a>
+<a href="../ASSESSMENT/Case-Studies.html">DNA Replication — Case Studies</a>
+  <h3>Downloads</h3>
+  <a href="../PDF/Complete-Tutorial.pdf">Complete Tutorial (PDF)</a>
+  <a href="../PDF/Lab-Workbook.pdf">Lab Workbook (PDF)</a>
+  <a href="../PDF/Cheat-Sheet.pdf">Cheat Sheet (PDF)</a>
+  <a href="../PDF/FAQs.pdf">FAQs (PDF)</a>
+  <a href="../PDF/Assessment.pdf">Assessment (PDF)</a>
+  <a href="../PPTX/DNA_Replication_Complete_Lecture.pptx">Lecture Slides (PPTX)</a>
+</nav><main class="content"><h1 id="dna-replication--quick-reference-cheat-sheet">DNA Replication — Quick Reference Cheat Sheet</h1>
+<p><strong>Course: Molecular Biology of DNA Replication</strong></p>
+<hr>
+<h2 id="essential-terminology">Essential Terminology</h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Semiconservative</strong></td>
+<td>Each daughter molecule = 1 old strand + 1 new strand</td>
+</tr>
+<tr>
+<td><strong>Origin (ori)</strong></td>
+<td>DNA sequence where replication initiates</td>
+</tr>
+<tr>
+<td><strong>Replication fork</strong></td>
+<td>Y-shaped structure where DNA is unwound and synthesized</td>
+</tr>
+<tr>
+<td><strong>Leading strand</strong></td>
+<td>Synthesized continuously toward the fork (5&#39;→3&#39;)</td>
+</tr>
+<tr>
+<td><strong>Lagging strand</strong></td>
+<td>Synthesized discontinuously away from the fork (5&#39;→3&#39;)</td>
+</tr>
+<tr>
+<td><strong>Okazaki fragments</strong></td>
+<td>Short DNA fragments on the lagging strand</td>
+</tr>
+<tr>
+<td><strong>Processivity</strong></td>
+<td>Nucleotides added before polymerase dissociates</td>
+</tr>
+<tr>
+<td><strong>Primer</strong></td>
+<td>Short RNA/DNA that provides free 3&#39;-OH for polymerase</td>
+</tr>
+<tr>
+<td><strong>Replisome</strong></td>
+<td>Complete replication machinery at the fork</td>
+</tr>
+<tr>
+<td><strong>Telomere</strong></td>
+<td>Protective structure at chromosome ends</td>
+</tr>
+<tr>
+<td><strong>Licensing</strong></td>
+<td>Assembly of pre-RC to allow origin firing</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="replication-proteins--quick-function-table">Replication Proteins — Quick Function Table</h2>
+<h3 id="e-coli-prokaryotic">E. coli (Prokaryotic)</h3>
+<table>
+<thead>
+<tr>
+<th>Protein</th>
+<th>Gene</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>DnaA</strong></td>
+<td>dnaA</td>
+<td>Initiator; binds oriC</td>
+</tr>
+<tr>
+<td><strong>DnaB</strong></td>
+<td>dnaB</td>
+<td>Helicase (unwinds DNA)</td>
+</tr>
+<tr>
+<td><strong>DnaC</strong></td>
+<td>dnaC</td>
+<td>Helicase loader</td>
+</tr>
+<tr>
+<td><strong>DnaG</strong></td>
+<td>dnaG</td>
+<td>Primase (makes RNA primer)</td>
+</tr>
+<tr>
+<td><strong>Pol III</strong></td>
+<td>dnaE/Q/X</td>
+<td>Main replicative polymerase</td>
+</tr>
+<tr>
+<td><strong>ε subunit</strong></td>
+<td>dnaQ</td>
+<td>Proofreading (3&#39;→5&#39; exonuclease)</td>
+</tr>
+<tr>
+<td><strong>β clamp</strong></td>
+<td>dnaN</td>
+<td>Processivity factor (dimer)</td>
+</tr>
+<tr>
+<td><strong>γ complex</strong></td>
+<td>dnaX</td>
+<td>Clamp loader</td>
+</tr>
+<tr>
+<td><strong>SSB</strong></td>
+<td>ssb</td>
+<td>Single-strand binding protein</td>
+</tr>
+<tr>
+<td><strong>Gyrase</strong></td>
+<td>gyrA/B</td>
+<td>Type II topoisomerase (introduces negative supercoils)</td>
+</tr>
+<tr>
+<td><strong>Topo I</strong></td>
+<td>topA</td>
+<td>Type I topoisomerase</td>
+</tr>
+<tr>
+<td><strong>Topo IV</strong></td>
+<td>parC/E</td>
+<td>Decatenation</td>
+</tr>
+<tr>
+<td><strong>Pol I</strong></td>
+<td>polA</td>
+<td>Primer removal + gap filling</td>
+</tr>
+<tr>
+<td><strong>Ligase</strong></td>
+<td>ligA</td>
+<td>Seals nicks (NAD⁺-dependent)</td>
+</tr>
+<tr>
+<td><strong>MutS/MutL/MutH</strong></td>
+<td>mutS/L/H</td>
+<td>Mismatch repair</td>
+</tr>
+</tbody></table>
+<h3 id="human-eukaryotic">Human (Eukaryotic)</h3>
+<table>
+<thead>
+<tr>
+<th>Protein</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>ORC (Orc1-6)</strong></td>
+<td>Origin recognition complex</td>
+</tr>
+<tr>
+<td><strong>Cdc6</strong></td>
+<td>Recruits MCM; ATPase</td>
+</tr>
+<tr>
+<td><strong>Cdt1</strong></td>
+<td>Loads MCM2-7</td>
+</tr>
+<tr>
+<td><strong>MCM2-7</strong></td>
+<td>Replicative helicase (inactive until activated)</td>
+</tr>
+<tr>
+<td><strong>Cdc45</strong></td>
+<td>CMG helicase component</td>
+</tr>
+<tr>
+<td><strong>GINS</strong></td>
+<td>CMG helicase component</td>
+</tr>
+<tr>
+<td><strong>RPA</strong></td>
+<td>Single-strand binding protein</td>
+</tr>
+<tr>
+<td><strong>Pol α/primase</strong></td>
+<td>Initiates synthesis; makes RNA-DNA primer</td>
+</tr>
+<tr>
+<td><strong>Pol ε</strong></td>
+<td>Leading strand synthesis</td>
+</tr>
+<tr>
+<td><strong>Pol δ</strong></td>
+<td>Lagging strand synthesis + repair</td>
+</tr>
+<tr>
+<td><strong>PCNA</strong></td>
+<td>Sliding clamp (homotrimer)</td>
+</tr>
+<tr>
+<td><strong>RFC</strong></td>
+<td>Clamp loader</td>
+</tr>
+<tr>
+<td><strong>RNase H2</strong></td>
+<td>Removes RNA primers</td>
+</tr>
+<tr>
+<td><strong>FEN1</strong></td>
+<td>Flap endonuclease; primer processing</td>
+</tr>
+<tr>
+<td><strong>DNA Ligase I</strong></td>
+<td>Seals nicks (ATP-dependent)</td>
+</tr>
+<tr>
+<td><strong>Topo I</strong></td>
+<td>Relaxes positive supercoils</td>
+</tr>
+<tr>
+<td><strong>Topo IIα</strong></td>
+<td>Relieves supercoiling + decatenation</td>
+</tr>
+<tr>
+<td><strong>MSH2-6/MLH1-PMS2</strong></td>
+<td>Mismatch repair</td>
+</tr>
+<tr>
+<td><strong>ATR/CHK1</strong></td>
+<td>Replication checkpoint</td>
+</tr>
+<tr>
+<td><strong>TERT/TERC</strong></td>
+<td>Telomerase (telomere maintenance)</td>
+</tr>
+<tr>
+<td><strong>Shelterin</strong></td>
+<td>Telomere protection complex</td>
+</tr>
+<tr>
+<td><strong>Geminin</strong></td>
+<td>Inhibits Cdt1 (prevents re-replication)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="replication-sequence--prokaryotic-e-coli">Replication Sequence — Prokaryotic (E. coli)</h2>
+<pre><code>1. DnaA-ATP binds oriC → AT-rich region melts
+2. DnaC loads DnaB helicase (2 hexamers)
+3. DnaG primase synthesizes RNA primers
+4. Clamp loader loads β sliding clamp
+5. Pol III synthesizes DNA:
+   • Leading strand: continuous, one primer
+   • Lagging strand: Okazaki fragments (1-2 kb), multiple primers
+6. Proofreading: ε subunit (3&#39;→5&#39; exonuclease)
+7. Pol I: removes RNA primers, fills gaps
+8. DNA ligase: seals nicks
+9. Gyrase: relieves supercoiling ahead of fork
+10. Tus/Ter: termination at Ter region
+11. Topo IV: decatenates daughter chromosomes
+</code></pre>
+<h2 id="replication-sequence--eukaryotic-human">Replication Sequence — Eukaryotic (Human)</h2>
+<pre><code>G1 PHASE (LICENSING):
+1. ORC binds origins
+2. Cdc6 + Cdt1 recruited
+3. MCM2-7 double hexamers loaded → Origin licensed
+
+S PHASE (ACTIVATION):
+4. CDK + DDK phosphorylate MCM
+5. Cdc45 + GINS loaded → CMG helicase active
+6. CMG unwinds DNA
+7. RPA binds ssDNA
+8. Pol α/primase makes RNA-DNA primer
+9. RFC loads PCNA
+10. Polymerase switching: Pol α → Pol ε (leading) or Pol δ (lagging)
+11. Leading: Pol ε continuous; Lagging: Pol δ, Okazaki fragments (100-200 nt)
+
+PROCESSING:
+12. RNase H2 removes RNA primers
+13. FEN1 removes flaps
+14. Pol δ fills gaps
+15. DNA Ligase I seals nicks
+16. CAF-1 reassembles nucleosomes
+
+TERMINATION:
+17. Forks converge → CMG disassembled (p97/Cdc48)
+18. Gaps filled → ligation
+
+TELOMERES:
+19. Telomerase extends 3&#39; overhang (TERT + TERC)
+20. Complementary strand filled by Pol α/Pol δ
+</code></pre>
+<hr>
+<h2 id="leading-vs-lagging-strand">Leading vs. Lagging Strand</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Leading Strand</th>
+<th>Lagging Strand</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Direction</td>
+<td>5&#39;→3&#39; toward fork</td>
+<td>5&#39;→3&#39; away from fork</td>
+</tr>
+<tr>
+<td>Synthesis</td>
+<td>Continuous</td>
+<td>Discontinuous</td>
+</tr>
+<tr>
+<td>Primers</td>
+<td>One</td>
+<td>Multiple (per Okazaki fragment)</td>
+</tr>
+<tr>
+<td>Okazaki fragments</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>Equal to fork speed</td>
+<td>Equal to fork speed (overall)</td>
+</tr>
+<tr>
+<td>E. coli polymerase</td>
+<td>Pol III</td>
+<td>Pol III (with Pol I for processing)</td>
+</tr>
+<tr>
+<td>Human polymerase</td>
+<td>Pol ε</td>
+<td>Pol δ (with Pol α for priming)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="okazaki-fragment-processing">Okazaki Fragment Processing</h2>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>E. coli</th>
+<th>Eukaryotes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fragment size</td>
+<td>1,000–2,000 nt</td>
+<td>100–200 nt</td>
+</tr>
+<tr>
+<td>Primer removal</td>
+<td>Pol I (5&#39;→3&#39; exo)</td>
+<td>RNase H2 + FEN1</td>
+</tr>
+<tr>
+<td>Gap filling</td>
+<td>Pol I</td>
+<td>Pol δ</td>
+</tr>
+<tr>
+<td>Ligation</td>
+<td>Ligase (NAD⁺)</td>
+<td>Ligase I (ATP)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="major-differences-prokaryotes-vs-eukaryotes">Major Differences: Prokaryotes vs. Eukaryotes</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Prokaryotes</th>
+<th>Eukaryotes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Genome</td>
+<td>Circular, 4.6 Mb</td>
+<td>Linear, 3.2 Gb</td>
+</tr>
+<tr>
+<td>Origins</td>
+<td>1 (oriC)</td>
+<td>30,000-50,000</td>
+</tr>
+<tr>
+<td>Helicase</td>
+<td>DnaB (3&#39;→5&#39;)</td>
+<td>CMG (5&#39;→3&#39;)</td>
+</tr>
+<tr>
+<td>Sliding clamp</td>
+<td>β₂ (dimer)</td>
+<td>PCNA (trimer)</td>
+</tr>
+<tr>
+<td>Leading Pol</td>
+<td>Pol III</td>
+<td>Pol ε</td>
+</tr>
+<tr>
+<td>Lagging Pol</td>
+<td>Pol III</td>
+<td>Pol δ</td>
+</tr>
+<tr>
+<td>Primase</td>
+<td>DnaG</td>
+<td>Pol α/primase</td>
+</tr>
+<tr>
+<td>Okazaki size</td>
+<td>1-2 kb</td>
+<td>100-200 bp</td>
+</tr>
+<tr>
+<td>Fork speed</td>
+<td>1,000 nt/s</td>
+<td>50 nt/s</td>
+</tr>
+<tr>
+<td>Telomeres</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Chromatin</td>
+<td>No (nucleoid)</td>
+<td>Yes (nucleosomes)</td>
+</tr>
+<tr>
+<td>Licensing</td>
+<td>No</td>
+<td>Pre-RC (ORC/Cdc6/Cdt1/MCM)</td>
+</tr>
+<tr>
+<td>MMR strand discrimination</td>
+<td>Dam methylation</td>
+<td>Strand nicks/PCNA</td>
+</tr>
+<tr>
+<td>Termination</td>
+<td>Tus/Ter</td>
+<td>Fork convergence</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="important-polymerases">Important Polymerases</h2>
+<table>
+<thead>
+<tr>
+<th>Polymerase</th>
+<th>Direction</th>
+<th>Proofreading</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>E. coli Pol I</td>
+<td>5&#39;→3&#39;</td>
+<td>Yes (3&#39;→5&#39;)</td>
+<td>Primer removal, repair</td>
+</tr>
+<tr>
+<td>E. coli Pol III</td>
+<td>5&#39;→3&#39;</td>
+<td>Yes (ε subunit)</td>
+<td>Main replication</td>
+</tr>
+<tr>
+<td>Human Pol α</td>
+<td>5&#39;→3&#39;</td>
+<td><strong>No</strong></td>
+<td>Primer synthesis</td>
+</tr>
+<tr>
+<td>Human Pol δ</td>
+<td>5&#39;→3&#39;</td>
+<td>Yes</td>
+<td>Lagging strand, repair</td>
+</tr>
+<tr>
+<td>Human Pol ε</td>
+<td>5&#39;→3&#39;</td>
+<td>Yes</td>
+<td>Leading strand</td>
+</tr>
+<tr>
+<td>Human Pol γ</td>
+<td>5&#39;→3&#39;</td>
+<td>Yes</td>
+<td>Mitochondrial DNA</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="telomere-quick-facts">Telomere Quick Facts</h2>
+<ul>
+<li><strong>Sequence</strong>: TTAGGG (human), repeated 2,000-3,000 times</li>
+<li><strong>Length</strong>: 5-15 kb at birth; shortens ~50-200 bp/division</li>
+<li><strong>Enzyme</strong>: Telomerase = TERT (protein) + TERC (RNA template)</li>
+<li><strong>Template in TERC</strong>: 3&#39;-CAAUCCCAAUC-5&#39;</li>
+<li><strong>Shelterin</strong>: TRF1, TRF2, POT1, TIN2, TPP1, RAP1</li>
+<li><strong>Cancer</strong>: 85-90% reactivate telomerase; 10-15% use ALT</li>
+<li><strong>Aging</strong>: Short telomeres → senescence (Hayflick limit ~50-60 divisions)</li>
+</ul>
+<hr>
+<h2 id="checkpoints">Checkpoints</h2>
+<table>
+<thead>
+<tr>
+<th>Checkpoint</th>
+<th>Sensor</th>
+<th>Effector</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>ATR-CHK1</strong></td>
+<td>ATRIP</td>
+<td>CHK1</td>
+<td>ssDNA at stalled forks</td>
+</tr>
+<tr>
+<td><strong>ATM-CHK2</strong></td>
+<td>MRN</td>
+<td>CHK2</td>
+<td>DSBs</td>
+</tr>
+<tr>
+<td><strong>Intra-S</strong></td>
+<td>ATR</td>
+<td>CHK1</td>
+<td>Replication stress</td>
+</tr>
+<tr>
+<td><strong>G2/M</strong></td>
+<td>ATM/ATR</td>
+<td>CHK1/CHK2</td>
+<td>Unreplicated DNA, damage</td>
+</tr>
+<tr>
+<td><strong>Spindle</strong></td>
+<td>Mad2</td>
+<td>—</td>
+<td>Unattached kinetochores</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="important-exam-facts">Important Exam Facts</h2>
+<ol>
+<li>DNA is <strong>always</strong> synthesized 5&#39;→3&#39; (NO exceptions)</li>
+<li><strong>Both</strong> strands are synthesized 5&#39;→3&#39; (lagging strand = Okazaki fragments)</li>
+<li>DNA polymerase <strong>cannot</strong> start synthesis without a primer</li>
+<li>E. coli ligase uses <strong>NAD⁺</strong>; eukaryotic ligase uses <strong>ATP</strong></li>
+<li>The sliding clamp increases processivity from ~20 to &gt;50,000 nt</li>
+<li>E. coli has <strong>one origin</strong> (oriC); humans have <strong>~30,000-50,000</strong></li>
+<li>Human Okazaki fragments: <strong>100-200 nt</strong>; E. coli: <strong>1-2 kb</strong></li>
+<li>Telomerase is a <strong>reverse transcriptase</strong> (uses RNA template)</li>
+<li><strong>Fluoroquinolones</strong> target DNA gyrase (bacteria-specific)</li>
+<li><strong>Lynch syndrome</strong> = defective mismatch repair → MSI</li>
+<li>Proofreading improves fidelity <strong>100-fold</strong> (10⁻⁵ → 10⁻⁷)</li>
+<li>MMR improves fidelity another <strong>100-1000-fold</strong> (10⁻⁷ → 10⁻⁹–10⁻¹⁰)</li>
+<li><strong>Licensing</strong> (G1) and <strong>firing</strong> (S) are mutually exclusive (CDK)</li>
+<li><strong>PCNA</strong> is a <strong>trimer</strong>; <strong>β clamp</strong> is a <strong>dimer</strong></li>
+<li>Fork speed: E. coli ~1,000 nt/s; Human ~50 nt/s</li>
+</ol>
+<hr>
+<h2 id="common-mistakes-to-avoid">Common Mistakes to Avoid</h2>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>Correction</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&quot;Lagging strand is synthesized 3&#39;→5&#39;&quot;</td>
+<td>Both strands are 5&#39;→3&#39;</td>
+</tr>
+<tr>
+<td>&quot;DNA polymerase starts from scratch&quot;</td>
+<td>Needs a primer (3&#39;-OH)</td>
+</tr>
+<tr>
+<td>&quot;Okazaki fragments are the same size in all organisms&quot;</td>
+<td>E. coli: 1-2 kb; Human: 100-200 bp</td>
+</tr>
+<tr>
+<td>&quot;Proofreading is the main fidelity mechanism&quot;</td>
+<td>All three layers contribute equally important</td>
+</tr>
+<tr>
+<td>&quot;Telomerase is active in all cells&quot;</td>
+<td>Inactive in most somatic cells</td>
+</tr>
+<tr>
+<td>&quot;Both strands need the same number of primers&quot;</td>
+<td>Leading: 1 primer; Lagging: many</td>
+</tr>
+<tr>
+<td>&quot;Replication and transcription use the same polymerase&quot;</td>
+<td>Completely different polymerases</td>
+</tr>
+<tr>
+<td>&quot;PCR is the same as cellular replication&quot;</td>
+<td>PCR uses heat denaturation, not helicase</td>
+</tr>
+</tbody></table>
+</main></div>
+<footer class="site-footer">
+  <p class="instructor">Dr. Saira Azam — Assistant Professor, Centre of Excellence in Molecular Biology, University of the Punjab, Lahore</p>
+  <p>DNA Replication in Prokaryotes and Eukaryotes · A Complete Molecular Biology Teaching and Learning Module</p>
+</footer>
+</body>
+</html>

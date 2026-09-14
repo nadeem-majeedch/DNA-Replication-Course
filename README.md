@@ -1,6 +1,13 @@
 # DNA Replication in Prokaryotes and Eukaryotes
 
-## Complete Teaching Package — Molecular Biology Course
+## A Complete Molecular Biology Teaching and Learning Module
+
+### Instructor
+
+**Dr. Saira Azam**
+Assistant Professor
+Centre of Excellence in Molecular Biology
+University of the Punjab, Lahore
 
 ---
 
@@ -96,8 +103,20 @@ This course is organized into 12 teaching modules, 6+ laboratory exercises, and 
 | [Long Questions](ASSESSMENT/Long-Questions.md) | 15+ essay/long answer questions |
 | [Viva Questions](ASSESSMENT/Viva-Questions.md) | 30+ oral examination questions |
 | [Case Studies](ASSESSMENT/Case-Studies.md) | 10+ clinical/research case studies |
+| [Datasets](DATA/datasets.md) | 10 simulated datasets for exercises |
 | [References](REFERENCES.md) | Complete reference list |
 | [Build Report](BUILD_REPORT.md) | Package metadata and QA report |
+
+#### Downloadable Resources (PDF & Slides)
+
+| Resource | File |
+|----------|------|
+| 📖 Complete Tutorial (PDF) | [PDF/Complete-Tutorial.pdf](PDF/Complete-Tutorial.pdf) |
+| 🧪 Lab Workbook (PDF) | [PDF/Lab-Workbook.pdf](PDF/Lab-Workbook.pdf) |
+| 📌 Cheat Sheet (PDF) | [PDF/Cheat-Sheet.pdf](PDF/Cheat-Sheet.pdf) |
+| ❓ FAQs (PDF) | [PDF/FAQs.pdf](PDF/FAQs.pdf) |
+| 📝 Assessment & Answer Key (PDF) | [PDF/Assessment.pdf](PDF/Assessment.pdf) |
+| 🎓 Lecture Slides (PPTX) | [PPTX/DNA_Replication_Complete_Lecture.pptx](PPTX/DNA_Replication_Complete_Lecture.pptx) |
 
 ---
 
@@ -151,5 +170,11 @@ This teaching package is designed for educational use. Students should understan
 
 ---
 
-*Last updated: August 2026*
+### Credits
+
+**Instructor:** Dr. Saira Azam — Assistant Professor, Centre of Excellence in Molecular Biology, University of the Punjab, Lahore.
+
+---
+
+*Last updated: September 2026*
 *Designed for university-level Molecular Biology courses*

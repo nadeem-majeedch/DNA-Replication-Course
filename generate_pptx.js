@@ -2,7 +2,8 @@ const pptxgen = require('pptxgenjs');
 
 const pptx = new pptxgen();
 pptx.layout = 'LAYOUT_WIDE';
-pptx.author = 'Molecular Biology Course';
+pptx.author = 'Dr. Saira Azam';
+pptx.company = 'Centre of Excellence in Molecular Biology, University of the Punjab, Lahore';
 pptx.subject = 'DNA Replication in Prokaryotes and Eukaryotes';
 pptx.title = 'DNA Replication — Complete Lecture Series';
 
@@ -24,9 +25,14 @@ const COLORS = {
 // Helper functions
 function addTitleSlide(title, subtitle) {
   pptx.addSlide().addText([
-    { text: title, options: { fontSize: 36, color: COLORS.white, bold: true, breakLine: true } },
-    { text: subtitle, options: { fontSize: 18, color: COLORS.light, italic: true } }
-  ], { x: '5%', y: '25%', w: '90%', h: '50%', align: 'center', valign: 'middle', fill: { color: COLORS.primary } });
+    { text: title, options: { fontSize: 34, color: COLORS.white, bold: true, breakLine: true } },
+    { text: subtitle, options: { fontSize: 17, color: COLORS.light, italic: true, breakLine: true } },
+    { text: '', options: { fontSize: 10, breakLine: true } },
+    { text: 'Dr. Saira Azam', options: { fontSize: 20, color: COLORS.white, bold: true, breakLine: true } },
+    { text: 'Assistant Professor', options: { fontSize: 14, color: COLORS.light, breakLine: true } },
+    { text: 'Centre of Excellence in Molecular Biology', options: { fontSize: 13, color: COLORS.light, breakLine: true } },
+    { text: 'University of the Punjab, Lahore', options: { fontSize: 13, color: COLORS.light } }
+  ], { x: '5%', y: '18%', w: '90%', h: '64%', align: 'center', valign: 'middle', fill: { color: COLORS.primary } });
 }
 
 function addSectionSlide(title, moduleNum) {

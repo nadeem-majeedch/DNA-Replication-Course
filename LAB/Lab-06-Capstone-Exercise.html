@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DNA Replication in Prokaryotes and Eukaryotes</title>
+<style>
+:root {
+  --primary: #1B4F72; --secondary: #2E86C1; --accent: #16A085;
+  --dark: #2C3E50; --light: #F4F8FB; --border: #D5E5F1;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  margin: 0; color: #22303c; line-height: 1.65;
+  background: #fbfdff;
+}
+.site-header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff; padding: 1.4rem 1rem 1.2rem; text-align: center;
+}
+.site-header .course-title { font-size: 1.35rem; font-weight: 700; margin: 0; }
+.site-header .crumb { font-size: .8rem; opacity: .85; margin: 0 0 .35rem; }
+.site-header a { color: #fff; text-decoration: none; opacity: .92; }
+.site-header a:hover { text-decoration: underline; opacity: 1; }
+.layout { display: flex; max-width: 1180px; margin: 0 auto; gap: 1.5rem; padding: 1.25rem 1rem; }
+nav.sidebar {
+  flex: 0 0 260px; align-self: flex-start; position: sticky; top: 12px;
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1rem 1.1rem; max-height: calc(100vh - 30px); overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--accent); margin: 1.1rem 0 .35rem;
+}
+nav.sidebar h3:first-of-type { margin-top: 0; }
+nav.sidebar a {
+  display: block; color: var(--primary); text-decoration: none;
+  font-size: .9rem; padding: .28rem .5rem; border-radius: 6px;
+}
+nav.sidebar a:hover { background: var(--light); }
+main.content { flex: 1; min-width: 0; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1.6rem 2rem 2.4rem; }
+main.content.wide { width: 100%; }
+main.content h1 { color: var(--primary); font-size: 1.65rem; border-bottom: 3px solid var(--secondary); padding-bottom: .45rem; }
+main.content h2 { color: var(--secondary); font-size: 1.25rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; margin-top: 2rem; }
+main.content h3 { color: var(--accent); font-size: 1.05rem; margin-top: 1.6rem; }
+main.content table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .9rem; display: block; overflow-x: auto; }
+main.content th, main.content td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; vertical-align: top; }
+main.content th { background: var(--primary); color: #fff; }
+main.content tr:nth-child(even) td { background: var(--light); }
+main.content pre {
+  background: #F4F6F8; border: 1px solid #DDE3E9; border-radius: 8px;
+  padding: .9rem 1.1rem; overflow-x: auto; font-size: .82rem; line-height: 1.45;
+}
+main.content code { background: #F0F2F4; border-radius: 4px; padding: .1rem .35rem; font-size: .88em; }
+main.content pre code { background: none; padding: 0; }
+main.content blockquote { border-left: 4px solid var(--secondary); background: var(--light); margin: 1rem 0; padding: .6rem 1.1rem; border-radius: 0 8px 8px 0; }
+main.content a { color: var(--secondary); }
+main.content img { max-width: 100%; }
+.nav-links { margin-top: 2.4rem; padding-top: 1rem; border-top: 2px solid var(--border); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .92rem; }
+footer.site-footer {
+  text-align: center; padding: 1.6rem 1rem 2.2rem; color: #5a6b7a; font-size: .88rem;
+}
+footer.site-footer .instructor { margin: 0 0 .4rem; color: var(--primary); font-weight: 600; }
+
+/* Landing page */
+.hero {
+  background: linear-gradient(160deg, var(--primary) 0%, var(--secondary) 60%, var(--accent) 100%);
+  color: #fff; padding: 3.4rem 1.2rem 3rem; text-align: center;
+}
+.hero h1 { font-size: 2.1rem; margin: 0 0 .6rem; }
+.hero .tagline { font-size: 1.08rem; font-style: italic; opacity: .95; margin: 0 0 1.8rem; }
+.hero .instructor { color: #fff; background: rgba(255,255,255,.12); display: inline-block; padding: .8rem 1.6rem; border-radius: 10px; line-height: 1.5; }
+.hero .instructor strong { font-size: 1.15rem; }
+.btn {
+  display: inline-block; margin-top: 1.6rem; background: #fff; color: var(--primary);
+  font-weight: 700; padding: .7rem 2rem; border-radius: 999px; text-decoration: none; font-size: 1.05rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+}
+.btn:hover { transform: translateY(-1px); }
+.section-card { max-width: 1080px; margin: 1.4rem auto; padding: 0 1rem; }
+.card {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.3rem 1.5rem; margin-bottom: 1.1rem;
+}
+.card h2 { color: var(--primary); margin-top: 0; font-size: 1.25rem; border-bottom: 2px solid var(--border); padding-bottom: .35rem; }
+.card table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+.card th, .card td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; }
+.card th { background: var(--primary); color: #fff; }
+.card tr:nth-child(even) td { background: var(--light); }
+.card a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+.card a:hover { text-decoration: underline; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.grid .card { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .layout { flex-direction: column; padding: .8rem; }
+  nav.sidebar { position: static; max-height: none; flex-basis: auto; }
+  main.content { padding: 1.1rem 1rem 1.8rem; }
+  .hero h1 { font-size: 1.55rem; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <p class="crumb"><a href="../index.html">Course Home</a></p>
+  <p class="course-title">DNA Replication in Prokaryotes and Eukaryotes</p>
+</header>
+<div class="layout"><nav class="sidebar">
+  <h3>Course</h3>
+  <a href="../README.html">Course Home</a>
+  <a href="../REFERENCES.html">References</a>
+  <h3>Teaching Modules</h3>
+  <a href="../MARKDOWN/01-Introduction-to-DNA-Replication.html">Introduction to DNA Replication</a>
+<a href="../MARKDOWN/02-Core-Concepts.html">Core Concepts of DNA Replication</a>
+<a href="../MARKDOWN/03-Prokaryotic-DNA-Replication.html">Prokaryotic DNA Replication</a>
+<a href="../MARKDOWN/04-Eukaryotic-DNA-Replication.html">Eukaryotic DNA Replication</a>
+<a href="../MARKDOWN/05-Replication-Fidelity-and-Repair.html">Replication Fidelity and Repair</a>
+<a href="../MARKDOWN/06-Telomeres-and-Telomerase.html">Telomeres and Telomerase</a>
+<a href="../MARKDOWN/07-Replication-Stress-and-Checkpoints.html">Replication Stress and Checkpoints</a>
+<a href="../MARKDOWN/08-Prokaryote-vs-Eukaryote.html">Prokaryote vs. Eukaryote Comparison</a>
+<a href="../MARKDOWN/09-Experimental-Methods.html">Experimental Methods</a>
+<a href="../MARKDOWN/10-Data-Analysis-and-Interpretation.html">Data Analysis and Interpretation</a>
+<a href="../MARKDOWN/11-Clinical-and-Biotechnology-Applications.html">Clinical and Biotechnology Applications</a>
+<a href="../MARKDOWN/12-Advanced-Topics.html">Advanced Topics in DNA Replication</a>
+  <h3>Laboratory</h3>
+  <a href="../LAB/Lab-01-DNA-Replication-Concepts.html">Lab 01: DNA Structure and Replication Modeling</a>
+<a href="../LAB/Lab-02-DNA-Quantification.html">Lab 02: DNA Quantification and Quality Assessment</a>
+<a href="../LAB/Lab-03-Gel-Electrophoresis.html">Lab 03: Agarose Gel Electrophoresis</a>
+<a href="../LAB/Lab-04-PCR-and-DNA-Amplification.html">Lab 04: PCR and DNA Amplification</a>
+<a href="../LAB/Lab-05-Replication-Data-Analysis.html">Lab 05: Replication Data Analysis</a>
+<a href="../LAB/Lab-06-Capstone-Exercise.html">Lab 06: Capstone Exercise — Integrated Replication Analysis</a>
+  <h3>Workbook & Data</h3>
+  <a href="../WORKBOOK/DNA-Replication-Lab-Workbook.html">Lab Workbook</a>
+  <a href="../DATA/datasets.html">Datasets</a>
+  <h3>Resources</h3>
+  <a href="../CHEAT-SHEET/DNA-Replication-Cheat-Sheet.html">Cheat Sheet</a>
+  <a href="../FAQ/DNA-Replication-FAQs.html">FAQs</a>
+  <h3>Assessment</h3>
+  <a href="../ASSESSMENT/MCQs.html">DNA Replication — Multiple Choice Questions</a>
+<a href="../ASSESSMENT/Short-Questions.html">DNA Replication — Short Answer Questions</a>
+<a href="../ASSESSMENT/Long-Questions.html">DNA Replication — Long Answer / Essay Questions</a>
+<a href="../ASSESSMENT/Viva-Questions.html">DNA Replication — Viva Voce Questions</a>
+<a href="../ASSESSMENT/Case-Studies.html">DNA Replication — Case Studies</a>
+  <h3>Downloads</h3>
+  <a href="../PDF/Complete-Tutorial.pdf">Complete Tutorial (PDF)</a>
+  <a href="../PDF/Lab-Workbook.pdf">Lab Workbook (PDF)</a>
+  <a href="../PDF/Cheat-Sheet.pdf">Cheat Sheet (PDF)</a>
+  <a href="../PDF/FAQs.pdf">FAQs (PDF)</a>
+  <a href="../PDF/Assessment.pdf">Assessment (PDF)</a>
+  <a href="../PPTX/DNA_Replication_Complete_Lecture.pptx">Lecture Slides (PPTX)</a>
+</nav><main class="content"><h1 id="lab-06-capstone-exercise--integrated-replication-analysis">Lab 06: Capstone Exercise — Integrated Replication Analysis</h1>
+<hr>
+<h2 id="experiment-title">Experiment Title</h2>
+<p>Integrated Analysis of DNA Replication: From Sequence to Clinical Application</p>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<ol>
+<li>Integrate knowledge from all previous modules</li>
+<li>Analyze a complete replication scenario from initiation to termination</li>
+<li>Connect molecular mechanisms to disease phenotypes</li>
+<li>Design experiments to test replication-related hypotheses</li>
+<li>Present findings in a scientific format</li>
+</ol>
+<h2 id="background-theory">Background Theory</h2>
+<p>This capstone exercise brings together:</p>
+<ul>
+<li>Replication initiation (oriC/ORC)</li>
+<li>Elongation (replisome, polymerases)</li>
+<li>Primer processing (Okazaki fragments)</li>
+<li>Fidelity (proofreading, mismatch repair)</li>
+<li>Termination</li>
+<li>Telomere biology</li>
+<li>Replication stress and checkpoints</li>
+<li>Clinical applications</li>
+</ul>
+<h2 id="materials">Materials</h2>
+<ul>
+<li>Computer with internet access</li>
+<li>Provided case datasets (below)</li>
+<li>Whiteboard/paper for diagrams</li>
+<li>Calculator</li>
+</ul>
+<h2 id="safety-considerations">Safety Considerations</h2>
+<ul>
+<li>This is a computational/analytical exercise — no wet-lab hazards</li>
+<li>Follow institutional guidelines for computer and workspace use</li>
+</ul>
+<h2 id="experimental-principle">Experimental Principle</h2>
+<p>Real-world replication problems require integrating multiple concepts. This exercise presents realistic scenarios that require students to apply knowledge from all modules to solve problems.</p>
+<hr>
+<h2 id="part-a-the-e-coli-replication-scenario-30-minutes">Part A: The E. coli Replication Scenario (30 minutes)</h2>
+<h3 id="scenario">Scenario</h3>
+<p>A researcher isolates a new <em>E. coli</em> mutant (strain ΔdnaX) that has a frameshift mutation in the dnaX gene, which encodes the τ and γ subunits of the clamp loader complex.</p>
+<h3 id="data-provided">Data Provided</h3>
+<p><strong>Wild-type vs. Mutant Phenotype:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Wild-type</th>
+<th>ΔdnaX mutant</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Growth rate (doubling time)</td>
+<td>20 min</td>
+<td>90 min</td>
+</tr>
+<tr>
+<td>Mutation rate</td>
+<td>10⁻⁹/bp/div</td>
+<td>10⁻⁷/bp/div</td>
+</tr>
+<tr>
+<td>Okazaki fragment size</td>
+<td>1,500 nt</td>
+<td>200 nt</td>
+</tr>
+<tr>
+<td>Pol III processivity</td>
+<td>&gt;50,000 nt</td>
+<td>~50 nt</td>
+</tr>
+<tr>
+<td>Leading strand synthesis</td>
+<td>Continuous</td>
+<td>Continuous but slow</td>
+</tr>
+<tr>
+<td>Lagging strand synthesis</td>
+<td>Continuous cycling</td>
+<td>Frequent polymerase dissociation</td>
+</tr>
+</tbody></table>
+<h3 id="questions">Questions</h3>
+<ol>
+<li><p><strong>Explain why the mutant has a slower growth rate.</strong></p>
+<ul>
+<li>Consider the role of the clamp loader in processivity</li>
+</ul>
+</li>
+<li><p><strong>Explain why Okazaki fragments are shorter in the mutant.</strong></p>
+<ul>
+<li>What happens when the sliding clamp cannot be loaded efficiently?</li>
+</ul>
+</li>
+<li><p><strong>Why is the mutation rate 100-fold higher in the mutant?</strong></p>
+<ul>
+<li>How does processivity affect fidelity?</li>
+</ul>
+</li>
+<li><p><strong>Design an experiment to test whether adding back functional τ subunit rescues the phenotype.</strong></p>
+</li>
+<li><p><strong>Predict the phenotype if only the γ subunit (not τ) were absent.</strong></p>
+</li>
+</ol>
+<hr>
+<h2 id="part-b-the-cancer-patient-scenario-30-minutes">Part B: The Cancer Patient Scenario (30 minutes)</h2>
+<h3 id="scenario-1">Scenario</h3>
+<p>A 45-year-old patient presents with:</p>
+<ul>
+<li>History of colorectal cancer (age 38)</li>
+<li>Endometrial cancer (age 42)</li>
+<li>Mother had ovarian cancer (age 50)</li>
+<li>Father had gastric cancer (age 55)</li>
+<li>Tumor testing shows microsatellite instability (MSI-High)</li>
+</ul>
+<h3 id="data-provided-1">Data Provided</h3>
+<p><strong>Tumor Molecular Profile:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MSI testing</td>
+<td>MSI-High</td>
+</tr>
+<tr>
+<td>MLH1 expression</td>
+<td>Absent in tumor</td>
+</tr>
+<tr>
+<td>MLH1 promoter methylation</td>
+<td>Negative</td>
+</tr>
+<tr>
+<td>MLH1 germline sequencing</td>
+<td>Heterozygous frameshift mutation</td>
+</tr>
+<tr>
+<td>MSH2 expression</td>
+<td>Present</td>
+</tr>
+<tr>
+<td>MSH6 expression</td>
+<td>Present</td>
+</tr>
+<tr>
+<td>PMS2 expression</td>
+<td>Reduced (likely due to MLH1 loss)</td>
+</tr>
+<tr>
+<td>BRAF V600E</td>
+<td>Negative</td>
+</tr>
+</tbody></table>
+<h3 id="questions-1">Questions</h3>
+<ol>
+<li><p><strong>What is the most likely diagnosis?</strong></p>
+<ul>
+<li>Explain the molecular basis</li>
+</ul>
+</li>
+<li><p><strong>Why is MLH1 promoter methylation negative?</strong></p>
+<ul>
+<li>How does this help distinguish sporadic from hereditary cancer?</li>
+</ul>
+</li>
+<li><p><strong>Explain the mechanism by which MLH1 loss leads to MSI.</strong></p>
+<ul>
+<li>What mismatch repair step is affected?</li>
+</ul>
+</li>
+<li><p><strong>Recommend genetic testing for the patient&#39;s siblings.</strong></p>
+<ul>
+<li>What is the recurrence risk?</li>
+</ul>
+</li>
+<li><p><strong>What immunotherapy might be effective for this patient?</strong></p>
+<ul>
+<li>Explain the mechanism</li>
+</ul>
+</li>
+<li><p><strong>Design a surveillance protocol for this patient.</strong></p>
+</li>
+</ol>
+<hr>
+<h2 id="part-c-the-telomere-mystery-20-minutes">Part C: The Telomere Mystery (20 minutes)</h2>
+<h3 id="scenario-2">Scenario</h3>
+<p>A researcher is studying two cell lines:</p>
+<ul>
+<li><strong>Cell line X</strong>: Normal telomere length, finite lifespan (60 population doublings)</li>
+<li><strong>Cell line Y</strong>: Very short telomeres (~2 kb), enters senescence after 15 population doublings</li>
+</ul>
+<p>The researcher transfects Cell line Y with a retrovirus expressing TERT (telomerase catalytic subunit).</p>
+<h3 id="after-tert-expression">After TERT Expression:</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Cell line Y (before)</th>
+<th>Cell line Y (after TERT)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Telomere length</td>
+<td>2 kb</td>
+<td>Stable at 10 kb after 20 passages</td>
+</tr>
+<tr>
+<td>Population doublings</td>
+<td>15</td>
+<td>&gt;500 (still dividing)</td>
+</tr>
+<tr>
+<td>p53 status</td>
+<td>Wild type</td>
+<td>Wild type</td>
+</tr>
+<tr>
+<td>Senescence markers</td>
+<td>Positive (p21, p16)</td>
+<td>Negative</td>
+</tr>
+<tr>
+<td>Karyotype</td>
+<td>Normal</td>
+<td>Normal initially, then abnormalities</td>
+</tr>
+<tr>
+<td>Soft agar growth</td>
+<td>Negative</td>
+<td>Positive after 100 passages</td>
+</tr>
+</tbody></table>
+<h3 id="questions-2">Questions</h3>
+<ol>
+<li><p><strong>Explain how TERT expression rescues the senescence phenotype.</strong></p>
+</li>
+<li><p><strong>Why does the karyotype eventually become abnormal despite TERT expression?</strong></p>
+</li>
+<li><p><strong>What does the soft agar growth result indicate?</strong></p>
+<ul>
+<li>Has the cell line become transformed?</li>
+</ul>
+</li>
+<li><p><strong>What is the clinical significance of these findings for cancer therapy?</strong></p>
+</li>
+<li><p><strong>Design an experiment to test whether these cells are truly immortalized vs. transformed.</strong></p>
+</li>
+</ol>
+<hr>
+<h2 id="part-d-replication-stress-and-drug-response-20-minutes">Part D: Replication Stress and Drug Response (20 minutes)</h2>
+<h3 id="scenario-3">Scenario</h3>
+<p>A pharmaceutical company is developing a new drug (Drug Z) that inhibits a protein involved in replication fork restart. You are asked to analyze its mechanism.</p>
+<h3 id="data-provided-2">Data Provided</h3>
+<p><strong>Drug Z Effects:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Control</th>
+<th>Drug Z (low dose)</th>
+<th>Drug Z (high dose)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cell viability (24h)</td>
+<td>100%</td>
+<td>85%</td>
+<td>30%</td>
+</tr>
+<tr>
+<td>γH2AX foci</td>
+<td>Low</td>
+<td>Moderate</td>
+<td>High</td>
+</tr>
+<tr>
+<td>pRPA foci</td>
+<td>Low</td>
+<td>High</td>
+<td>Very high</td>
+</tr>
+<tr>
+<td>BRCA1 status</td>
+<td>Wild type</td>
+<td>Wild type</td>
+<td>Wild type</td>
+</tr>
+<tr>
+<td>Cell cycle arrest</td>
+<td>—</td>
+<td>S-phase</td>
+<td>S-phase + G2/M</td>
+</tr>
+<tr>
+<td>Fork speed (fiber assay)</td>
+<td>50 nt/s</td>
+<td>45 nt/s</td>
+<td>30 nt/s</td>
+</tr>
+<tr>
+<td>Fork reversal events</td>
+<td>Low</td>
+<td>High</td>
+<td>Very high</td>
+</tr>
+</tbody></table>
+<h3 id="questions-3">Questions</h3>
+<ol>
+<li><p><strong>Based on the data, what is the likely target of Drug Z?</strong></p>
+<ul>
+<li>Which protein involved in fork restart?</li>
+</ul>
+</li>
+<li><p><strong>Why does Drug Z cause more toxicity in BRCA1-wild-type cells than BRCA1-deficient cells would?</strong></p>
+<ul>
+<li>Consider the synthetic lethal interaction</li>
+</ul>
+</li>
+<li><p><strong>Would Drug Z be effective as a monotherapy? Why or why not?</strong></p>
+</li>
+<li><p><strong>Design a combination therapy strategy using Drug Z.</strong></p>
+</li>
+<li><p><strong>What biomarker would you use to select patients for Drug Z therapy?</strong></p>
+</li>
+</ol>
+<hr>
+<h2 id="expected-results">Expected Results</h2>
+<h3 id="part-a-key-answers">Part A Key Answers</h3>
+<ol>
+<li><strong>Growth rate</strong>: Without functional clamp loader, Pol III processivity drops dramatically → each Okazaki fragment takes much longer to synthesize → overall replication is much slower</li>
+<li><strong>Okazaki fragment size</strong>: Without efficient clamp loading, Pol III dissociates after ~200 nt (vs. &gt;50,000 nt with clamp)</li>
+<li><strong>Mutation rate</strong>: Lower processivity → more frequent polymerase cycling → more opportunities for misincorporation at primer junctions</li>
+<li><strong>Rescue experiment</strong>: Transform ΔdnaX with plasmid expressing wild-type τ → should restore normal growth rate and Okazaki fragment size</li>
+<li><strong>γ-only mutant</strong>: Less severe — τ-specific functions (dimerization, helicase coupling) would be affected, but basic clamp loading (γ function) would remain</li>
+</ol>
+<h3 id="part-b-key-answers">Part B Key Answers</h3>
+<ol>
+<li><strong>Diagnosis</strong>: Lynch syndrome (HNPCC) — germline MLH1 mutation with loss of heterozygosity in tumor</li>
+<li><strong>MLH1 methylation negative</strong>: Sporadic MSI-H typically shows MLH1 promoter methylation; negative methylation + germline mutation = hereditary</li>
+<li><strong>MLH1 loss → MSI</strong>: MLH1-PMS2 (MutLα) complex needed for strand-directed mismatch repair; loss → cannot repair replication errors at microsatellites</li>
+<li><strong>Recurrence risk</strong>: 50% for siblings (autosomal dominant); genetic testing recommended</li>
+<li><strong>Immunotherapy</strong>: Anti-PD-1 (pembrolizumab) — MSI-H tumors have high neoantigen load → respond to immune checkpoint inhibitors</li>
+<li><strong>Surveillance</strong>: Colonoscopy annually from age 20-25; endometrial screening; consider prophylactic surgery</li>
+</ol>
+<h3 id="part-c-key-answers">Part C Key Answers</h3>
+<ol>
+<li><strong>TERT rescue</strong>: TERT extends telomeres → prevents critically short telomeres → prevents senescence entry</li>
+<li><strong>Karyotype abnormalities</strong>: Telomerase prevents telomere-driven crisis but does not prevent other forms of genomic instability; cells can still acquire mutations during extended proliferation</li>
+<li><strong>Soft agar growth</strong>: Anchorage-independent growth = hallmark of transformation; cells have become cancerous</li>
+<li><strong>Clinical significance</strong>: Telomerase inhibition could prevent cancer cell immortalization; telomerase reactivation in normal cells could promote cancer</li>
+<li><strong>Experiment</strong>: Test for tumor formation in nude mice (tumorigenicity assay); karyotype analysis; p53 status</li>
+</ol>
+<h3 id="part-d-key-answers">Part D Key Answers</h3>
+<ol>
+<li><strong>Target</strong>: Likely a fork restart protein (e.g., RAD51, SMARCAL1, or BRCA2) — Drug Z increases fork reversal events</li>
+<li><strong>BRCA1 consideration</strong>: BRCA1-deficient cells already have fork restart defects → Drug Z may add little additional toxicity in BRCA1-deficient cells (but see data — actually, BRCA1 WT cells show more toxicity because Drug Z specifically targets fork restart)</li>
+<li><strong>Monotherapy</strong>: Likely insufficient — would need combination with DNA-damaging agents to exploit the fork restart defect</li>
+<li><strong>Combination</strong>: Drug Z + PARP inhibitor or platinum-based chemotherapy → exploit synthetic lethality</li>
+<li><strong>Biomarker</strong>: γH2AX foci, pRPA foci, fork reversal events in tumor biopsies</li>
+</ol>
+<hr>
+<h2 id="post-lab-questions">Post-Lab Questions</h2>
+<ol>
+<li>How do the three scenarios connect to each other in terms of replication biology?</li>
+<li>What common theme emerges across all four scenarios?</li>
+<li>If you were a pharmaceutical researcher, which scenario would you focus on for drug development? Why?</li>
+<li>How would you design a comprehensive replication profiling panel for a cancer center?</li>
+</ol>
+<h2 id="viva-questions">Viva Questions</h2>
+<ol>
+<li>Explain the connection between replication fidelity and cancer.</li>
+<li>How does the clamp loader mutation affect both replication speed and accuracy?</li>
+<li>Why does MLH1 loss specifically cause microsatellite instability?</li>
+<li>How do telomere biology and replication stress interact in cancer development?</li>
+<li>What is the future of replication-targeted cancer therapy?</li>
+</ol>
+<h2 id="instructor-notes">Instructor Notes</h2>
+<ul>
+<li>This is the culminating exercise — assess all learning objectives</li>
+<li>Allow students to work in groups or individually</li>
+<li>Present findings in a short oral presentation (5 minutes per group)</li>
+<li>Grade on scientific reasoning, not just correct answers</li>
+<li>Discuss how different concepts integrate</li>
+<li>Connect to all previous modules and labs</li>
+</ul>
+<h2 id="related-theory">Related Theory</h2>
+<ul>
+<li><a href="../MARKDOWN/03-Prokaryotic-DNA-Replication.html">Module 03: Prokaryotic Replication</a></li>
+<li><a href="../MARKDOWN/04-Eukaryotic-DNA-Replication.html">Module 04: Eukaryotic Replication</a></li>
+<li><a href="../MARKDOWN/05-Replication-Fidelity-and-Repair.html">Module 05: Fidelity and Repair</a></li>
+<li><a href="../MARKDOWN/06-Telomeres-and-Telomerase.html">Module 06: Telomeres</a></li>
+<li><a href="../MARKDOWN/07-Replication-Stress-and-Checkpoints.html">Module 07: Replication Stress</a></li>
+<li><a href="../MARKDOWN/11-Clinical-and-Biotechnology-Applications.html">Module 11: Clinical Applications</a></li>
+<li><a href="../MARKDOWN/12-Advanced-Topics.html">Module 12: Advanced Topics</a></li>
+</ul>
+</main></div>
+<footer class="site-footer">
+  <p class="instructor">Dr. Saira Azam — Assistant Professor, Centre of Excellence in Molecular Biology, University of the Punjab, Lahore</p>
+  <p>DNA Replication in Prokaryotes and Eukaryotes · A Complete Molecular Biology Teaching and Learning Module</p>
+</footer>
+</body>
+</html>

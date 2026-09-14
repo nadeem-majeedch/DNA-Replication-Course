@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DNA Replication in Prokaryotes and Eukaryotes</title>
+<style>
+:root {
+  --primary: #1B4F72; --secondary: #2E86C1; --accent: #16A085;
+  --dark: #2C3E50; --light: #F4F8FB; --border: #D5E5F1;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  margin: 0; color: #22303c; line-height: 1.65;
+  background: #fbfdff;
+}
+.site-header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff; padding: 1.4rem 1rem 1.2rem; text-align: center;
+}
+.site-header .course-title { font-size: 1.35rem; font-weight: 700; margin: 0; }
+.site-header .crumb { font-size: .8rem; opacity: .85; margin: 0 0 .35rem; }
+.site-header a { color: #fff; text-decoration: none; opacity: .92; }
+.site-header a:hover { text-decoration: underline; opacity: 1; }
+.layout { display: flex; max-width: 1180px; margin: 0 auto; gap: 1.5rem; padding: 1.25rem 1rem; }
+nav.sidebar {
+  flex: 0 0 260px; align-self: flex-start; position: sticky; top: 12px;
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1rem 1.1rem; max-height: calc(100vh - 30px); overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--accent); margin: 1.1rem 0 .35rem;
+}
+nav.sidebar h3:first-of-type { margin-top: 0; }
+nav.sidebar a {
+  display: block; color: var(--primary); text-decoration: none;
+  font-size: .9rem; padding: .28rem .5rem; border-radius: 6px;
+}
+nav.sidebar a:hover { background: var(--light); }
+main.content { flex: 1; min-width: 0; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1.6rem 2rem 2.4rem; }
+main.content.wide { width: 100%; }
+main.content h1 { color: var(--primary); font-size: 1.65rem; border-bottom: 3px solid var(--secondary); padding-bottom: .45rem; }
+main.content h2 { color: var(--secondary); font-size: 1.25rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; margin-top: 2rem; }
+main.content h3 { color: var(--accent); font-size: 1.05rem; margin-top: 1.6rem; }
+main.content table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .9rem; display: block; overflow-x: auto; }
+main.content th, main.content td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; vertical-align: top; }
+main.content th { background: var(--primary); color: #fff; }
+main.content tr:nth-child(even) td { background: var(--light); }
+main.content pre {
+  background: #F4F6F8; border: 1px solid #DDE3E9; border-radius: 8px;
+  padding: .9rem 1.1rem; overflow-x: auto; font-size: .82rem; line-height: 1.45;
+}
+main.content code { background: #F0F2F4; border-radius: 4px; padding: .1rem .35rem; font-size: .88em; }
+main.content pre code { background: none; padding: 0; }
+main.content blockquote { border-left: 4px solid var(--secondary); background: var(--light); margin: 1rem 0; padding: .6rem 1.1rem; border-radius: 0 8px 8px 0; }
+main.content a { color: var(--secondary); }
+main.content img { max-width: 100%; }
+.nav-links { margin-top: 2.4rem; padding-top: 1rem; border-top: 2px solid var(--border); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .92rem; }
+footer.site-footer {
+  text-align: center; padding: 1.6rem 1rem 2.2rem; color: #5a6b7a; font-size: .88rem;
+}
+footer.site-footer .instructor { margin: 0 0 .4rem; color: var(--primary); font-weight: 600; }
+
+/* Landing page */
+.hero {
+  background: linear-gradient(160deg, var(--primary) 0%, var(--secondary) 60%, var(--accent) 100%);
+  color: #fff; padding: 3.4rem 1.2rem 3rem; text-align: center;
+}
+.hero h1 { font-size: 2.1rem; margin: 0 0 .6rem; }
+.hero .tagline { font-size: 1.08rem; font-style: italic; opacity: .95; margin: 0 0 1.8rem; }
+.hero .instructor { color: #fff; background: rgba(255,255,255,.12); display: inline-block; padding: .8rem 1.6rem; border-radius: 10px; line-height: 1.5; }
+.hero .instructor strong { font-size: 1.15rem; }
+.btn {
+  display: inline-block; margin-top: 1.6rem; background: #fff; color: var(--primary);
+  font-weight: 700; padding: .7rem 2rem; border-radius: 999px; text-decoration: none; font-size: 1.05rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+}
+.btn:hover { transform: translateY(-1px); }
+.section-card { max-width: 1080px; margin: 1.4rem auto; padding: 0 1rem; }
+.card {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.3rem 1.5rem; margin-bottom: 1.1rem;
+}
+.card h2 { color: var(--primary); margin-top: 0; font-size: 1.25rem; border-bottom: 2px solid var(--border); padding-bottom: .35rem; }
+.card table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+.card th, .card td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; }
+.card th { background: var(--primary); color: #fff; }
+.card tr:nth-child(even) td { background: var(--light); }
+.card a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+.card a:hover { text-decoration: underline; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.grid .card { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .layout { flex-direction: column; padding: .8rem; }
+  nav.sidebar { position: static; max-height: none; flex-basis: auto; }
+  main.content { padding: 1.1rem 1rem 1.8rem; }
+  .hero h1 { font-size: 1.55rem; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <p class="crumb"><a href="../index.html">Course Home</a></p>
+  <p class="course-title">DNA Replication in Prokaryotes and Eukaryotes</p>
+</header>
+<div class="layout"><nav class="sidebar">
+  <h3>Course</h3>
+  <a href="../README.html">Course Home</a>
+  <a href="../REFERENCES.html">References</a>
+  <h3>Teaching Modules</h3>
+  <a href="../MARKDOWN/01-Introduction-to-DNA-Replication.html">Introduction to DNA Replication</a>
+<a href="../MARKDOWN/02-Core-Concepts.html">Core Concepts of DNA Replication</a>
+<a href="../MARKDOWN/03-Prokaryotic-DNA-Replication.html">Prokaryotic DNA Replication</a>
+<a href="../MARKDOWN/04-Eukaryotic-DNA-Replication.html">Eukaryotic DNA Replication</a>
+<a href="../MARKDOWN/05-Replication-Fidelity-and-Repair.html">Replication Fidelity and Repair</a>
+<a href="../MARKDOWN/06-Telomeres-and-Telomerase.html">Telomeres and Telomerase</a>
+<a href="../MARKDOWN/07-Replication-Stress-and-Checkpoints.html">Replication Stress and Checkpoints</a>
+<a href="../MARKDOWN/08-Prokaryote-vs-Eukaryote.html">Prokaryote vs. Eukaryote Comparison</a>
+<a href="../MARKDOWN/09-Experimental-Methods.html">Experimental Methods</a>
+<a href="../MARKDOWN/10-Data-Analysis-and-Interpretation.html">Data Analysis and Interpretation</a>
+<a href="../MARKDOWN/11-Clinical-and-Biotechnology-Applications.html">Clinical and Biotechnology Applications</a>
+<a href="../MARKDOWN/12-Advanced-Topics.html">Advanced Topics in DNA Replication</a>
+  <h3>Laboratory</h3>
+  <a href="../LAB/Lab-01-DNA-Replication-Concepts.html">Lab 01: DNA Structure and Replication Modeling</a>
+<a href="../LAB/Lab-02-DNA-Quantification.html">Lab 02: DNA Quantification and Quality Assessment</a>
+<a href="../LAB/Lab-03-Gel-Electrophoresis.html">Lab 03: Agarose Gel Electrophoresis</a>
+<a href="../LAB/Lab-04-PCR-and-DNA-Amplification.html">Lab 04: PCR and DNA Amplification</a>
+<a href="../LAB/Lab-05-Replication-Data-Analysis.html">Lab 05: Replication Data Analysis</a>
+<a href="../LAB/Lab-06-Capstone-Exercise.html">Lab 06: Capstone Exercise — Integrated Replication Analysis</a>
+  <h3>Workbook & Data</h3>
+  <a href="../WORKBOOK/DNA-Replication-Lab-Workbook.html">Lab Workbook</a>
+  <a href="../DATA/datasets.html">Datasets</a>
+  <h3>Resources</h3>
+  <a href="../CHEAT-SHEET/DNA-Replication-Cheat-Sheet.html">Cheat Sheet</a>
+  <a href="../FAQ/DNA-Replication-FAQs.html">FAQs</a>
+  <h3>Assessment</h3>
+  <a href="../ASSESSMENT/MCQs.html">DNA Replication — Multiple Choice Questions</a>
+<a href="../ASSESSMENT/Short-Questions.html">DNA Replication — Short Answer Questions</a>
+<a href="../ASSESSMENT/Long-Questions.html">DNA Replication — Long Answer / Essay Questions</a>
+<a href="../ASSESSMENT/Viva-Questions.html">DNA Replication — Viva Voce Questions</a>
+<a href="../ASSESSMENT/Case-Studies.html">DNA Replication — Case Studies</a>
+  <h3>Downloads</h3>
+  <a href="../PDF/Complete-Tutorial.pdf">Complete Tutorial (PDF)</a>
+  <a href="../PDF/Lab-Workbook.pdf">Lab Workbook (PDF)</a>
+  <a href="../PDF/Cheat-Sheet.pdf">Cheat Sheet (PDF)</a>
+  <a href="../PDF/FAQs.pdf">FAQs (PDF)</a>
+  <a href="../PDF/Assessment.pdf">Assessment (PDF)</a>
+  <a href="../PPTX/DNA_Replication_Complete_Lecture.pptx">Lecture Slides (PPTX)</a>
+</nav><main class="content"><h1 id="module-04-eukaryotic-dna-replication">Module 04: Eukaryotic DNA Replication</h1>
+<hr>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<ol>
+<li>Describe the features of eukaryotic genomes relevant to replication</li>
+<li>Explain the concept of replication licensing and how it prevents re-replication</li>
+<li>Describe the roles of ORC, Cdc6, Cdt1, and MCM2-7</li>
+<li>Explain the activation of the CMG helicase</li>
+<li>Describe the functions of Pol α, Pol δ, and Pol ε</li>
+<li>Explain the eukaryotic replisome and polymerase switching</li>
+<li>Describe Okazaki fragment processing in eukaryotes</li>
+<li>Explain chromatin remodeling during replication</li>
+<li>Describe the end-replication problem and telomere biology</li>
+<li>Explain S-phase regulation and replication checkpoints</li>
+</ol>
+<hr>
+<h2 id="overview-eukaryotic-replication-complexity">Overview: Eukaryotic Replication Complexity</h2>
+<h3 id="key-differences-from-prokaryotes">Key Differences from Prokaryotes</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>E. coli</th>
+<th>Human</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Genome size</td>
+<td>4.6 × 10⁶ bp</td>
+<td>3.2 × 10⁹ bp</td>
+</tr>
+<tr>
+<td>Chromosome</td>
+<td>1 (circular)</td>
+<td>46 (linear)</td>
+</tr>
+<tr>
+<td>Origins</td>
+<td>1 (oriC)</td>
+<td>30,000–50,000</td>
+</tr>
+<tr>
+<td>Replication time</td>
+<td>40 min</td>
+<td>6–8 hours (S phase)</td>
+</tr>
+<tr>
+<td>Fork speed</td>
+<td>1,000 nt/s</td>
+<td>~50 nt/s</td>
+</tr>
+<tr>
+<td>Okazaki fragments</td>
+<td>1,000–2,000 nt</td>
+<td>100–200 nt</td>
+</tr>
+<tr>
+<td>Chromatin</td>
+<td>No (nucleoid)</td>
+<td>Yes (nucleosomes)</td>
+</tr>
+<tr>
+<td>Telomeres</td>
+<td>Not needed</td>
+<td>Required</td>
+</tr>
+</tbody></table>
+<h3 id="why-eukaryotic-replication-is-different">Why Eukaryotic Replication is Different</h3>
+<ol>
+<li><strong>Genome size</strong>: 3.2 × 10⁹ bp would take ~53 hours to replicate from a single origin at 50 nt/s → multiple origins solve this</li>
+<li><strong>Linear chromosomes</strong>: Create end-replication problem → telomeres and telomerase</li>
+<li><strong>Chromatin</strong>: DNA is packaged into nucleosomes → must disassemble and reassemble during replication</li>
+<li><strong>Cell-cycle regulation</strong>: Must ensure each origin fires once per cell cycle → licensing system</li>
+<li><strong>Multiple polymerases</strong>: Different polymerases for different tasks → polymerase switching</li>
+</ol>
+<hr>
+<h2 id="1-replication-licensing">1. Replication Licensing</h2>
+<h3 id="concept">Concept</h3>
+<p><strong>Replication licensing</strong> is the mechanism that ensures each origin of replication fires <strong>exactly once</strong> per cell cycle. This prevents re-replication, which would cause gene amplification and genome instability.</p>
+<h3 id="why-it-matters">Why It Matters</h3>
+<p>Re-replication can lead to:</p>
+<ul>
+<li>Gene amplification</li>
+<li>DNA damage (recombination between repeated sequences)</li>
+<li>Chromosome breaks</li>
+<li>Cell death or cancer</li>
+</ul>
+<h3 id="the-two-step-model">The Two-Step Model</h3>
+<pre><code>REPLICATION LICENSING
+═════════════════════
+
+G1 PHASE: LICENSING (assembly of pre-replication complex)
+───────────────────────────────────────────────────────
+    Origin → ORC binds → Cdc6 + Cdt1 recruit → MCM2-7 loaded
+    Origin is &quot;licensed&quot; (ready to fire)
+    
+    ✓ Multiple MCM2-7 complexes loaded per origin (bimolecular)
+    ✓ Each origin loaded with 2 MCM helicases (one per fork)
+    ✓ Origin is NOW competent to initiate replication
+    
+S PHASE: ACTIVATION (firing of licensed origins)
+───────────────────────────────────────────────
+    CDK + DDK phosphorylate MCM and other factors
+    → Cdc45 and GINS loaded → CMG helicase forms
+    → Origin fires → replication begins
+    → ORC is displaced
+    → Cdc6 is degraded
+    → Cdt1 is degraded/inhibited
+    
+    ✗ Cannot re-license in S phase (CDK prevents new MCM loading)
+    
+G2/M PHASE: LICENSING CANNOT OCCUR
+─────────────────────────────────
+    High CDK activity prevents new pre-RC assembly
+    → No re-replication
+</code></pre>
+<h3 id="key-rule">Key Rule</h3>
+<blockquote>
+<p><strong>CDK activity switches the system between licensing (low CDK → G1) and firing (high CDK → S/G2/M).</strong> This mutual exclusivity ensures no origin fires twice.</p>
+</blockquote>
+<hr>
+<h2 id="2-origin-recognition-complex-orc">2. Origin Recognition Complex (ORC)</h2>
+<h3 id="concept-1">Concept</h3>
+<p>ORC is a six-subunit (Orc1-6) ATPase complex that serves as the landing pad for replication initiation factors at origins of replication.</p>
+<h3 id="why-it-matters-1">Why It Matters</h3>
+<p>ORC is the <strong>first protein</strong> to bind at replication origins — it marks where replication will begin and recruits all subsequent factors.</p>
+<h3 id="function">Function</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Subunits</td>
+<td>Orc1-6 (AAA+ ATPase family)</td>
+</tr>
+<tr>
+<td>ATP binding</td>
+<td>Required for origin binding</td>
+</tr>
+<tr>
+<td>ATP hydrolysis</td>
+<td>Required for MCM loading</td>
+</tr>
+<tr>
+<td>Conservation</td>
+<td>Highly conserved from yeast to humans</td>
+</tr>
+<tr>
+<td>Binding preference</td>
+<td>More sequence-dependent in yeast (ARS consensus); less defined in metazoans</td>
+</tr>
+</tbody></table>
+<h3 id="mechanism">Mechanism</h3>
+<ol>
+<li>ORC binds origin DNA (ATP-dependent)</li>
+<li>ORC recruits Cdc6 (ATPase, loads with ORC)</li>
+<li>ORC-Cdc6 complex recruits Cdt1</li>
+<li>Cdt1 delivers MCM2-7 double hexamer</li>
+<li>ORC-Cdc6 hydrolyze ATP → MCM released from loader</li>
+<li>Origin is licensed</li>
+</ol>
+<h3 id="human-vs-yeast-orc">Human vs. Yeast ORC</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Yeast (S. cerevisiae)</th>
+<th>Human</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Origin definition</td>
+<td>Strict ARS consensus sequence (ACS)</td>
+<td>Loose; chromatin-dependent</td>
+</tr>
+<tr>
+<td>ORC binding</td>
+<td>Sequence-specific</td>
+<td>Less sequence-specific</td>
+</tr>
+<tr>
+<td>Origin efficiency</td>
+<td>High, predictable</td>
+<td>Variable, context-dependent</td>
+</tr>
+<tr>
+<td>ORC subunits</td>
+<td>Orc1-6</td>
+<td>Orc1-6</td>
+</tr>
+<tr>
+<td>Licensing in G1</td>
+<td>Yes</td>
+<td>Yes (with some differences)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="3-cdc6-and-cdt1">3. Cdc6 and Cdt1</h2>
+<h3 id="cdc6">Cdc6</h3>
+<p><strong>Cdc6</strong> (Cell division cycle 6) is an AAA+ ATPase that works with ORC to load MCM2-7 helicases.</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Binds ORC</td>
+<td>Forms ORC-Cdc6 complex</td>
+</tr>
+<tr>
+<td>ATP binding</td>
+<td>Required for MCM loading</td>
+</tr>
+<tr>
+<td>ATP hydrolysis</td>
+<td>Releases MCM after loading</td>
+</tr>
+<tr>
+<td>Regulation</td>
+<td>Degradered in S phase by SCF ubiquitin ligase</td>
+</tr>
+<tr>
+<td>Gene name</td>
+<td>CDC6 (conserved)</td>
+</tr>
+</tbody></table>
+<h3 id="cdt1">Cdt1</h3>
+<p><strong>Cdt1</strong> (Chromatin licensing and DNA replication factor 1) is the direct MCM loader.</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Binds MCM2-7</td>
+<td>Directly interacts with MCM</td>
+</tr>
+<tr>
+<td>Delivers MCM</td>
+<td>Bridges ORC-Cdc6 to MCM2-7</td>
+</tr>
+<tr>
+<td>Regulation</td>
+<td>Inhibited by geminin in S/G2/M</td>
+</tr>
+<tr>
+<td>Gene name</td>
+<td>CDT1 (conserved)</td>
+</tr>
+</tbody></table>
+<h3 id="cdt1-inhibition--the-geminin-pathway">Cdt1 Inhibition — The Geminin Pathway</h3>
+<pre><code>GEMININ REGULATION OF LICENSING
+═══════════════════════════════
+
+G1 PHASE:
+    Cdt1 active → MCM loaded → Origin licensed
+    
+S PHASE:
+    Geminin accumulates (produced after licensing)
+    Geminin binds Cdt1 → inhibits MCM loading
+    Cdc6 degraded by SCF
+    → No new licensing possible
+    
+M PHASE → G1:
+    Geminin degraded by APC/C (anaphase-promoting complex)
+    → Cdt1 released → can license new origins in next G1
+</code></pre>
+<hr>
+<h2 id="4-mcm2-7-helicase">4. MCM2-7 Helicase</h2>
+<h3 id="concept-2">Concept</h3>
+<p>MCM2-7 (Minichromosome Maintenance 2-7) is the replicative helicase in eukaryotes. It is loaded as an inactive double hexamer at origins and activated during S phase to unwind DNA.</p>
+<h3 id="why-it-matters-2">Why It Matters</h3>
+<p>MCM2-7 is the <strong>engine</strong> of the eukaryotic replisome — it provides the unwinding activity that drives fork progression. Understanding MCM is essential for understanding eukaryotic replication.</p>
+<h3 id="structure">Structure</h3>
+<pre><code>MCM2-7 DOUBLE HEXAMER (at licensed origin)
+══════════════════════════════════════════
+
+    ┌──────────────┐
+    │  MCM2  MCM3  │
+    │  MCM5  MCM4  │   Hexamer 1
+    │  MCM7  MCM6  │
+    └──────┬───────┘
+           │ ← N-terminal faces
+    ┌──────┴───────┐
+    │  MCM2  MCM3  │
+    │  MCM5  MCM4  │   Hexamer 2
+    │  MCM7  MCM6  │
+    └──────────────┘
+    
+- Loaded as double hexamer (head-to-head)
+- Each hexamer encircles one strand of dsDNA
+- Inactive until activated by CDK/DDK + Cdc45/GINS
+- When activated → CMG helicase forms
+</code></pre>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Subunits</td>
+<td>MCM2, MCM3, MCM4, MCM5, MCM6, MCM7</td>
+</tr>
+<tr>
+<td>ATPase</td>
+<td>AAA+ family ATPase</td>
+</tr>
+<tr>
+<td>Helicase direction</td>
+<td>5&#39;→3&#39; (on the lagging strand template)</td>
+</tr>
+<tr>
+<td>Processivity</td>
+<td>Very high (can unwind &gt;10 kb)</td>
+</tr>
+<tr>
+<td>Regulation</td>
+<td>Inactive until phosphorylated by DDK + CDK</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="5-cmg-helicase--activation">5. CMG Helicase — Activation</h2>
+<h3 id="concept-3">Concept</h3>
+<p><strong>CMG</strong> (Cdc45-MCM-GINS) is the active replicative helicase in eukaryotes. It forms when Cdc45 and the GINS complex bind to the phosphorylated MCM2-7 hexamer.</p>
+<h3 id="formation-of-cmg">Formation of CMG</h3>
+<pre><code>CMG ACTIVATION (S-phase)
+═════════════════════════
+
+Step 1: DDK (Dbf4-dependent kinase) phosphorylates MCM2-7
+Step 2: CDK (Cyclin-dependent kinase) phosphorylates additional targets
+Step 3: Cdc45 binds (one per MCM hexamer)
+Step 4: GINS complex (Sld5-Psf1-Psf2-Psf3) binds
+Step 5: CMG helicase = Cdc45 + MCM2-7 + GINS
+Step 6: CMG is now active — begins unwinding
+
+    Before: Inactive MCM double hexamer
+    After: Two active CMG helicases (one per fork)
+</code></pre>
+<h3 id="properties-of-cmg">Properties of CMG</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Components</td>
+<td>Cdc45, MCM2-7, GINS</td>
+</tr>
+<tr>
+<td>Helicase direction</td>
+<td>5&#39;→3&#39; on the leading strand template</td>
+</tr>
+<tr>
+<td>Unwinding mechanism</td>
+<td>Encircles lagging strand template, translocates 5&#39;→3&#39;</td>
+</tr>
+<tr>
+<td>Processivity</td>
+<td>Very high</td>
+</tr>
+<tr>
+<td>Regulation</td>
+<td>Requires CDK + DDK for activation</td>
+</tr>
+</tbody></table>
+<h3 id="gins-complex">GINS Complex</h3>
+<p><strong>GINS</strong> stands for Go-Ichi-Ni-San (5-1-2-3 in Japanese), referring to the subunit numbers:</p>
+<ul>
+<li>Sld5 (GINS5)</li>
+<li>Psf1 (GINS1)</li>
+<li>Psf2 (GINS2)</li>
+<li>Psf3 (GINS3)</li>
+</ul>
+<hr>
+<h2 id="6-replication-factors-a-rpa">6. Replication Factors A (RPA)</h2>
+<h3 id="concept-4">Concept</h3>
+<p><strong>RPA</strong> (Replication Protein A) is the eukaryotic single-strand binding protein. It binds and stabilizes single-stranded DNA at the replication fork.</p>
+<h3 id="why-it-matters-3">Why It Matters</h3>
+<p>RPA:</p>
+<ul>
+<li>Prevents ssDNA from forming secondary structures (hairpins, G-quadruplexes)</li>
+<li>Protects ssDNA from nucleolytic degradation</li>
+<li>Coordinates multiple replication and repair factors</li>
+<li>Essential for fork stability</li>
+</ul>
+<h3 id="properties-1">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Subunits</td>
+<td>RPA1 (70 kDa), RPA2 (32 kDa), RPA3 (14 kDa)</td>
+</tr>
+<tr>
+<td>DNA binding</td>
+<td>RPA1 has 4 OB-fold DNA binding domains</td>
+</tr>
+<tr>
+<td>Binding mode</td>
+<td>Binds ssDNA cooperatively</td>
+</tr>
+<tr>
+<td>Equivalent in bacteria</td>
+<td>SSB (single-strand binding protein)</td>
+</tr>
+<tr>
+<td>Additional roles</td>
+<td>DNA repair, checkpoint signaling</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="7-eukaryotic-dna-polymerases">7. Eukaryotic DNA Polymerases</h2>
+<h3 id="overview">Overview</h3>
+<p>Eukaryotes use <strong>three major replicative polymerases</strong> and several specialized polymerases:</p>
+<table>
+<thead>
+<tr>
+<th>Polymerase</th>
+<th>Function</th>
+<th>Location</th>
+<th>Size</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Pol α/primase</strong></td>
+<td>Initiates synthesis; makes RNA-DNA primer</td>
+<td>Nucleus</td>
+<td>~350 kDa</td>
+</tr>
+<tr>
+<td><strong>Pol ε</strong></td>
+<td>Leading strand synthesis</td>
+<td>Nucleus</td>
+<td>~350 kDa</td>
+</tr>
+<tr>
+<td><strong>Pol δ</strong></td>
+<td>Lagging strand synthesis + repair</td>
+<td>Nucleus</td>
+<td>~240 kDa</td>
+</tr>
+<tr>
+<td>Pol β</td>
+<td>Base excision repair</td>
+<td>Nucleus</td>
+<td>39 kDa</td>
+</tr>
+<tr>
+<td>Pol γ</td>
+<td>Mitochondrial DNA replication</td>
+<td>Mitochondria</td>
+<td>~200 kDa</td>
+</tr>
+<tr>
+<td>Pol η, κ, ι, Rev1</td>
+<td>Translesion synthesis (error-prone)</td>
+<td>Nucleus</td>
+<td>Various</td>
+</tr>
+<tr>
+<td>Pol ζ</td>
+<td>Translesion synthesis (extension)</td>
+<td>Nucleus</td>
+<td>~350 kDa</td>
+</tr>
+</tbody></table>
+<h3 id="pol-αprimase-complex">Pol α/Primase Complex</h3>
+<pre><code>POL α/PRIMASE COMPLEX
+══════════════════════
+
+    ┌───────────────────────┐
+    │   Primase             │
+    │   (p48 + p58)         │ ← Synthesizes RNA primer (~8-12 nt)
+    │        ↓              │
+    │   Pol α (p180)        │ ← Extends primer with ~20 nt DNA
+    │   + Pol α-B subunit   │
+    └───────────────────────┘
+    
+- Makes RNA-DNA hybrid primer (primosome)
+- RNA primer: ~8-12 nt
+- DNA extension: ~20 nt  
+- Total primer: ~20-30 nt
+- Lacks 3&#39;→5&#39; exonuclease (NO proofreading)
+- Initiates both leading and lagging strand synthesis
+- Switched to Pol ε/δ after primer is made
+</code></pre>
+<h3 id="pol-ε--leading-strand">Pol ε — Leading Strand</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Function</td>
+<td>Leading strand synthesis</td>
+</tr>
+<tr>
+<td>Processivity</td>
+<td>High (with PCNA)</td>
+</tr>
+<tr>
+<td>Proofreading</td>
+<td>Yes (3&#39;→5&#39; exonuclease)</td>
+</tr>
+<tr>
+<td>Regulation</td>
+<td>CDK phosphorylation activates</td>
+</tr>
+<tr>
+<td>Proofreading mutant</td>
+<td>Reduced fidelity → mutator phenotype</td>
+</tr>
+</tbody></table>
+<h3 id="pol-δ--lagging-strand">Pol δ — Lagging Strand</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Function</td>
+<td>Lagging strand synthesis + repair</td>
+</tr>
+<tr>
+<td>Processivity</td>
+<td>High (with PCNA)</td>
+</tr>
+<tr>
+<td>Proofreading</td>
+<td>Yes (3&#39;→5&#39; exonuclease)</td>
+</tr>
+<tr>
+<td>Regulation</td>
+<td>Pol δ is distributive without PCNA</td>
+</tr>
+<tr>
+<td>Additional role</td>
+<td>Okazaki fragment extension after Pol α</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="8-pcna--eukaryotic-sliding-clamp">8. PCNA — Eukaryotic Sliding Clamp</h2>
+<h3 id="concept-5">Concept</h3>
+<p><strong>PCNA</strong> (Proliferating Cell Nuclear Antigen) is the eukaryotic sliding clamp. It is a <strong>homotrimer</strong> forming a ring structure that encircles DNA and tethers polymerases to the template.</p>
+<h3 id="comparison-with-prokaryotic-β-clamp">Comparison with Prokaryotic β Clamp</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>β Clamp (E. coli)</th>
+<th>PCNA (Eukaryotes)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Structure</td>
+<td>Homodimer</td>
+<td>Homotrimer</td>
+</tr>
+<tr>
+<td>Symmetry</td>
+<td>6-fold</td>
+<td>3-fold</td>
+</tr>
+<tr>
+<td>Inner diameter</td>
+<td>~35 Å</td>
+<td>~35 Å</td>
+</tr>
+<tr>
+<td>Outer diameter</td>
+<td>~80 Å</td>
+<td>~80 Å</td>
+</tr>
+<tr>
+<td>Cofactor</td>
+<td>—</td>
+<td>— (loaded by RFC)</td>
+</tr>
+<tr>
+<td>Recruitment of Pol</td>
+<td>Via τ subunit</td>
+<td>Direct interaction with Pol δ/ε</td>
+</tr>
+</tbody></table>
+<h3 id="pcna-interacting-proteins">PCNA Interacting Proteins</h3>
+<p>PCNA interacts with many proteins via a <strong>PCNA-interacting protein (PIP) motif</strong>:</p>
+<ul>
+<li>DNA polymerases (Pol δ, Pol ε)</li>
+<li>FEN1 (Okazaki fragment processing)</li>
+<li>DNA ligase I</li>
+<li>CDK inhibitors (p21)</li>
+<li>Mismatch repair proteins</li>
+<li>Chromatin assembly factors (CAF-1)</li>
+</ul>
+<hr>
+<h2 id="9-rfc--eukaryotic-clamp-loader">9. RFC — Eukaryotic Clamp Loader</h2>
+<h3 id="concept-6">Concept</h3>
+<p><strong>RFC</strong> (Replication Factor C) is the eukaryotic clamp loader that loads PCNA onto primer-template junctions.</p>
+<h3 id="structure-and-mechanism">Structure and Mechanism</h3>
+<table>
+<thead>
+<tr>
+<th>Subunit</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RFC1 (p145)</td>
+<td>Large subunit; ATPase</td>
+</tr>
+<tr>
+<td>RFC2 (p40)</td>
+<td>Small subunit</td>
+</tr>
+<tr>
+<td>RFC3 (p37)</td>
+<td>Small subunit</td>
+</tr>
+<tr>
+<td>RFC4 (p36)</td>
+<td>Small subunit</td>
+</tr>
+<tr>
+<td>RFC5 (p33)</td>
+<td>Small subunit</td>
+</tr>
+</tbody></table>
+<p><strong>Mechanism</strong>:</p>
+<ol>
+<li>RFC binds ATP → opens PCNA ring</li>
+<li>RFC-PCNA complex binds primer-template junction</li>
+<li>ATP hydrolysis → PCNA closes around DNA</li>
+<li>RFC releases</li>
+<li>DNA polymerase binds PCNA</li>
+</ol>
+<hr>
+<h2 id="10-eukaryotic-replication-fork">10. Eukaryotic Replication Fork</h2>
+<h3 id="complete-replisome">Complete Replisome</h3>
+<pre><code>EUKARYOTIC REPLICATION FORK
+═══════════════════════════
+
+Direction of fork movement →
+
+         CMG Helicase
+    (Cdc45-MCM2-7-GINS)
+         │
+    ═════╪═══════════════════
+    ← Unwinding →
+         │
+    ╱    │    ╲
+   ╱     │     ╲
+  ╱    RPA      ╲
+ ╱   (ssDNA)     ╲
+╱                  ╲
+
+LEADING STRAND:
+    5&#39;─────────────→3&#39; (template)
+    ←3&#39;═══════════════5&#39; (new DNA)
+         Pol ε + PCNA
+         
+LAGGING STRAND:
+    3&#39;═══════════════→5&#39; (template)
+    ←─Fragment 1─→←─Fragment 2─→
+    [RNA+DNA]      [RNA+DNA]
+         Pol α → Pol δ + PCNA
+         
+AFTER processing:
+    RNase H + FEN1 → remove RNA
+    Pol δ → fill gaps
+    DNA Ligase I → seal nicks
+    CAF-1 → reassemble nucleosomes
+</code></pre>
+<hr>
+<h2 id="11-polymerase-switching">11. Polymerase Switching</h2>
+<h3 id="concept-7">Concept</h3>
+<p>At each origin, synthesis is initiated by <strong>Pol α/primase</strong>, which makes an RNA-DNA primer. This is then replaced by a processive polymerase (<strong>Pol ε</strong> for leading strand, <strong>Pol δ</strong> for lagging strand). This transition is called <strong>polymerase switching</strong>.</p>
+<h3 id="step-by-step-mechanism">Step-by-Step Mechanism</h3>
+<pre><code>POLYMERASE SWITCHING
+═════════════════════
+
+Step 1: Pol α/primase synthesizes RNA-DNA primer
+        ~8-12 nt RNA + ~20 nt DNA
+        
+Step 2: RFC loads PCNA at the primer-template junction
+        (PCNA encircles the primer-template)
+        
+Step 3: Pol ε (leading) or Pol δ (lagging) displaces Pol α
+        - High processivity polymerase binds PCNA
+        - Pol α dissociates
+        
+Step 4: Processive synthesis begins
+        - Leading: Pol ε synthesizes continuously
+        - Lagging: Pol δ synthesizes Okazaki fragments
+
+Step 5: On lagging strand, when Pol δ reaches previous Okazaki fragment:
+        - Pol δ displaces the RNA primer (creates flap)
+        - FEN1 cuts the flap
+        - Pol δ continues
+</code></pre>
+<h3 id="why-polymerase-switching">Why Polymerase Switching?</h3>
+<table>
+<thead>
+<tr>
+<th>Pol α/primase</th>
+<th>Pol ε/δ</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Can start synthesis (has primase)</td>
+<td>Cannot start synthesis</td>
+</tr>
+<tr>
+<td>Low processivity</td>
+<td>High processivity (with PCNA)</td>
+</tr>
+<tr>
+<td>No proofreading</td>
+<td>Has 3&#39;→5&#39; proofreading exonuclease</td>
+</tr>
+<tr>
+<td>Error-prone</td>
+<td>High fidelity</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>Analogy</strong>: Pol α is like a runner who starts a relay race (lays down the primer), then hands the baton to Pol ε/δ (the fast runner who completes the distance).</p>
+</blockquote>
+<hr>
+<h2 id="12-okazaki-fragment-processing-in-eukaryotes">12. Okazaki Fragment Processing in Eukaryotes</h2>
+<h3 id="mechanism-1">Mechanism</h3>
+<pre><code>EUKEARYOTIC OKAZAKI FRAGMENT PROCESSING
+════════════════════════════════════════
+
+After Pol δ synthesis:
+    
+5&#39;──[RNA primer]──[DNA Okazaki fragment]──3&#39;  (fragment N+1)
+3&#39;────────────────────────────────────────5&#39;  (template)
+5&#39;──[RNA primer]──[DNA Okazaki fragment]──3&#39;  (fragment N)
+
+Step 1: Pol δ encounters previous Okazaki fragment
+        → Displaces some RNA as flap
+
+Step 2: RNase H2 degrades most of the RNA primer
+        → Leaves 1-2 ribonucleotides at junction
+
+Step 3: FEN1 (Flap Endonuclease 1) removes:
+        - Remaining ribonucleotides
+        - Short DNA flaps displaced by Pol δ
+
+Step 4: Pol δ fills the gap with DNA
+
+Step 5: DNA Ligase I seals the nick
+
+Result: Continuous DNA strand
+</code></pre>
+<h3 id="fen1--a-special-endonuclease">FEN1 — A Special Endonuclease</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Full name</td>
+<td>Flap Endonuclease 1</td>
+</tr>
+<tr>
+<td>Activity</td>
+<td>5&#39; flap endonuclease</td>
+</tr>
+<tr>
+<td>Substrate</td>
+<td>Displaced 5&#39; flap structures</td>
+</tr>
+<tr>
+<td>Mechanism</td>
+<td>Cuts displaced flap, leaving 1 nt 5&#39; overhang</td>
+</tr>
+<tr>
+<td>Alternative</td>
+<td>Dna2 helicase-nuclease can process longer flaps</td>
+</tr>
+<tr>
+<td>Clinical</td>
+<td>FEN1 mutations linked to cancer predisposition</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="13-chromatin-remodeling-during-replication">13. Chromatin Remodeling During Replication</h2>
+<h3 id="concept-8">Concept</h3>
+<p>In eukaryotes, DNA is packaged into chromatin — a complex of DNA, histones, and other proteins. During replication, chromatin must be disassembled ahead of the fork and reassembled behind it.</p>
+<h3 id="why-it-matters-4">Why It Matters</h3>
+<ul>
+<li>Nucleosomes block replication machinery → must be disassembled</li>
+<li>Parental histones carry epigenetic marks → must be recycled</li>
+<li>New histones must be deposited to fill gaps</li>
+<li>Failure in chromatin reassembly → epigenetic instability</li>
+</ul>
+<h3 id="the-process">The Process</h3>
+<pre><code>CHROMATIN DURING REPLICATION
+═══════════════════════════
+
+Ahead of fork:        At fork:           Behind fork:
+Nucleosomes present   Nucleosomes        Nucleosomes
+(H3-H4 tetramers,     displaced,         reassembled
+H2A-H2B dimers)       chaperoned         with new + old
+                      by FACT            histones
+
+Key factors:
+- FACT complex: Facilitates chromatin transcription
+  (also facilitates replication through chromatin)
+- CAF-1: Chromatin Assembly Factor 1
+  (deposits new H3-H4 tetramers)
+- ASF1: Anti-silencing function 1
+  (histone chaperone for H3-H4)
+- MCM2: Has histone chaperone activity
+  (helps recycle parental histones)
+</code></pre>
+<h3 id="histone-recycling">Histone Recycling</h3>
+<table>
+<thead>
+<tr>
+<th>Histone</th>
+<th>Handling during replication</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>H3-H4 tetramer</td>
+<td>Split between daughter strands; old + new mixed</td>
+</tr>
+<tr>
+<td>H2A-H2B dimer</td>
+<td>More dynamic; largely recycled</td>
+</tr>
+<tr>
+<td>Epigenetic marks</td>
+<td>Parental marks serve as template for new marks</td>
+</tr>
+</tbody></table>
+<h3 id="replication-timing">Replication Timing</h3>
+<pre><code>REPLICATION TIMING DURING S PHASE
+═════════════════════════════════
+
+Early S phase (first 2-3 hours):
+├→ Euchromatin (active genes)
+├→ High gene density regions
+├→ GC-rich regions
+└→ Highly accessible chromatin
+
+Late S phase (last 2-3 hours):
+├→ Heterochromatin (silent regions)
+├→ Centromeric/peri-centromeric heterochromatin
+├→ Telomeric heterochromatin
+├→ Late-replicating gene-poor regions
+└→ Facultative heterochromatin (X-inactivated chromosome)
+
+S phase total: ~6-8 hours in human cells
+</code></pre>
+<h3 id="why-replication-timing-matters">Why Replication Timing Matters</h3>
+<ol>
+<li><strong>Gene expression</strong>: Early replication correlates with active gene expression</li>
+<li><strong>Epigenetic inheritance</strong>: Late replication may facilitate epigenetic silencing</li>
+<li><strong>Genome stability</strong>: Late-replicating regions are more prone to rearrangements</li>
+<li><strong>Development</strong>: Replication timing programs change during differentiation</li>
+</ol>
+<hr>
+<h2 id="14-licensing-and-cell-cycle-regulation">14. Licensing and Cell-Cycle Regulation</h2>
+<h3 id="cdk-regulation-of-licensing">CDK Regulation of Licensing</h3>
+<pre><code>CDK ACTIVITY AND LICENSING
+═══════════════════════════
+
+G1 phase (low CDK activity):
+    ✓ ORC can bind origins
+    ✓ Cdc6 is stable
+    ✓ Cdt1 is active
+    ✓ MCM2-7 can be loaded
+    → Licensing occurs
+    
+S phase (high CDK activity):
+    ✗ CDK phosphorylates Cdc6 → degraded by SCF
+    ✗ CDK + geminin inhibit Cdt1
+    ✗ CDK phosphorylates ORC → reduced activity
+    ✗ CDK phosphorylates MCM → promotes activation
+    → No licensing, only firing
+    
+G2/M (high CDK):
+    ✗ Same restrictions as S phase
+    → No licensing
+    
+M → G1 transition:
+    APC/C degrades geminin → Cdt1 released
+    APC/C degrades CDK substrates
+    → Licensing can resume in next G1
+</code></pre>
+<h3 id="pre-replication-complex-pre-rc-assembly">Pre-Replication Complex (Pre-RC) Assembly</h3>
+<p>The pre-RC is the complete assembly at a licensed origin:</p>
+<pre><code>PRE-RC ASSEMBLY ORDER
+═════════════════════
+
+1. ORC binds origin DNA (ATP-dependent)
+2. Cdc6 binds ORC (ATP-dependent)
+3. Cdt1 binds MCM2-7 and delivers to ORC-Cdc6
+4. MCM2-7 loaded onto DNA (ATP hydrolysis)
+5. Additional MCM2-7 loaded (cooperative)
+6. Double hexamer forms (2 MCM2-7 per origin)
+7. Cdc6 released, Cdt1 released/inhibited
+8. Origin is LICENSED
+
+Total MCM2-7 per origin: 4-5 double hexamers (in metazoans)
+= 8-10 MCM hexamers per origin
+= ensures robust initiation
+</code></pre>
+<hr>
+<h2 id="15-eukaryotic-termination">15. Eukaryotic Termination</h2>
+<h3 id="concept-9">Concept</h3>
+<p>Unlike bacteria, eukaryotes do not have a defined termination sequence. Termination occurs when two converging replication forks meet.</p>
+<h3 id="mechanism-2">Mechanism</h3>
+<pre><code>EUKEARYOTIC TERMINATION
+═══════════════════════
+
+Step 1: Converging forks approach each other
+        CMG helicases from opposite directions converge
+        
+Step 2: CMG encounters incoming fork or DNA
+        → CMG disassembly (requires p97/Cdc48 AAA+ ATPase)
+        → CMG is ubiquitylated → extracted by p97
+        
+Step 3: Remaining gaps filled by Pol δ
+        → Okazaki fragment processing at junction
+        
+Step 4: DNA Ligase I seals final nicks
+        
+Step 5: No catenane problem in linear chromosomes
+        (Telomeres prevent catenation)
+</code></pre>
+<h3 id="cmg-disassembly--the-end-of-the-road">CMG Disassembly — The End of the Road</h3>
+<table>
+<thead>
+<tr>
+<th>Factor</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>p97/Cdc48</strong></td>
+<td>AAA+ ATPase; extracts ubiquitylated CMG</td>
+</tr>
+<tr>
+<td><strong>Ubx5</strong></td>
+<td>p97 adaptor</td>
+</tr>
+<tr>
+<td><strong>SCF</strong></td>
+<td>Ubiquitylates MCM7</td>
+</tr>
+<tr>
+<td><strong>Sld2/Dpb11</strong></td>
+<td>Regulates termination</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>CMG disassembly is essential — persistent CMG would block subsequent processes (transcription, repair).</p>
+</blockquote>
+<hr>
+<h2 id="16-s-phase-checkpoints">16. S-Phase Checkpoints</h2>
+<h3 id="concept-10">Concept</h3>
+<p>Cells monitor replication progression through checkpoint mechanisms that detect stalled forks and activate response pathways.</p>
+<h3 id="atr-chk1-pathway">ATR-CHK1 Pathway</h3>
+<pre><code>S-PHASE CHECKPOINT
+══════════════════
+
+Trigger: Stalled replication fork (long stretches of ssDNA)
+
+Step 1: RPA-coated ssDNA accumulates at stalled fork
+        → Excessive RPA-ssDNA is a danger signal
+        
+Step 2: ATRIP binds RPA-ssDNA → recruits ATR kinase
+        (ATR = Ataxia Telangiectasia and Rad3-related)
+        
+Step 3: ATR is activated by:
+        - TopBP1 (activator)
+        - Dna2 (processed DNA structures)
+        
+Step 4: ATR phosphorylates CHK1 kinase
+        → CHK1 is the effector kinase
+        
+Step 5: CHK1 phosphorylates targets:
+        ├→ Degrades Cdc25 phosphatase → inhibits CDK
+        ├→ Stabilizes stalled forks
+        ├→ Inhibits new origin firing
+        └→ Activates DNA repair pathways
+
+Result:
+- Replication slows down
+- Damaged forks stabilized
+- New origins suppressed (within same S phase)
+- Time for repair before continuing
+</code></pre>
+<h3 id="fork-protection-complex">Fork Protection Complex</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Timeless (Timestop)</strong></td>
+<td>Fork protection; recruits ATR</td>
+</tr>
+<tr>
+<td><strong>Claspin</strong></td>
+<td>Mediator; bridges MCM-ATRIP</td>
+</tr>
+<tr>
+<td><strong>Mrc1/Claspin</strong></td>
+<td>Stabilizes fork; promotes fork restart</td>
+</tr>
+<tr>
+<td><strong>14-3-3σ</strong></td>
+<td>Fork-associated protein</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="complete-eukaryotic-replication-workflow">Complete Eukaryotic Replication Workflow</h2>
+<pre><code>EUKEARYOTIC DNA REPLICATION — COMPLETE WORKFLOW
+═══════════════════════════════════════════════
+
+G1 PHASE: LICENSING
+│
+├→ Low CDK activity permits licensing
+├→ ORC binds replication origins
+├→ Cdc6 and Cdt1 recruited to ORC
+├→ MCM2-7 double hexamers loaded at origins
+├→ Origins are &quot;licensed&quot; (pre-RC assembled)
+├→ Multiple origins per chromosome (~30,000-50,000 total)
+│
+S-PHASE ENTRY: ACTIVATION
+│
+├→ CDK activity rises (S-CDK: Cyclin E/A-CDK2)
+├→ DDK (Dbf4-dependent kinase) activated
+├→ DDK phosphorylates MCM2-7
+├→ S-CDK phosphorylates Sld2, Sld3
+├→ Cdc45 loaded → GINS loaded → CMG helicase forms
+├→ Origins FIRE → replication begins
+├→ Only licensed origins can fire (no re-replication)
+│
+ELONGATION
+│
+├→ CMG helicase unwinds dsDNA
+├→ RPA binds and stabilizes ssDNA
+├→ Pol α/primase synthesizes RNA-DNA primer
+├→ RFC loads PCNA at primer-template junction
+├→ Polymerase switching: Pol α → Pol ε (leading) or Pol δ (lagging)
+│
+├→ LEADING STRAND:
+│   ├→ Pol ε + PCNA synthesizes continuously
+│   ├→ Follows CMG helicase
+│   └→ Single initiation event per fork
+│
+├→ LAGGING STRAND:
+│   ├→ New primer every 100-200 nt
+│   ├→ Pol α/primase → Pol δ + PCNA
+│   ├→ Okazaki fragments (~100-200 nt)
+│   └→ Pol δ extends primer, meets previous fragment
+│
+├→ CHROMATIN REMODELING:
+│   ├→ FACT complex disassembles nucleosomes ahead of fork
+│   ├→ MCM2 + Asf1 recycle parental H3-H4
+│   ├→ CAF-1 deposits new H3-H4 tetramers
+│   └→ New nucleosomes assembled on daughter strands
+│
+OKAZAKI FRAGMENT PROCESSING
+│
+├→ RNase H2 removes most of RNA primer
+├→ FEN1 removes remaining RNA + short DNA flaps
+├→ Pol δ fills gaps with DNA
+├→ DNA Ligase I seals nicks
+│
+FORK CONVERGENCE AND TERMINATION
+│
+├→ Two converging forks meet
+├→ CMG helicases ubiquitylated
+├→ p97/Cdc48 extracts CMG from DNA
+├→ Remaining gaps filled by Pol δ
+├→ DNA Ligase I seals final nicks
+│
+QUALITY CONTROL
+│
+├→ Proofreading by Pol ε and Pol δ (3&#39;→5&#39; exonuclease)
+├→ Mismatch repair (MSH2/MSH6, MLH1/PMS2)
+├→ ATR-CHK1 checkpoint monitors fork progression
+├→ Fork protection complex stabilizes stalled forks
+│
+COMPLETE: Two identical daughter DNA molecules
+         Each wrapped in properly assembled chromatin
+</code></pre>
+<hr>
+<h2 id="quick-check">Quick Check</h2>
+<ol>
+<li>Why do eukaryotes need multiple origins of replication while bacteria typically need only one?</li>
+<li>What is the role of geminin in preventing re-replication?</li>
+<li>Describe the difference between Pol α/primase and Pol ε in terms of function and proofreading ability.</li>
+<li>Why is PCNA loaded at the primer-template junction and not at any position on ssDNA?</li>
+<li>What would happen if Cdt1 cannot be inhibited by geminin?</li>
+<li>Explain why the ATR-CHK1 checkpoint is important for genome stability.</li>
+<li>Describe the chromatin reassembly process during eukaryotic replication.</li>
+</ol>
+<hr>
+</main></div>
+<footer class="site-footer">
+  <p class="instructor">Dr. Saira Azam — Assistant Professor, Centre of Excellence in Molecular Biology, University of the Punjab, Lahore</p>
+  <p>DNA Replication in Prokaryotes and Eukaryotes · A Complete Molecular Biology Teaching and Learning Module</p>
+</footer>
+</body>
+</html>

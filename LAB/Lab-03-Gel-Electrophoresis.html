@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DNA Replication in Prokaryotes and Eukaryotes</title>
+<style>
+:root {
+  --primary: #1B4F72; --secondary: #2E86C1; --accent: #16A085;
+  --dark: #2C3E50; --light: #F4F8FB; --border: #D5E5F1;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  margin: 0; color: #22303c; line-height: 1.65;
+  background: #fbfdff;
+}
+.site-header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff; padding: 1.4rem 1rem 1.2rem; text-align: center;
+}
+.site-header .course-title { font-size: 1.35rem; font-weight: 700; margin: 0; }
+.site-header .crumb { font-size: .8rem; opacity: .85; margin: 0 0 .35rem; }
+.site-header a { color: #fff; text-decoration: none; opacity: .92; }
+.site-header a:hover { text-decoration: underline; opacity: 1; }
+.layout { display: flex; max-width: 1180px; margin: 0 auto; gap: 1.5rem; padding: 1.25rem 1rem; }
+nav.sidebar {
+  flex: 0 0 260px; align-self: flex-start; position: sticky; top: 12px;
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1rem 1.1rem; max-height: calc(100vh - 30px); overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--accent); margin: 1.1rem 0 .35rem;
+}
+nav.sidebar h3:first-of-type { margin-top: 0; }
+nav.sidebar a {
+  display: block; color: var(--primary); text-decoration: none;
+  font-size: .9rem; padding: .28rem .5rem; border-radius: 6px;
+}
+nav.sidebar a:hover { background: var(--light); }
+main.content { flex: 1; min-width: 0; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1.6rem 2rem 2.4rem; }
+main.content.wide { width: 100%; }
+main.content h1 { color: var(--primary); font-size: 1.65rem; border-bottom: 3px solid var(--secondary); padding-bottom: .45rem; }
+main.content h2 { color: var(--secondary); font-size: 1.25rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; margin-top: 2rem; }
+main.content h3 { color: var(--accent); font-size: 1.05rem; margin-top: 1.6rem; }
+main.content table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .9rem; display: block; overflow-x: auto; }
+main.content th, main.content td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; vertical-align: top; }
+main.content th { background: var(--primary); color: #fff; }
+main.content tr:nth-child(even) td { background: var(--light); }
+main.content pre {
+  background: #F4F6F8; border: 1px solid #DDE3E9; border-radius: 8px;
+  padding: .9rem 1.1rem; overflow-x: auto; font-size: .82rem; line-height: 1.45;
+}
+main.content code { background: #F0F2F4; border-radius: 4px; padding: .1rem .35rem; font-size: .88em; }
+main.content pre code { background: none; padding: 0; }
+main.content blockquote { border-left: 4px solid var(--secondary); background: var(--light); margin: 1rem 0; padding: .6rem 1.1rem; border-radius: 0 8px 8px 0; }
+main.content a { color: var(--secondary); }
+main.content img { max-width: 100%; }
+.nav-links { margin-top: 2.4rem; padding-top: 1rem; border-top: 2px solid var(--border); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .92rem; }
+footer.site-footer {
+  text-align: center; padding: 1.6rem 1rem 2.2rem; color: #5a6b7a; font-size: .88rem;
+}
+footer.site-footer .instructor { margin: 0 0 .4rem; color: var(--primary); font-weight: 600; }
+
+/* Landing page */
+.hero {
+  background: linear-gradient(160deg, var(--primary) 0%, var(--secondary) 60%, var(--accent) 100%);
+  color: #fff; padding: 3.4rem 1.2rem 3rem; text-align: center;
+}
+.hero h1 { font-size: 2.1rem; margin: 0 0 .6rem; }
+.hero .tagline { font-size: 1.08rem; font-style: italic; opacity: .95; margin: 0 0 1.8rem; }
+.hero .instructor { color: #fff; background: rgba(255,255,255,.12); display: inline-block; padding: .8rem 1.6rem; border-radius: 10px; line-height: 1.5; }
+.hero .instructor strong { font-size: 1.15rem; }
+.btn {
+  display: inline-block; margin-top: 1.6rem; background: #fff; color: var(--primary);
+  font-weight: 700; padding: .7rem 2rem; border-radius: 999px; text-decoration: none; font-size: 1.05rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+}
+.btn:hover { transform: translateY(-1px); }
+.section-card { max-width: 1080px; margin: 1.4rem auto; padding: 0 1rem; }
+.card {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.3rem 1.5rem; margin-bottom: 1.1rem;
+}
+.card h2 { color: var(--primary); margin-top: 0; font-size: 1.25rem; border-bottom: 2px solid var(--border); padding-bottom: .35rem; }
+.card table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+.card th, .card td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; }
+.card th { background: var(--primary); color: #fff; }
+.card tr:nth-child(even) td { background: var(--light); }
+.card a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+.card a:hover { text-decoration: underline; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.grid .card { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .layout { flex-direction: column; padding: .8rem; }
+  nav.sidebar { position: static; max-height: none; flex-basis: auto; }
+  main.content { padding: 1.1rem 1rem 1.8rem; }
+  .hero h1 { font-size: 1.55rem; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <p class="crumb"><a href="../index.html">Course Home</a></p>
+  <p class="course-title">DNA Replication in Prokaryotes and Eukaryotes</p>
+</header>
+<div class="layout"><nav class="sidebar">
+  <h3>Course</h3>
+  <a href="../README.html">Course Home</a>
+  <a href="../REFERENCES.html">References</a>
+  <h3>Teaching Modules</h3>
+  <a href="../MARKDOWN/01-Introduction-to-DNA-Replication.html">Introduction to DNA Replication</a>
+<a href="../MARKDOWN/02-Core-Concepts.html">Core Concepts of DNA Replication</a>
+<a href="../MARKDOWN/03-Prokaryotic-DNA-Replication.html">Prokaryotic DNA Replication</a>
+<a href="../MARKDOWN/04-Eukaryotic-DNA-Replication.html">Eukaryotic DNA Replication</a>
+<a href="../MARKDOWN/05-Replication-Fidelity-and-Repair.html">Replication Fidelity and Repair</a>
+<a href="../MARKDOWN/06-Telomeres-and-Telomerase.html">Telomeres and Telomerase</a>
+<a href="../MARKDOWN/07-Replication-Stress-and-Checkpoints.html">Replication Stress and Checkpoints</a>
+<a href="../MARKDOWN/08-Prokaryote-vs-Eukaryote.html">Prokaryote vs. Eukaryote Comparison</a>
+<a href="../MARKDOWN/09-Experimental-Methods.html">Experimental Methods</a>
+<a href="../MARKDOWN/10-Data-Analysis-and-Interpretation.html">Data Analysis and Interpretation</a>
+<a href="../MARKDOWN/11-Clinical-and-Biotechnology-Applications.html">Clinical and Biotechnology Applications</a>
+<a href="../MARKDOWN/12-Advanced-Topics.html">Advanced Topics in DNA Replication</a>
+  <h3>Laboratory</h3>
+  <a href="../LAB/Lab-01-DNA-Replication-Concepts.html">Lab 01: DNA Structure and Replication Modeling</a>
+<a href="../LAB/Lab-02-DNA-Quantification.html">Lab 02: DNA Quantification and Quality Assessment</a>
+<a href="../LAB/Lab-03-Gel-Electrophoresis.html">Lab 03: Agarose Gel Electrophoresis</a>
+<a href="../LAB/Lab-04-PCR-and-DNA-Amplification.html">Lab 04: PCR and DNA Amplification</a>
+<a href="../LAB/Lab-05-Replication-Data-Analysis.html">Lab 05: Replication Data Analysis</a>
+<a href="../LAB/Lab-06-Capstone-Exercise.html">Lab 06: Capstone Exercise — Integrated Replication Analysis</a>
+  <h3>Workbook & Data</h3>
+  <a href="../WORKBOOK/DNA-Replication-Lab-Workbook.html">Lab Workbook</a>
+  <a href="../DATA/datasets.html">Datasets</a>
+  <h3>Resources</h3>
+  <a href="../CHEAT-SHEET/DNA-Replication-Cheat-Sheet.html">Cheat Sheet</a>
+  <a href="../FAQ/DNA-Replication-FAQs.html">FAQs</a>
+  <h3>Assessment</h3>
+  <a href="../ASSESSMENT/MCQs.html">DNA Replication — Multiple Choice Questions</a>
+<a href="../ASSESSMENT/Short-Questions.html">DNA Replication — Short Answer Questions</a>
+<a href="../ASSESSMENT/Long-Questions.html">DNA Replication — Long Answer / Essay Questions</a>
+<a href="../ASSESSMENT/Viva-Questions.html">DNA Replication — Viva Voce Questions</a>
+<a href="../ASSESSMENT/Case-Studies.html">DNA Replication — Case Studies</a>
+  <h3>Downloads</h3>
+  <a href="../PDF/Complete-Tutorial.pdf">Complete Tutorial (PDF)</a>
+  <a href="../PDF/Lab-Workbook.pdf">Lab Workbook (PDF)</a>
+  <a href="../PDF/Cheat-Sheet.pdf">Cheat Sheet (PDF)</a>
+  <a href="../PDF/FAQs.pdf">FAQs (PDF)</a>
+  <a href="../PDF/Assessment.pdf">Assessment (PDF)</a>
+  <a href="../PPTX/DNA_Replication_Complete_Lecture.pptx">Lecture Slides (PPTX)</a>
+</nav><main class="content"><h1 id="lab-03-agarose-gel-electrophoresis">Lab 03: Agarose Gel Electrophoresis</h1>
+<hr>
+<h2 id="experiment-title">Experiment Title</h2>
+<p>Agarose Gel Electrophoresis for DNA Fragment Analysis</p>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<ol>
+<li>Prepare and cast agarose gels</li>
+<li>Load and run DNA samples on an agarose gel</li>
+<li>Visualize DNA fragments using ethidium bromide or SYBR Safe</li>
+<li>Estimate DNA fragment sizes using a molecular weight marker</li>
+<li>Interpret gel electrophoresis results</li>
+</ol>
+<h2 id="background-theory">Background Theory</h2>
+<p>Agarose gel electrophoresis separates DNA fragments by size. DNA is negatively charged (phosphate backbone) and migrates toward the positive electrode (anode). Smaller fragments migrate faster through the agarose matrix than larger fragments.</p>
+<h3 id="key-principles">Key Principles</h3>
+<ul>
+<li><strong>Migration</strong>: DNA moves toward + electrode (anode)</li>
+<li><strong>Separation by size</strong>: Smaller = faster, Larger = slower</li>
+<li><strong>Resolution</strong>: Depends on agarose concentration</li>
+<li><strong>Visualization</strong>: Intercalating dyes (EtBr, SYBR Safe) fluoresce under UV/blue light</li>
+</ul>
+<h3 id="agarose-concentration-guide">Agarose Concentration Guide</h3>
+<table>
+<thead>
+<tr>
+<th>Agarose %</th>
+<th>Optimal Size Range</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0.7%</td>
+<td>0.8–10 kb</td>
+<td>Large fragments</td>
+</tr>
+<tr>
+<td>1.0%</td>
+<td>0.5–7 kb</td>
+<td>General purpose</td>
+</tr>
+<tr>
+<td>1.5%</td>
+<td>0.2–4 kb</td>
+<td>Medium fragments</td>
+</tr>
+<tr>
+<td>2.0%</td>
+<td>0.1–2 kb</td>
+<td>Small fragments</td>
+</tr>
+</tbody></table>
+<h2 id="materials">Materials</h2>
+<table>
+<thead>
+<tr>
+<th>Material</th>
+<th>Quantity</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Agarose powder</td>
+<td>1.5 g</td>
+<td>For 1.0% gel in 150 mL</td>
+</tr>
+<tr>
+<td>1× TAE buffer</td>
+<td>200 mL</td>
+<td>Running and gel buffer</td>
+</tr>
+<tr>
+<td>Ethidium bromide (10 mg/mL)</td>
+<td>10 μL</td>
+<td>Intercalating dye (handle with care)</td>
+</tr>
+<tr>
+<td>OR SYBR Safe</td>
+<td>10 μL</td>
+<td>Safer alternative</td>
+</tr>
+<tr>
+<td>6× DNA loading dye</td>
+<td>10 μL</td>
+<td>Contains glycerol + tracking dyes</td>
+</tr>
+<tr>
+<td>DNA molecular weight marker (1 kb ladder)</td>
+<td>5 μL</td>
+<td>Size standard</td>
+</tr>
+<tr>
+<td>DNA samples</td>
+<td>5-10 μL each</td>
+<td>Various sizes/qualities</td>
+</tr>
+<tr>
+<td>Distilled water</td>
+<td>As needed</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="equipment">Equipment</h2>
+<ul>
+<li>Microwave or agarose gel casting system</li>
+<li>Gel casting tray and comb</li>
+<li>Horizontal gel electrophoresis chamber</li>
+<li>DC power supply (5-10 V/cm)</li>
+<li>UV transilluminator or blue light illuminator</li>
+<li>Gel documentation system</li>
+<li>Micropipettes (P20, P200)</li>
+<li>UV-protective goggles</li>
+</ul>
+<h2 id="safety-considerations">Safety Considerations</h2>
+<p>⚠️ <strong>Ethidium bromide is a mutagen</strong> — handle with gloves at all times
+⚠️ <strong>Hot agarose</strong> — allow to cool before pouring
+⚠️ <strong>UV light</strong> — use transilluminator with protective shield; wear UV goggles
+⚠️ <strong>Electrical hazard</strong> — ensure electrophoresis chamber is properly connected
+⚠️ Follow institutional safety guidelines for chemical and biological hazards</p>
+<h2 id="experimental-principle">Experimental Principle</h2>
+<p>DNA migration through agarose is governed by:</p>
+<ul>
+<li><strong>Electric field strength</strong>: Voltage drives migration</li>
+<li><strong>Agarose concentration</strong>: Higher % = smaller pores = slower migration of large DNA</li>
+<li><strong>DNA size</strong>: Log-linear relationship between size and migration distance</li>
+<li><strong>DNA conformation</strong>: Supercoiled &gt; linear &gt; nicked circular (for same size)</li>
+</ul>
+<h2 id="step-by-step-procedure">Step-by-Step Procedure</h2>
+<h3 id="part-a-gel-preparation-15-minutes--cooling">Part A: Gel Preparation (15 minutes + cooling)</h3>
+<ol>
+<li>Weigh 1.5 g agarose powder</li>
+<li>Add to 150 mL of 1× TAE buffer in a flask</li>
+<li>Microwave to dissolve agarose (2-3 minutes, with swirling)</li>
+<li>Allow to cool to ~55°C (warm but comfortable to hold flask)</li>
+<li>Add 10 μL ethidium bromide (or SYBR Safe) per 150 mL gel</li>
+<li>Pour into casting tray with comb in place</li>
+<li>Allow to solidify (20-30 minutes at room temperature)</li>
+<li>Remove comb carefully</li>
+<li>Place gel in electrophoresis chamber with 1× TAE running buffer</li>
+</ol>
+<h3 id="part-b-sample-preparation-and-loading-10-minutes">Part B: Sample Preparation and Loading (10 minutes)</h3>
+<ol start="10">
+<li><p>Mix each DNA sample with loading dye:</p>
+<ul>
+<li>5 μL DNA + 1 μL 6× loading dye</li>
+</ul>
+</li>
+<li><p>Load samples into wells:</p>
+<ul>
+<li>Lane 1: Molecular weight marker (5 μL)</li>
+<li>Lane 2: Sample 1 (6 μL)</li>
+<li>Lane 3: Sample 2 (6 μL)</li>
+<li>Lane 4: Sample 3 (6 μL)</li>
+<li>Lane 5: Sample 4 (6 μL)</li>
+<li>Lane 6: Sample 5 (6 μL)</li>
+<li>Lane 7: Empty (control)</li>
+<li>Lane 8: Molecular weight marker</li>
+</ul>
+</li>
+<li><p>Close gel box, connect electrodes (black = cathode, red = anode)</p>
+</li>
+</ol>
+<h3 id="part-c-electrophoresis-30-45-minutes">Part C: Electrophoresis (30-45 minutes)</h3>
+<ol start="13">
+<li>Run at 80-100 V (5-8 V/cm) until blue dye front is ~2/3 down the gel</li>
+<li>Turn off power supply</li>
+<li>Remove gel carefully</li>
+</ol>
+<h3 id="part-d-visualization-10-minutes">Part D: Visualization (10 minutes)</h3>
+<ol start="16">
+<li>Place gel on UV transilluminator</li>
+<li>Visualize bands using UV light (302 nm) or blue light (470 nm)</li>
+<li>Photograph gel with gel documentation system</li>
+<li>Measure migration distances of marker bands and samples</li>
+</ol>
+<h2 id="expected-observations">Expected Observations</h2>
+<table>
+<thead>
+<tr>
+<th>Lane</th>
+<th>Sample</th>
+<th>Expected Pattern</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1, 8</td>
+<td>1 kb ladder</td>
+<td>Multiple bands at known sizes (0.5, 1, 2, 3, 4, 5, 6, 8, 10 kb)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Genomic DNA</td>
+<td>High MW band near well (&gt;20 kb)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>PCR product (single)</td>
+<td>Single sharp band at expected size</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Plasmid DNA</td>
+<td>Multiple bands (supercoiled, nicked, linear)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Digested plasmid</td>
+<td>Bands at expected restriction fragment sizes</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Degraded DNA</td>
+<td>Smear from high to low MW</td>
+</tr>
+</tbody></table>
+<h2 id="results-table">Results Table</h2>
+<table>
+<thead>
+<tr>
+<th>Marker Band (bp)</th>
+<th>Migration Distance (cm)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>500</td>
+<td></td>
+</tr>
+<tr>
+<td>1,000</td>
+<td></td>
+</tr>
+<tr>
+<td>2,000</td>
+<td></td>
+</tr>
+<tr>
+<td>3,000</td>
+<td></td>
+</tr>
+<tr>
+<td>4,000</td>
+<td></td>
+</tr>
+<tr>
+<td>5,000</td>
+<td></td>
+</tr>
+<tr>
+<td>6,000</td>
+<td></td>
+</tr>
+<tr>
+<td>8,000</td>
+<td></td>
+</tr>
+<tr>
+<td>10,000</td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Sample</th>
+<th>Migration Distance</th>
+<th>Estimated Size</th>
+<th>Quality Assessment</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="calculations">Calculations</h2>
+<h3 id="standard-curve-construction">Standard Curve Construction</h3>
+<ol>
+<li>Plot <strong>log₁₀(size in bp)</strong> vs. <strong>migration distance (cm)</strong> for marker bands</li>
+<li>Draw best-fit line (should be linear for most of the range)</li>
+<li>Use line equation to determine size of unknown bands</li>
+</ol>
+<p><strong>Example:</strong></p>
+<ul>
+<li>Unknown band migration: 3.5 cm</li>
+<li>From standard curve: log₁₀(size) = 3.2</li>
+<li>Size = 10³·² ≈ 1,585 bp</li>
+</ul>
+<h3 id="gel-percentage-effect">Gel Percentage Effect</h3>
+<ul>
+<li>Higher % agarose → better resolution of small fragments</li>
+<li>Lower % agarose → better resolution of large fragments</li>
+<li>Always use appropriate % for your expected fragment sizes</li>
+</ul>
+<h2 id="interpretation">Interpretation</h2>
+<ol>
+<li>What does a smear indicate about DNA quality?</li>
+<li>Why might a plasmid show multiple bands?</li>
+<li>How does agarose concentration affect resolution?</li>
+<li>What would happen if you ran the gel at too high a voltage?</li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Possible Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bands are fuzzy</td>
+<td>Voltage too high; gel too concentrated</td>
+<td>Lower voltage; use lower % gel</td>
+</tr>
+<tr>
+<td>No bands visible</td>
+<td>Insufficient EtBr; too little DNA; gel too thick</td>
+<td>Add more EtBr; increase DNA; use thinner gel</td>
+</tr>
+<tr>
+<td>Bands distorted</td>
+<td>Uneven gel; wells damaged</td>
+<td>Pour gel evenly; load carefully</td>
+</tr>
+<tr>
+<td>DNA stuck in wells</td>
+<td>High MW DNA; incomplete denaturation</td>
+<td>Use pulsed-field for very large DNA</td>
+</tr>
+<tr>
+<td>Bands run crooked</td>
+<td>Uneven buffer; gel not level</td>
+<td>Ensure even buffer; level gel during casting</td>
+</tr>
+<tr>
+<td>Bloomed bands</td>
+<td>Too much DNA loaded</td>
+<td>Load less DNA</td>
+</tr>
+</tbody></table>
+<h2 id="post-lab-questions">Post-Lab Questions</h2>
+<ol>
+<li>A DNA sample shows a band at 3.0 kb. What is the estimated size using the standard curve?</li>
+<li>Why is ethidium bromide added to the gel rather than the running buffer?</li>
+<li>How would you separate DNA fragments of 500 bp and 600 bp with good resolution?</li>
+<li>A plasmid preparation shows bands at 3 kb, 6 kb, and 9 kb. What might these represent?</li>
+<li>What is the effect of increasing voltage on band resolution?</li>
+</ol>
+<h2 id="viva-questions">Viva Questions</h2>
+<ol>
+<li>Why does DNA migrate toward the anode?</li>
+<li>What is the purpose of loading dye?</li>
+<li>How does agarose gel differ from polyacrylamide gel?</li>
+<li>What is the resolution limit of agarose gel electrophoresis?</li>
+<li>Name two alternatives to ethidium bromide for DNA visualization.</li>
+</ol>
+<h2 id="expected-answers">Expected Answers</h2>
+<ol>
+<li><strong>3.0 kb</strong> — directly read from the standard curve.</li>
+<li><strong>EtBr in gel</strong> allows continuous staining during electrophoresis and eliminates extra staining/destaining steps.</li>
+<li><strong>Use 2.0% agarose</strong> — higher percentage provides better resolution for small fragments; run at lower voltage.</li>
+<li><strong>3 kb</strong> = supercoiled; <strong>6 kb</strong> = nicked/relaxed circular; <strong>9 kb</strong> = multimer or concatemer.</li>
+<li><strong>Increasing voltage</strong> increases migration speed but decreases resolution (bands become fuzzier).</li>
+</ol>
+<h2 id="instructor-notes">Instructor Notes</h2>
+<ul>
+<li>This is a wet-lab exercise requiring electrophoresis equipment</li>
+<li>Ensure students understand gel safety (EtBr handling)</li>
+<li>Prepare samples in advance: genomic DNA, PCR product, plasmid, digested plasmid, degraded DNA</li>
+<li>Discuss common lab scenarios: checking PCR products, verifying cloning</li>
+<li>Connect to replication: Okazaki fragments could be visualized on denaturing gels</li>
+</ul>
+<h2 id="related-theory">Related Theory</h2>
+<ul>
+<li><a href="../MARKDOWN/09-Experimental-Methods.html">Module 09: Experimental Methods</a></li>
+<li><a href="../MARKDOWN/10-Data-Analysis-and-Interpretation.html">Module 10: Data Analysis</a></li>
+</ul>
+</main></div>
+<footer class="site-footer">
+  <p class="instructor">Dr. Saira Azam — Assistant Professor, Centre of Excellence in Molecular Biology, University of the Punjab, Lahore</p>
+  <p>DNA Replication in Prokaryotes and Eukaryotes · A Complete Molecular Biology Teaching and Learning Module</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DNA Replication in Prokaryotes and Eukaryotes</title>
+<style>
+:root {
+  --primary: #1B4F72; --secondary: #2E86C1; --accent: #16A085;
+  --dark: #2C3E50; --light: #F4F8FB; --border: #D5E5F1;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  margin: 0; color: #22303c; line-height: 1.65;
+  background: #fbfdff;
+}
+.site-header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff; padding: 1.4rem 1rem 1.2rem; text-align: center;
+}
+.site-header .course-title { font-size: 1.35rem; font-weight: 700; margin: 0; }
+.site-header .crumb { font-size: .8rem; opacity: .85; margin: 0 0 .35rem; }
+.site-header a { color: #fff; text-decoration: none; opacity: .92; }
+.site-header a:hover { text-decoration: underline; opacity: 1; }
+.layout { display: flex; max-width: 1180px; margin: 0 auto; gap: 1.5rem; padding: 1.25rem 1rem; }
+nav.sidebar {
+  flex: 0 0 260px; align-self: flex-start; position: sticky; top: 12px;
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1rem 1.1rem; max-height: calc(100vh - 30px); overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--accent); margin: 1.1rem 0 .35rem;
+}
+nav.sidebar h3:first-of-type { margin-top: 0; }
+nav.sidebar a {
+  display: block; color: var(--primary); text-decoration: none;
+  font-size: .9rem; padding: .28rem .5rem; border-radius: 6px;
+}
+nav.sidebar a:hover { background: var(--light); }
+main.content { flex: 1; min-width: 0; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1.6rem 2rem 2.4rem; }
+main.content.wide { width: 100%; }
+main.content h1 { color: var(--primary); font-size: 1.65rem; border-bottom: 3px solid var(--secondary); padding-bottom: .45rem; }
+main.content h2 { color: var(--secondary); font-size: 1.25rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; margin-top: 2rem; }
+main.content h3 { color: var(--accent); font-size: 1.05rem; margin-top: 1.6rem; }
+main.content table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .9rem; display: block; overflow-x: auto; }
+main.content th, main.content td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; vertical-align: top; }
+main.content th { background: var(--primary); color: #fff; }
+main.content tr:nth-child(even) td { background: var(--light); }
+main.content pre {
+  background: #F4F6F8; border: 1px solid #DDE3E9; border-radius: 8px;
+  padding: .9rem 1.1rem; overflow-x: auto; font-size: .82rem; line-height: 1.45;
+}
+main.content code { background: #F0F2F4; border-radius: 4px; padding: .1rem .35rem; font-size: .88em; }
+main.content pre code { background: none; padding: 0; }
+main.content blockquote { border-left: 4px solid var(--secondary); background: var(--light); margin: 1rem 0; padding: .6rem 1.1rem; border-radius: 0 8px 8px 0; }
+main.content a { color: var(--secondary); }
+main.content img { max-width: 100%; }
+.nav-links { margin-top: 2.4rem; padding-top: 1rem; border-top: 2px solid var(--border); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .92rem; }
+footer.site-footer {
+  text-align: center; padding: 1.6rem 1rem 2.2rem; color: #5a6b7a; font-size: .88rem;
+}
+footer.site-footer .instructor { margin: 0 0 .4rem; color: var(--primary); font-weight: 600; }
+
+/* Landing page */
+.hero {
+  background: linear-gradient(160deg, var(--primary) 0%, var(--secondary) 60%, var(--accent) 100%);
+  color: #fff; padding: 3.4rem 1.2rem 3rem; text-align: center;
+}
+.hero h1 { font-size: 2.1rem; margin: 0 0 .6rem; }
+.hero .tagline { font-size: 1.08rem; font-style: italic; opacity: .95; margin: 0 0 1.8rem; }
+.hero .instructor { color: #fff; background: rgba(255,255,255,.12); display: inline-block; padding: .8rem 1.6rem; border-radius: 10px; line-height: 1.5; }
+.hero .instructor strong { font-size: 1.15rem; }
+.btn {
+  display: inline-block; margin-top: 1.6rem; background: #fff; color: var(--primary);
+  font-weight: 700; padding: .7rem 2rem; border-radius: 999px; text-decoration: none; font-size: 1.05rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+}
+.btn:hover { transform: translateY(-1px); }
+.section-card { max-width: 1080px; margin: 1.4rem auto; padding: 0 1rem; }
+.card {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.3rem 1.5rem; margin-bottom: 1.1rem;
+}
+.card h2 { color: var(--primary); margin-top: 0; font-size: 1.25rem; border-bottom: 2px solid var(--border); padding-bottom: .35rem; }
+.card table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+.card th, .card td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; }
+.card th { background: var(--primary); color: #fff; }
+.card tr:nth-child(even) td { background: var(--light); }
+.card a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+.card a:hover { text-decoration: underline; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.grid .card { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .layout { flex-direction: column; padding: .8rem; }
+  nav.sidebar { position: static; max-height: none; flex-basis: auto; }
+  main.content { padding: 1.1rem 1rem 1.8rem; }
+  .hero h1 { font-size: 1.55rem; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <p class="crumb"><a href="../index.html">Course Home</a></p>
+  <p class="course-title">DNA Replication in Prokaryotes and Eukaryotes</p>
+</header>
+<div class="layout"><nav class="sidebar">
+  <h3>Course</h3>
+  <a href="../README.html">Course Home</a>
+  <a href="../REFERENCES.html">References</a>
+  <h3>Teaching Modules</h3>
+  <a href="../MARKDOWN/01-Introduction-to-DNA-Replication.html">Introduction to DNA Replication</a>
+<a href="../MARKDOWN/02-Core-Concepts.html">Core Concepts of DNA Replication</a>
+<a href="../MARKDOWN/03-Prokaryotic-DNA-Replication.html">Prokaryotic DNA Replication</a>
+<a href="../MARKDOWN/04-Eukaryotic-DNA-Replication.html">Eukaryotic DNA Replication</a>
+<a href="../MARKDOWN/05-Replication-Fidelity-and-Repair.html">Replication Fidelity and Repair</a>
+<a href="../MARKDOWN/06-Telomeres-and-Telomerase.html">Telomeres and Telomerase</a>
+<a href="../MARKDOWN/07-Replication-Stress-and-Checkpoints.html">Replication Stress and Checkpoints</a>
+<a href="../MARKDOWN/08-Prokaryote-vs-Eukaryote.html">Prokaryote vs. Eukaryote Comparison</a>
+<a href="../MARKDOWN/09-Experimental-Methods.html">Experimental Methods</a>
+<a href="../MARKDOWN/10-Data-Analysis-and-Interpretation.html">Data Analysis and Interpretation</a>
+<a href="../MARKDOWN/11-Clinical-and-Biotechnology-Applications.html">Clinical and Biotechnology Applications</a>
+<a href="../MARKDOWN/12-Advanced-Topics.html">Advanced Topics in DNA Replication</a>
+  <h3>Laboratory</h3>
+  <a href="../LAB/Lab-01-DNA-Replication-Concepts.html">Lab 01: DNA Structure and Replication Modeling</a>
+<a href="../LAB/Lab-02-DNA-Quantification.html">Lab 02: DNA Quantification and Quality Assessment</a>
+<a href="../LAB/Lab-03-Gel-Electrophoresis.html">Lab 03: Agarose Gel Electrophoresis</a>
+<a href="../LAB/Lab-04-PCR-and-DNA-Amplification.html">Lab 04: PCR and DNA Amplification</a>
+<a href="../LAB/Lab-05-Replication-Data-Analysis.html">Lab 05: Replication Data Analysis</a>
+<a href="../LAB/Lab-06-Capstone-Exercise.html">Lab 06: Capstone Exercise — Integrated Replication Analysis</a>
+  <h3>Workbook & Data</h3>
+  <a href="../WORKBOOK/DNA-Replication-Lab-Workbook.html">Lab Workbook</a>
+  <a href="../DATA/datasets.html">Datasets</a>
+  <h3>Resources</h3>
+  <a href="../CHEAT-SHEET/DNA-Replication-Cheat-Sheet.html">Cheat Sheet</a>
+  <a href="../FAQ/DNA-Replication-FAQs.html">FAQs</a>
+  <h3>Assessment</h3>
+  <a href="../ASSESSMENT/MCQs.html">DNA Replication — Multiple Choice Questions</a>
+<a href="../ASSESSMENT/Short-Questions.html">DNA Replication — Short Answer Questions</a>
+<a href="../ASSESSMENT/Long-Questions.html">DNA Replication — Long Answer / Essay Questions</a>
+<a href="../ASSESSMENT/Viva-Questions.html">DNA Replication — Viva Voce Questions</a>
+<a href="../ASSESSMENT/Case-Studies.html">DNA Replication — Case Studies</a>
+  <h3>Downloads</h3>
+  <a href="../PDF/Complete-Tutorial.pdf">Complete Tutorial (PDF)</a>
+  <a href="../PDF/Lab-Workbook.pdf">Lab Workbook (PDF)</a>
+  <a href="../PDF/Cheat-Sheet.pdf">Cheat Sheet (PDF)</a>
+  <a href="../PDF/FAQs.pdf">FAQs (PDF)</a>
+  <a href="../PDF/Assessment.pdf">Assessment (PDF)</a>
+  <a href="../PPTX/DNA_Replication_Complete_Lecture.pptx">Lecture Slides (PPTX)</a>
+</nav><main class="content"><h1 id="module-02-core-concepts-of-dna-replication">Module 02: Core Concepts of DNA Replication</h1>
+<hr>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<ol>
+<li>Explain the semiconservative model of replication at the molecular level</li>
+<li>Describe all requirements for DNA replication</li>
+<li>Explain the concept of replication origins</li>
+<li>Describe replication forks, leading strand, and lagging strand</li>
+<li>Explain why DNA synthesis proceeds 5&#39;→3&#39; and its consequences</li>
+<li>Understand the overall workflow of DNA replication</li>
+</ol>
+<hr>
+<h2 id="1-semiconservative-replication">1. Semiconservative Replication</h2>
+<h3 id="concept">Concept</h3>
+<p>Semiconservative replication means that each strand of the parental DNA double helix serves as a template for the synthesis of a new complementary strand. After replication, each daughter DNA molecule consists of one parental (original) strand and one newly synthesized strand.</p>
+<h3 id="why-it-matters">Why It Matters</h3>
+<p>This mechanism ensures:</p>
+<ul>
+<li><strong>Faithful transmission</strong> of genetic information</li>
+<li><strong>Each daughter cell</strong> receives one copy of every gene</li>
+<li><strong>Template-directed synthesis</strong> provides a mechanism for accuracy</li>
+</ul>
+<h3 id="beginner-explanation">Beginner Explanation</h3>
+<p>Imagine you have a zipper (DNA double helix). You unzip it, and each half-zipper serves as a guide to build a new matching half. The result: two identical zippers, each with one old half and one new half.</p>
+<h3 id="molecular-level-explanation">Molecular-Level Explanation</h3>
+<pre><code>Before Replication:
+5&#39;─A─T─G─C─C─A─T─G─3&#39;  (Parental Strand 1)
+3&#39;─T─A─C─G─G─T─A─C─5&#39;  (Parental Strand 2)
+
+         ↓ Unwinding + Synthesis
+
+After Replication:
+5&#39;─A─T─G─C─C─A─T─G─3&#39;  (Parental Strand 1)
+3&#39;─T─A─C─G─G─T─A─C─5&#39;  (New Strand 1)
+
+5&#39;─A─T─G─C─C─A─T─G─3&#39;  (New Strand 2)
+3&#39;─T─A─C─G─G─T─A─C─5&#39;  (Parental Strand 2)
+
+Each daughter molecule = 1 old strand + 1 new strand
+</code></pre>
+<h3 id="advanced-explanation">Advanced Explanation</h3>
+<p>The semiconservative model is not just about copying — it has implications for:</p>
+<ul>
+<li><strong>Mutation tracking</strong>: Mutations accumulate differently on leading vs. lagging strands</li>
+<li><strong>Epigenetic inheritance</strong>: Parental histone marks are distributed to daughter chromosomes</li>
+<li><strong>Strand-specific repair</strong>: Cells can distinguish the template strand from the new strand</li>
+</ul>
+<h3 id="visual-explanation">Visual Explanation</h3>
+<pre><code>SEMICONSERVATIVE REPLICATION
+
+    Parent DNA
+    ┌──────────────────┐
+    │ 5&#39;═══════════3&#39;  │  ← Parental strand (blue)
+    │ 3&#39;═══════════5&#39;  │  ← Parental strand (red)
+    └──────────────────┘
+              ↓
+         Unwinding
+              ↓
+    ┌──────────────────┐
+    │ 5&#39;═══════════3&#39;  │  blue (template)
+    │    3&#39;═══════════5&#39;│  ← New strand (green)
+    └──────────────────┘
+    ┌──────────────────┐
+    │ 3&#39;═══════════5&#39;  │  ← New strand (green)
+    │ 5&#39;═══════════3&#39;  │  red (template)
+    └──────────────────┘
+
+Result: Two identical daughter molecules
+        Each = 1 parental strand + 1 new strand
+</code></pre>
+<h3 id="common-misconception">Common Misconception</h3>
+<p><strong>Misconception:</strong> Semiconservative means each strand is &quot;half new and half old.&quot;
+<strong>Reality:</strong> Each <em>molecule</em> contains one complete old strand and one complete new strand. The strands themselves are entirely old or entirely new.</p>
+<hr>
+<h2 id="2-requirements-for-dna-replication">2. Requirements for DNA Replication</h2>
+<h3 id="concept-1">Concept</h3>
+<p>DNA replication requires specific substrates, enzymes, energy, and accessory factors working together in a coordinated molecular machine called the <strong>replisome</strong>.</p>
+<h3 id="complete-list-of-requirements">Complete List of Requirements</h3>
+<h4 id="a-substrates-building-blocks">A. Substrates (Building Blocks)</h4>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Role</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>dNTPs (dATP, dTTP, dGTP, dCTP)</td>
+<td>Nucleotide substrates</td>
+<td>Provide both building blocks and energy (pyrophosphate release drives the reaction)</td>
+</tr>
+<tr>
+<td>Template DNA</td>
+<td>Template for synthesis</td>
+<td>Each strand serves as a template</td>
+</tr>
+<tr>
+<td>Primer (RNA or DNA)</td>
+<td>Provides free 3&#39;-OH</td>
+<td>DNA polymerase cannot start synthesis de novo</td>
+</tr>
+</tbody></table>
+<h4 id="b-enzymes">B. Enzymes</h4>
+<table>
+<thead>
+<tr>
+<th>Enzyme</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>DNA polymerase</strong></td>
+<td>Synthesizes new DNA strands (5&#39;→3&#39;)</td>
+</tr>
+<tr>
+<td><strong>Helicase</strong></td>
+<td>Unwinds the double helix</td>
+</tr>
+<tr>
+<td><strong>Primase</strong></td>
+<td>Synthesizes RNA primers</td>
+</tr>
+<tr>
+<td><strong>Topoisomerase</strong></td>
+<td>Relieves torsional stress ahead of the fork</td>
+</tr>
+<tr>
+<td><strong>DNA ligase</strong></td>
+<td>Joins Okazaki fragments (seals nicks)</td>
+</tr>
+<tr>
+<td><strong>Exonuclease</strong></td>
+<td>Removes misincorporated nucleotides (proofreading) and RNA primers</td>
+</tr>
+</tbody></table>
+<h4 id="c-accessory-proteins">C. Accessory Proteins</h4>
+<table>
+<thead>
+<tr>
+<th>Protein</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Sliding clamp</strong></td>
+<td>Increases polymerase processivity</td>
+</tr>
+<tr>
+<td><strong>Clamp loader</strong></td>
+<td>Loads sliding clamp onto DNA</td>
+</tr>
+<tr>
+<td><strong>Single-strand binding protein (SSB/RPA)</strong></td>
+<td>Stabilizes unwound single-stranded DNA</td>
+</tr>
+<tr>
+<td><strong>Origin recognition proteins</strong></td>
+<td>Identify and bind replication origins</td>
+</tr>
+</tbody></table>
+<h4 id="d-energy">D. Energy</h4>
+<ul>
+<li><strong>ATP</strong> — used for helicase activity, clamp loading, topoisomerase action</li>
+<li><strong>Pyrophosphate release</strong> from dNTPs — thermodynamically drives polymerization</li>
+</ul>
+<h3 id="visual-explanation-1">Visual Explanation</h3>
+<pre><code>REPLICATION FORK — All Components
+
+                    Topoisomerase
+                    (relieves stress)
+                         ↓
+         ←════════════════════════════════
+                Direction of fork movement →
+
+         Helicase
+         (unwinds DNA)
+            ↓
+    5&#39;──→──3&#39;   3&#39;──→──5&#39;
+              ↙
+    SSB proteins (stabilize ssDNA)
+
+    PRIMASE (synthesizes RNA primer)
+        ↓
+    DNA POLYMERASE III (synthesizes new DNA)
+        ↓
+    SLIDING CLAMP (keeps polymerase attached)
+        ↓
+    LIGASE (joins Okazaki fragments)
+</code></pre>
+<hr>
+<h2 id="3-origin-of-replication-ori">3. Origin of Replication (ori)</h2>
+<h3 id="concept-2">Concept</h3>
+<p>An <strong>origin of replication</strong> is a specific DNA sequence where replication begins. It is the site where the replication machinery assembles and initiates DNA synthesis.</p>
+<h3 id="why-it-matters-1">Why It Matters</h3>
+<p>Origins determine:</p>
+<ul>
+<li><strong>When</strong> replication starts (regulated by cell-cycle signals)</li>
+<li><strong>Where</strong> replication starts (ensures entire genome is copied)</li>
+<li><strong>How many</strong> replication bubbles form (determines replication speed)</li>
+</ul>
+<h3 id="beginner-explanation-1">Beginner Explanation</h3>
+<p>Think of the origin of replication as the &quot;start button&quot; for copying DNA. Just as a photocopier needs a starting point, the cell&#39;s replication machinery needs a specific place on the DNA to begin making copies.</p>
+<h3 id="molecular-level-explanation-1">Molecular-Level Explanation</h3>
+<h4 id="prokaryotic-origins">Prokaryotic Origins</h4>
+<p><em>E. coli</em> has a <strong>single origin</strong> called <strong>oriC</strong>:</p>
+<ul>
+<li><strong>Length</strong>: 245 base pairs</li>
+<li><strong>Key elements</strong>:<ul>
+<li><strong>5 × 9-mer repeats (DnaA boxes)</strong>: Binding sites for initiator protein DnaA</li>
+<li><strong>AT-rich 13-mer repeats</strong>: Easily unwound (A-T pairs have only 2 hydrogen bonds)</li>
+<li>Region melts first → creates replication bubble</li>
+</ul>
+</li>
+</ul>
+<h4 id="eukaryotic-origins">Eukaryotic Origins</h4>
+<p>Human cells have <strong>thousands of origins</strong> (~30,000–50,000 per cell):</p>
+<ul>
+<li><strong>ARS (Autonomously Replicating Sequences)</strong> in yeast: ~100–200 bp</li>
+<li><strong>ORC binding sites</strong> in humans: less sequence-specific, influenced by chromatin context</li>
+<li>Each origin fires once per cell cycle (ensuring no re-replication)</li>
+</ul>
+<h3 id="advanced-explanation-1">Advanced Explanation</h3>
+<p>Origin specification involves:</p>
+<ol>
+<li><strong>Sequence elements</strong>: Specific DNA sequences that attract initiator proteins</li>
+<li><strong>Chromatin context</strong>: Epigenetic marks (histone modifications, DNA methylation) influence origin usage</li>
+<li><strong>Transcriptional activity</strong>: Active genes often have nearby efficient origins</li>
+<li><strong>Replication timing domains</strong>: Origins in euchromatin fire early; heterochromatin origins fire late</li>
+</ol>
+<h3 id="common-misconception-1">Common Misconception</h3>
+<p><strong>Misconception:</strong> All origins are the same sequence.
+<strong>Reality:</strong> Origin sequences vary significantly between species and even within genomes. In metazoans, origins are less sequence-dependent and more influenced by chromatin structure and epigenetic factors.</p>
+<hr>
+<h2 id="4-replication-fork">4. Replication Fork</h2>
+<h3 id="concept-3">Concept</h3>
+<p>When DNA replication initiates at an origin, the double helix is unwound to form a <strong>replication bubble</strong>. At each end of the bubble, a Y-shaped structure called a <strong>replication fork</strong> forms where the actual synthesis occurs.</p>
+<h3 id="why-it-matters-2">Why It Matters</h3>
+<p>The replication fork is the active site of DNA synthesis. Understanding its structure is essential for understanding how both strands are replicated simultaneously.</p>
+<h3 id="beginner-explanation-2">Beginner Explanation</h3>
+<p>Imagine unzipping a zipper from the middle. You get two openings — one on each side. Each opening is a &quot;replication fork.&quot; At each fork, the two strands of DNA are separated, and new strands are built on each template.</p>
+<h3 id="molecular-level-explanation-2">Molecular-Level Explanation</h3>
+<pre><code>                    REPLICATION BUBBLE
+                    
+    5&#39;───────────────────────────────────────────3&#39;
+        ← Fork 1        ORIGIN        Fork 2 →
+    3&#39;───────────────────────────────────────────5&#39;
+    
+    Zooming into one fork:
+    
+    5&#39;──────→3&#39; (template for lagging strand)
+              \
+               Helicase → Direction of fork movement
+              /
+    3&#39;──────→5&#39; (template for leading strand)
+    
+              ↑
+         RNA Primer
+         New DNA ←─── DNA Polymerase
+</code></pre>
+<h3 id="advanced-explanation-2">Advanced Explanation</h3>
+<p>Replication forks are <strong>asymmetric</strong>:</p>
+<ul>
+<li>The two template strands run antiparallel (5&#39;→3&#39; and 3&#39;→5&#39;)</li>
+<li>DNA polymerase can only synthesize in the 5&#39;→3&#39; direction</li>
+<li>Therefore, one strand is synthesized <strong>continuously</strong> (leading strand) and the other <strong>discontinuously</strong> (lagging strand)</li>
+<li>This asymmetry is fundamental to all DNA replication</li>
+</ul>
+<hr>
+<h2 id="5-leading-strand-and-lagging-strand">5. Leading Strand and Lagging Strand</h2>
+<h3 id="concept-4">Concept</h3>
+<p>Due to the antiparallel nature of DNA and the 5&#39;→3&#39; directionality of DNA polymerase:</p>
+<ul>
+<li><strong>Leading strand</strong>: Synthesized continuously toward the replication fork</li>
+<li><strong>Lagging strand</strong>: Synthesized discontinuously away from the replication fork</li>
+</ul>
+<h3 id="why-it-matters-3">Why It Matters</h3>
+<p>Understanding leading vs. lagging strand synthesis is essential for:</p>
+<ul>
+<li>Explaining Okazaki fragments</li>
+<li>Understanding why different polymerases may act on different strands</li>
+<li>Comprehending strand-specific mutation rates</li>
+<li>Understanding replication-associated diseases</li>
+</ul>
+<h3 id="beginner-explanation-3">Beginner Explanation</h3>
+<p>Because DNA polymerase can only work in one direction (5&#39;→3&#39;), one strand is easy to copy — just follow the unwinding fork. The other strand is harder — you have to copy it in short pieces as more template becomes available, like writing a sentence backwards by writing it in short segments.</p>
+<h3 id="molecular-level-explanation-3">Molecular-Level Explanation</h3>
+<pre><code>                    Direction of fork movement →
+                    
+    3&#39;────────────────────────────────→5&#39;  (Template for Leading Strand)
+    ──────→──→──→──→──→──→──→──→──→──→  (Leading strand: continuous 5&#39;→3&#39;)
+          [DNA Polymerase] →
+
+    5&#39;────────────────────────────────→3&#39;  (Template for Lagging Strand)
+    ──→──←───→──←───→──←───→──←───→──  (Lagging strand: discontinuous)
+    [Okazaki fragments: each 5&#39;→3&#39;]
+    
+    ←── [DNA Polymerase] ──
+</code></pre>
+<h3 id="okazaki-fragments">Okazaki Fragments</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Prokaryotes (E. coli)</th>
+<th>Eukaryotes (Human)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Size</td>
+<td>1,000–2,000 nt</td>
+<td>100–200 nt</td>
+</tr>
+<tr>
+<td>RNA primer length</td>
+<td>~10–12 nt</td>
+<td>~8–12 nt</td>
+</tr>
+<tr>
+<td>Processing</td>
+<td>DNA Pol I removes primer, fills gap</td>
+<td>RNase H + FEN1 remove primer; Pol δ fills gap</td>
+</tr>
+<tr>
+<td>Ligation</td>
+<td>DNA ligase (NAD⁺)</td>
+<td>DNA ligase I (ATP)</td>
+</tr>
+</tbody></table>
+<h3 id="why-5→3-direction">Why 5&#39;→3&#39; Direction?</h3>
+<p>The 5&#39;→3&#39; directionality of DNA synthesis has a deep chemical basis:</p>
+<ul>
+<li>DNA polymerase catalyzes a <strong>nucleophilic attack</strong> by the 3&#39;-OH of the growing chain on the α-phosphate of the incoming dNTP</li>
+<li>This reaction releases pyrophosphate (PPi), which is subsequently hydrolyzed</li>
+<li>The energy from dNTP hydrolysis + PPi hydrolysis drives the reaction forward</li>
+<li><strong>There is no known mechanism</strong> for 3&#39;→5&#39; polymerization in biology</li>
+</ul>
+<h3 id="visual-explanation-2">Visual Explanation</h3>
+<pre><code>LEADING STRAND SYNTHESIS
+=========================
+Template:  3&#39;─T─A─C─G─G─T─A─C─G─A─T─5&#39;
+New strand: 5&#39;─A─→─T─→─G─→─C─→─C─→─A─→─T─→─G─→─C─→─T
+                          →──→──→──→──→  (continuous)
+                          
+LAGGING STRAND SYNTHESIS (Okazaki fragments)
+============================================
+Template:  5&#39;─A─T─G─C─C─A─T─G─C─A─T─3&#39;
+
+Fragment 1: 5&#39;─A─T─G─C─C─→  (5&#39;→3&#39;)
+Fragment 2: 5&#39;─A─T─G─C─→    (5&#39;→3&#39;)
+Fragment 3: 5&#39;─A─T─G─→      (5&#39;→3&#39;)
+
+Each fragment is made 5&#39;→3&#39; but overall direction is ←
+</code></pre>
+<h3 id="common-misconception-2">Common Misconception</h3>
+<p><strong>Misconception:</strong> The lagging strand is synthesized 3&#39;→5&#39;.
+<strong>Reality:</strong> Both strands are synthesized 5&#39;→3&#39;. The lagging strand is synthesized as short fragments (Okazaki fragments) that are each made 5&#39;→3&#39;, but the overall direction of synthesis on this strand is opposite to fork movement.</p>
+<hr>
+<h2 id="6-directionality-and-polarity">6. Directionality and Polarity</h2>
+<h3 id="key-terminology">Key Terminology</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>5&#39; end</strong></td>
+<td>End with a free phosphate group on the 5&#39; carbon of the sugar</td>
+</tr>
+<tr>
+<td><strong>3&#39; end</strong></td>
+<td>End with a free hydroxyl group on the 3&#39; carbon of the sugar</td>
+</tr>
+<tr>
+<td><strong>Antiparallel</strong></td>
+<td>The two strands of DNA run in opposite directions</td>
+</tr>
+<tr>
+<td><strong>Template strand</strong></td>
+<td>The strand being read by DNA polymerase (read 3&#39;→5&#39;)</td>
+</tr>
+<tr>
+<td><strong>Coding strand</strong></td>
+<td>The non-template strand (has same sequence as RNA product, 5&#39;→3&#39;)</td>
+</tr>
+<tr>
+<td><strong>Processivity</strong></td>
+<td>Number of nucleotides added before polymerase dissociates</td>
+</tr>
+<tr>
+<td><strong>Processivity factor</strong></td>
+<td>Protein (e.g., sliding clamp) that increases processivity</td>
+</tr>
+</tbody></table>
+<h3 id="the-central-rule">The Central Rule</h3>
+<blockquote>
+<p><strong>DNA is always synthesized in the 5&#39;→3&#39; direction.</strong> This is universal — no known exception exists in any organism.</p>
+</blockquote>
+<h3 id="why-this-matters">Why This Matters</h3>
+<p>This single rule explains:</p>
+<ol>
+<li>Why the lagging strand is discontinuous</li>
+<li>Why Okazaki fragments exist</li>
+<li>Why a primer is needed (provides the initial 3&#39;-OH)</li>
+<li>Why replication is asymmetric at the fork</li>
+<li>Why different enzymes are needed for primer removal and gap filling</li>
+</ol>
+<hr>
+<h2 id="7-overall-replication-workflow">7. Overall Replication Workflow</h2>
+<h3 id="step-by-step-mechanism">Step-by-Step Mechanism</h3>
+<pre><code>COMPLETE DNA REPLICATION WORKFLOW
+=================================
+
+1. INITIATION
+   └→ Recognition of origin of replication
+   └→ Assembly of initiator complex
+   └→ Local unwinding (melting) of double helix
+
+2. PRIMING
+   └→ Primase synthesizes short RNA primer
+   └→ Provides free 3&#39;-OH for DNA polymerase
+
+3. ELONGATION
+   ├→ LEADING STRAND
+   │   └→ DNA polymerase extends primer continuously
+   │   └→ Follows helicase at the fork
+   │   └→ Single primer needed
+   │
+   └→ LAGGING STRAND
+       └→ Multiple RNA primers synthesized
+       └→ DNA polymerase synthesizes Okazaki fragments
+       └→ Each fragment: ~100-200 nt (eukaryotes) or 1-2 kb (prokaryotes)
+       └→ Direction: each 5&#39;→3&#39;, overall away from fork
+
+4. PRIMER REMOVAL AND GAP FILLING
+   └→ Exonuclease removes RNA primers
+   └→ DNA polymerase fills gaps with DNA
+   └→ (Prokaryotes: Pol I; Eukaryotes: Pol δ + RNase H + FEN1)
+
+5. LIGATION
+   └→ DNA ligase seals nicks between Okazaki fragments
+   └→ Creates continuous lagging strand
+
+6. TERMINATION
+   └→ Replication forks meet (circular chromosomes)
+   └→ Termination sequences/structures
+   └→ Daughter chromosomes separated
+
+7. QUALITY CONTROL
+   └→ Proofreading during synthesis (3&#39;→5&#39; exonuclease)
+   └→ Mismatch repair after replication
+   └→ Cell-cycle checkpoint verification
+</code></pre>
+<hr>
+<h2 id="quick-check">Quick Check</h2>
+<ol>
+<li>If you denature a completely replicated DNA molecule from the Meselson-Stahl experiment (generation 2, grown in ¹⁴N after ¹⁵N), what bands would you observe on a density gradient?</li>
+<li>Why does DNA polymerase require a primer? What would happen if it didn&#39;t?</li>
+<li>A student says: &quot;The lagging strand is synthesized 3&#39;→5&#39;.&quot; Correct this statement.</li>
+<li>List five requirements for DNA replication and explain the role of each.</li>
+<li>If an organism&#39;s genome is 5 × 10⁹ bp and replication proceeds at 50 nt/s per fork with 40,000 origins, approximately how long would S phase take? (Assume bidirectional replication.)</li>
+</ol>
+<hr>
+</main></div>
+<footer class="site-footer">
+  <p class="instructor">Dr. Saira Azam — Assistant Professor, Centre of Excellence in Molecular Biology, University of the Punjab, Lahore</p>
+  <p>DNA Replication in Prokaryotes and Eukaryotes · A Complete Molecular Biology Teaching and Learning Module</p>
+</footer>
+</body>
+</html>

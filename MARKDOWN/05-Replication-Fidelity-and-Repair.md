@@ -329,5 +329,5 @@ Repairs bulky, helix-distorting lesions (UV-induced pyrimidine dimers, chemical 
 
 **← [Previous: Eukaryotic Replication](04-Eukaryotic-DNA-Replication.md) | [Next: Telomeres and Telomerase →](06-Telomeres-and-Telomerase.md)**
 
-*Related Lab: [Lab 07 — Replication Fork Analysis](../LAB/Lab-07-Replication-Fork-Analysis.md)*
+*Related Lab: [Lab 06 — Capstone Exercise](../LAB/Lab-06-Capstone-Exercise.md)*
 *Related Assessment: [MCQs](../ASSESSMENT/MCQs.md) | [Case Studies](../ASSESSMENT/Case-Studies.md)*

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DNA Replication in Prokaryotes and Eukaryotes</title>
+<style>
+:root {
+  --primary: #1B4F72; --secondary: #2E86C1; --accent: #16A085;
+  --dark: #2C3E50; --light: #F4F8FB; --border: #D5E5F1;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  margin: 0; color: #22303c; line-height: 1.65;
+  background: #fbfdff;
+}
+.site-header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff; padding: 1.4rem 1rem 1.2rem; text-align: center;
+}
+.site-header .course-title { font-size: 1.35rem; font-weight: 700; margin: 0; }
+.site-header .crumb { font-size: .8rem; opacity: .85; margin: 0 0 .35rem; }
+.site-header a { color: #fff; text-decoration: none; opacity: .92; }
+.site-header a:hover { text-decoration: underline; opacity: 1; }
+.layout { display: flex; max-width: 1180px; margin: 0 auto; gap: 1.5rem; padding: 1.25rem 1rem; }
+nav.sidebar {
+  flex: 0 0 260px; align-self: flex-start; position: sticky; top: 12px;
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1rem 1.1rem; max-height: calc(100vh - 30px); overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--accent); margin: 1.1rem 0 .35rem;
+}
+nav.sidebar h3:first-of-type { margin-top: 0; }
+nav.sidebar a {
+  display: block; color: var(--primary); text-decoration: none;
+  font-size: .9rem; padding: .28rem .5rem; border-radius: 6px;
+}
+nav.sidebar a:hover { background: var(--light); }
+main.content { flex: 1; min-width: 0; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1.6rem 2rem 2.4rem; }
+main.content.wide { width: 100%; }
+main.content h1 { color: var(--primary); font-size: 1.65rem; border-bottom: 3px solid var(--secondary); padding-bottom: .45rem; }
+main.content h2 { color: var(--secondary); font-size: 1.25rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; margin-top: 2rem; }
+main.content h3 { color: var(--accent); font-size: 1.05rem; margin-top: 1.6rem; }
+main.content table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .9rem; display: block; overflow-x: auto; }
+main.content th, main.content td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; vertical-align: top; }
+main.content th { background: var(--primary); color: #fff; }
+main.content tr:nth-child(even) td { background: var(--light); }
+main.content pre {
+  background: #F4F6F8; border: 1px solid #DDE3E9; border-radius: 8px;
+  padding: .9rem 1.1rem; overflow-x: auto; font-size: .82rem; line-height: 1.45;
+}
+main.content code { background: #F0F2F4; border-radius: 4px; padding: .1rem .35rem; font-size: .88em; }
+main.content pre code { background: none; padding: 0; }
+main.content blockquote { border-left: 4px solid var(--secondary); background: var(--light); margin: 1rem 0; padding: .6rem 1.1rem; border-radius: 0 8px 8px 0; }
+main.content a { color: var(--secondary); }
+main.content img { max-width: 100%; }
+.nav-links { margin-top: 2.4rem; padding-top: 1rem; border-top: 2px solid var(--border); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .92rem; }
+footer.site-footer {
+  text-align: center; padding: 1.6rem 1rem 2.2rem; color: #5a6b7a; font-size: .88rem;
+}
+footer.site-footer .instructor { margin: 0 0 .4rem; color: var(--primary); font-weight: 600; }
+
+/* Landing page */
+.hero {
+  background: linear-gradient(160deg, var(--primary) 0%, var(--secondary) 60%, var(--accent) 100%);
+  color: #fff; padding: 3.4rem 1.2rem 3rem; text-align: center;
+}
+.hero h1 { font-size: 2.1rem; margin: 0 0 .6rem; }
+.hero .tagline { font-size: 1.08rem; font-style: italic; opacity: .95; margin: 0 0 1.8rem; }
+.hero .instructor { color: #fff; background: rgba(255,255,255,.12); display: inline-block; padding: .8rem 1.6rem; border-radius: 10px; line-height: 1.5; }
+.hero .instructor strong { font-size: 1.15rem; }
+.btn {
+  display: inline-block; margin-top: 1.6rem; background: #fff; color: var(--primary);
+  font-weight: 700; padding: .7rem 2rem; border-radius: 999px; text-decoration: none; font-size: 1.05rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+}
+.btn:hover { transform: translateY(-1px); }
+.section-card { max-width: 1080px; margin: 1.4rem auto; padding: 0 1rem; }
+.card {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.3rem 1.5rem; margin-bottom: 1.1rem;
+}
+.card h2 { color: var(--primary); margin-top: 0; font-size: 1.25rem; border-bottom: 2px solid var(--border); padding-bottom: .35rem; }
+.card table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+.card th, .card td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; }
+.card th { background: var(--primary); color: #fff; }
+.card tr:nth-child(even) td { background: var(--light); }
+.card a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+.card a:hover { text-decoration: underline; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.grid .card { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .layout { flex-direction: column; padding: .8rem; }
+  nav.sidebar { position: static; max-height: none; flex-basis: auto; }
+  main.content { padding: 1.1rem 1rem 1.8rem; }
+  .hero h1 { font-size: 1.55rem; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <p class="crumb"><a href="index.html">Course Home</a></p>
+  <p class="course-title">DNA Replication in Prokaryotes and Eukaryotes</p>
+</header>
+<div class="layout"><nav class="sidebar">
+  <h3>Course</h3>
+  <a href="README.html">Course Home</a>
+  <a href="REFERENCES.html">References</a>
+  <h3>Teaching Modules</h3>
+  <a href="MARKDOWN/01-Introduction-to-DNA-Replication.html">Introduction to DNA Replication</a>
+<a href="MARKDOWN/02-Core-Concepts.html">Core Concepts of DNA Replication</a>
+<a href="MARKDOWN/03-Prokaryotic-DNA-Replication.html">Prokaryotic DNA Replication</a>
+<a href="MARKDOWN/04-Eukaryotic-DNA-Replication.html">Eukaryotic DNA Replication</a>
+<a href="MARKDOWN/05-Replication-Fidelity-and-Repair.html">Replication Fidelity and Repair</a>
+<a href="MARKDOWN/06-Telomeres-and-Telomerase.html">Telomeres and Telomerase</a>
+<a href="MARKDOWN/07-Replication-Stress-and-Checkpoints.html">Replication Stress and Checkpoints</a>
+<a href="MARKDOWN/08-Prokaryote-vs-Eukaryote.html">Prokaryote vs. Eukaryote Comparison</a>
+<a href="MARKDOWN/09-Experimental-Methods.html">Experimental Methods</a>
+<a href="MARKDOWN/10-Data-Analysis-and-Interpretation.html">Data Analysis and Interpretation</a>
+<a href="MARKDOWN/11-Clinical-and-Biotechnology-Applications.html">Clinical and Biotechnology Applications</a>
+<a href="MARKDOWN/12-Advanced-Topics.html">Advanced Topics in DNA Replication</a>
+  <h3>Laboratory</h3>
+  <a href="LAB/Lab-01-DNA-Replication-Concepts.html">Lab 01: DNA Structure and Replication Modeling</a>
+<a href="LAB/Lab-02-DNA-Quantification.html">Lab 02: DNA Quantification and Quality Assessment</a>
+<a href="LAB/Lab-03-Gel-Electrophoresis.html">Lab 03: Agarose Gel Electrophoresis</a>
+<a href="LAB/Lab-04-PCR-and-DNA-Amplification.html">Lab 04: PCR and DNA Amplification</a>
+<a href="LAB/Lab-05-Replication-Data-Analysis.html">Lab 05: Replication Data Analysis</a>
+<a href="LAB/Lab-06-Capstone-Exercise.html">Lab 06: Capstone Exercise — Integrated Replication Analysis</a>
+  <h3>Workbook & Data</h3>
+  <a href="WORKBOOK/DNA-Replication-Lab-Workbook.html">Lab Workbook</a>
+  <a href="DATA/datasets.html">Datasets</a>
+  <h3>Resources</h3>
+  <a href="CHEAT-SHEET/DNA-Replication-Cheat-Sheet.html">Cheat Sheet</a>
+  <a href="FAQ/DNA-Replication-FAQs.html">FAQs</a>
+  <h3>Assessment</h3>
+  <a href="ASSESSMENT/MCQs.html">DNA Replication — Multiple Choice Questions</a>
+<a href="ASSESSMENT/Short-Questions.html">DNA Replication — Short Answer Questions</a>
+<a href="ASSESSMENT/Long-Questions.html">DNA Replication — Long Answer / Essay Questions</a>
+<a href="ASSESSMENT/Viva-Questions.html">DNA Replication — Viva Voce Questions</a>
+<a href="ASSESSMENT/Case-Studies.html">DNA Replication — Case Studies</a>
+  <h3>Downloads</h3>
+  <a href="PDF/Complete-Tutorial.pdf">Complete Tutorial (PDF)</a>
+  <a href="PDF/Lab-Workbook.pdf">Lab Workbook (PDF)</a>
+  <a href="PDF/Cheat-Sheet.pdf">Cheat Sheet (PDF)</a>
+  <a href="PDF/FAQs.pdf">FAQs (PDF)</a>
+  <a href="PDF/Assessment.pdf">Assessment (PDF)</a>
+  <a href="PPTX/DNA_Replication_Complete_Lecture.pptx">Lecture Slides (PPTX)</a>
+</nav><main class="content"><h1 id="dna-replication-teaching-package--build-report">DNA Replication Teaching Package — Build Report</h1>
+<p><strong>Course:</strong> DNA Replication in Prokaryotes and Eukaryotes
+<strong>A Complete Molecular Biology Teaching and Learning Module</strong></p>
+<p><strong>Instructor:</strong>
+Dr. Saira Azam
+Assistant Professor
+Centre of Excellence in Molecular Biology
+University of the Punjab, Lahore</p>
+<p><strong>Date:</strong> September 2026
+<strong>Version:</strong> 2.0 (final, web-published edition)</p>
+<hr>
+<h2 id="files">Files</h2>
+<h3 id="markdown-26-files">Markdown (26 files)</h3>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Count</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Teaching modules</td>
+<td>12</td>
+<td><code>MARKDOWN/01…12-*.md</code></td>
+</tr>
+<tr>
+<td>Laboratory exercises</td>
+<td>6</td>
+<td><code>LAB/Lab-01…Lab-06*.md</code></td>
+</tr>
+<tr>
+<td>Lab workbook</td>
+<td>1</td>
+<td><code>WORKBOOK/DNA-Replication-Lab-Workbook.md</code></td>
+</tr>
+<tr>
+<td>Cheat sheet</td>
+<td>1</td>
+<td><code>CHEAT-SHEET/DNA-Replication-Cheat-Sheet.md</code></td>
+</tr>
+<tr>
+<td>FAQs</td>
+<td>1</td>
+<td><code>FAQ/DNA-Replication-FAQs.md</code></td>
+</tr>
+<tr>
+<td>Assessments</td>
+<td>5</td>
+<td><code>ASSESSMENT/{MCQs, Short, Long, Viva, Case-Studies}.md</code></td>
+</tr>
+<tr>
+<td>Datasets</td>
+<td>1</td>
+<td><code>DATA/datasets.md</code></td>
+</tr>
+<tr>
+<td>References</td>
+<td>1</td>
+<td><code>REFERENCES.md</code></td>
+</tr>
+<tr>
+<td>Course home</td>
+<td>1</td>
+<td><code>README.md</code></td>
+</tr>
+</tbody></table>
+<h3 id="pdf-5-files-generated-from-markdown-via-marked--headless-chrome">PDF (5 files, generated from Markdown via marked + headless Chrome)</h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Pages</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>PDF/Complete-Tutorial.pdf</code></td>
+<td>113</td>
+<td>All 12 modules + references, cover page, TOC, instructor block, page numbers</td>
+</tr>
+<tr>
+<td><code>PDF/Lab-Workbook.pdf</code></td>
+<td>43</td>
+<td>Workbook + all 6 labs</td>
+</tr>
+<tr>
+<td><code>PDF/Cheat-Sheet.pdf</code></td>
+<td>8</td>
+<td>Rapid-revision reference</td>
+</tr>
+<tr>
+<td><code>PDF/FAQs.pdf</code></td>
+<td>11</td>
+<td>62 FAQs</td>
+</tr>
+<tr>
+<td><code>PDF/Assessment.pdf</code></td>
+<td>25</td>
+<td>MCQs, short, long, viva, case studies</td>
+</tr>
+</tbody></table>
+<h3 id="presentation-1-file">Presentation (1 file)</h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Slides</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>PPTX/DNA_Replication_Complete_Lecture.pptx</code></td>
+<td>~65 slides, 12 modules, speaker notes, instructor on title slide</td>
+</tr>
+</tbody></table>
+<h3 id="content-totals">Content totals</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Assessment questions</td>
+<td>113 (40 MCQ + 25 short + 15 long + 33 viva)</td>
+</tr>
+<tr>
+<td>Case studies</td>
+<td>10</td>
+</tr>
+<tr>
+<td>FAQs</td>
+<td>62</td>
+</tr>
+<tr>
+<td>References</td>
+<td>52</td>
+</tr>
+<tr>
+<td>Simulated datasets</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Labs</td>
+<td>6</td>
+</tr>
+</tbody></table>
+<h3 id="build-tooling-in-course-root">Build tooling (in course root)</h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>generate_pdf.js</code></td>
+<td>Markdown → styled HTML → PDF (marked + Puppeteer/Chrome)</td>
+</tr>
+<tr>
+<td><code>generate_pptx.js</code></td>
+<td>Lecture deck generator (pptxgenjs)</td>
+</tr>
+<tr>
+<td><code>generate_site.js</code></td>
+<td>GitHub Pages site generator (in place — the course directory is the Pages root)</td>
+</tr>
+<tr>
+<td><code>validate_site.js</code></td>
+<td>Link validator for generated site</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="website">Website</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Framework</td>
+<td>Static HTML generated from Markdown (<code>generate_site.js</code>), no runtime dependencies</td>
+</tr>
+<tr>
+<td>Location</td>
+<td><code>DNA-Replication-Course/</code> itself — the course directory is the Pages deployment root; GitHub Actions requires the workflow file to remain under <code>.github/workflows/</code></td>
+</tr>
+<tr>
+<td>Landing page</td>
+<td><code>DNA-Replication-Course/index.html</code> — course hero, instructor card, Start Learning button, module roadmap, labs, datasets, slides, downloads, assessments, references</td>
+</tr>
+<tr>
+<td>Course pages</td>
+<td><code>DNA-Replication-Course/**</code> — 34 HTML pages with shared sidebar navigation, header, footer credits</td>
+</tr>
+<tr>
+<td>Assets</td>
+<td>5 PDFs + 1 PPTX already inside <code>DNA-Replication-Course/{PDF,PPTX}/</code> — published as-is</td>
+</tr>
+<tr>
+<td>GitHub Pages integration</td>
+<td><code>.github/workflows/deploy-pages.yml</code> — official Pages workflow (actions/configure-pages + deploy-pages); rebuilds PDFs and site HTML from Markdown on every push to <code>main</code>, prunes <code>node_modules/</code>, and deploys the contents of <code>DNA-Replication-Course/</code> as the Pages artifact</td>
+</tr>
+<tr>
+<td>One-time setup needed</td>
+<td>Repo Settings → Pages → Source → <strong>GitHub Actions</strong></td>
+</tr>
+<tr>
+<td>Base path</td>
+<td>Repo-root serving (dedicated repo <code>nadeem-majeedch/DNA-Replication-Course</code>); all links relative</td>
+</tr>
+<tr>
+<td>Link validation</td>
+<td><code>validate_site.js</code>: 1,121 internal links checked across 34 pages — <strong>0 broken</strong></td>
+</tr>
+<tr>
+<td>Build validation</td>
+<td>PDFs regenerated in CI and presence-checked; <code>.nojekyll</code> added</td>
+</tr>
+<tr>
+<td>Visual QA</td>
+<td>Landing page, module pages (03, 04, 08), cheat sheet inspected at desktop (1366×900) and mobile (430px, device-emulated) — hero, sidebar, tables, instructor block, navigation all render correctly; no horizontal overflow at mobile width; wide tables scroll internally</td>
+</tr>
+<tr>
+<td>Mobile QA</td>
+<td>No page-level horizontal overflow at 430px; long tables use in-table horizontal scroll</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="git">Git</h2>
+<p><strong>No commit performed.</strong>
+<strong>No push performed.</strong></p>
+<p>All changes are left uncommitted in the working directory. No GMO course content exists in this repository and none was created or modified. Scope of changes: <code>DNA-Replication-Course/**</code>, <code>.github/workflows/deploy-pages.yml</code>.</p>
+<hr>
+<h2 id="qa-checks-performed">QA Checks Performed</h2>
+<h3 id="scientific">Scientific</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 5&#39;→3&#39; directionality consistent throughout</li>
+<li><input checked="" disabled="" type="checkbox"> Polymerase assignments correct (Pol ε leading, Pol δ lagging in eukaryotes)</li>
+<li><input checked="" disabled="" type="checkbox"> Error rates correct (10⁻⁵ → 10⁻⁷ → 10⁻⁹–10⁻¹⁰)</li>
+<li><input checked="" disabled="" type="checkbox"> Okazaki fragment sizes correct (E. coli 1–2 kb; human 100–200 nt)</li>
+<li><input checked="" disabled="" type="checkbox"> Telomerase mechanism (TERT + TERC) correct</li>
+<li><input checked="" disabled="" type="checkbox"> ATR–CHK1 checkpoint pathway correct</li>
+<li><input checked="" disabled="" type="checkbox"> No fabricated references</li>
+</ul>
+<h3 id="educational">Educational</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Beginner → advanced progression maintained</li>
+<li><input checked="" disabled="" type="checkbox"> Every module links related lab(s), assessment, cheat sheet, FAQ</li>
+<li><input checked="" disabled="" type="checkbox"> Labs connect to theory modules</li>
+</ul>
+<h3 id="technical">Technical</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> All 5 PDFs generated and visually inspected (cover, TOC, body, tables, page numbers, headers/footers)</li>
+<li><input checked="" disabled="" type="checkbox"> Fixed: blank page after PDF cover; body text touching page edges</li>
+<li><input checked="" disabled="" type="checkbox"> PPTX regenerated with instructor title slide; verified openable</li>
+<li><input checked="" disabled="" type="checkbox"> 1,121 site links validated — 0 broken (fixed: doubled <code>.md.html</code> links, sidebar relative paths, missing BUILD_REPORT page)</li>
+<li><input checked="" disabled="" type="checkbox"> Fixed: duplicated page header on course subpages</li>
+<li><input checked="" disabled="" type="checkbox"> PDF/PPTX links verified over HTTP (200)</li>
+<li><input checked="" disabled="" type="checkbox"> Mobile (430px) and desktop (1366px) rendering verified via screenshots</li>
+<li><input checked="" disabled="" type="checkbox"> No placeholder text remaining</li>
+</ul>
+<hr>
+<h2 id="limitations-and-assumptions">Limitations and Assumptions</h2>
+<ol>
+<li><strong>PDF diagrams</strong> are ASCII/text-based inside styled code blocks; publication figures would need BioRender/Illustrator.</li>
+<li><strong>Datasets are simulated</strong> for teaching; they are labeled as such in the course material.</li>
+<li><strong>CI Chrome</strong>: the workflow installs Chrome via <code>npx puppeteer browsers install chrome</code>; if Chrome versions shift, pin as needed.</li>
+<li><strong>Pages activation</strong>: the maintainer must select &quot;GitHub Actions&quot; as the Pages source once (Settings → Pages); the workflow handles everything after that. The deployment source is <code>DNA-Replication-Course/</code>; the workflow file itself must physically remain under <code>.github/workflows/</code> for GitHub Actions to detect it.</li>
+<li><strong>Lab SOPs</strong>: wet-lab parameters are educational defaults; institutions must follow their own approved SOPs and biosafety rules.</li>
+</ol>
+</main></div>
+<footer class="site-footer">
+  <p class="instructor">Dr. Saira Azam — Assistant Professor, Centre of Excellence in Molecular Biology, University of the Punjab, Lahore</p>
+  <p>DNA Replication in Prokaryotes and Eukaryotes · A Complete Molecular Biology Teaching and Learning Module</p>
+</footer>
+</body>
+</html>

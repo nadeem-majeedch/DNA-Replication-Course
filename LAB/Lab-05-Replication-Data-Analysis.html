@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DNA Replication in Prokaryotes and Eukaryotes</title>
+<style>
+:root {
+  --primary: #1B4F72; --secondary: #2E86C1; --accent: #16A085;
+  --dark: #2C3E50; --light: #F4F8FB; --border: #D5E5F1;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  margin: 0; color: #22303c; line-height: 1.65;
+  background: #fbfdff;
+}
+.site-header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff; padding: 1.4rem 1rem 1.2rem; text-align: center;
+}
+.site-header .course-title { font-size: 1.35rem; font-weight: 700; margin: 0; }
+.site-header .crumb { font-size: .8rem; opacity: .85; margin: 0 0 .35rem; }
+.site-header a { color: #fff; text-decoration: none; opacity: .92; }
+.site-header a:hover { text-decoration: underline; opacity: 1; }
+.layout { display: flex; max-width: 1180px; margin: 0 auto; gap: 1.5rem; padding: 1.25rem 1rem; }
+nav.sidebar {
+  flex: 0 0 260px; align-self: flex-start; position: sticky; top: 12px;
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1rem 1.1rem; max-height: calc(100vh - 30px); overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--accent); margin: 1.1rem 0 .35rem;
+}
+nav.sidebar h3:first-of-type { margin-top: 0; }
+nav.sidebar a {
+  display: block; color: var(--primary); text-decoration: none;
+  font-size: .9rem; padding: .28rem .5rem; border-radius: 6px;
+}
+nav.sidebar a:hover { background: var(--light); }
+main.content { flex: 1; min-width: 0; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1.6rem 2rem 2.4rem; }
+main.content.wide { width: 100%; }
+main.content h1 { color: var(--primary); font-size: 1.65rem; border-bottom: 3px solid var(--secondary); padding-bottom: .45rem; }
+main.content h2 { color: var(--secondary); font-size: 1.25rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; margin-top: 2rem; }
+main.content h3 { color: var(--accent); font-size: 1.05rem; margin-top: 1.6rem; }
+main.content table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .9rem; display: block; overflow-x: auto; }
+main.content th, main.content td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; vertical-align: top; }
+main.content th { background: var(--primary); color: #fff; }
+main.content tr:nth-child(even) td { background: var(--light); }
+main.content pre {
+  background: #F4F6F8; border: 1px solid #DDE3E9; border-radius: 8px;
+  padding: .9rem 1.1rem; overflow-x: auto; font-size: .82rem; line-height: 1.45;
+}
+main.content code { background: #F0F2F4; border-radius: 4px; padding: .1rem .35rem; font-size: .88em; }
+main.content pre code { background: none; padding: 0; }
+main.content blockquote { border-left: 4px solid var(--secondary); background: var(--light); margin: 1rem 0; padding: .6rem 1.1rem; border-radius: 0 8px 8px 0; }
+main.content a { color: var(--secondary); }
+main.content img { max-width: 100%; }
+.nav-links { margin-top: 2.4rem; padding-top: 1rem; border-top: 2px solid var(--border); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .92rem; }
+footer.site-footer {
+  text-align: center; padding: 1.6rem 1rem 2.2rem; color: #5a6b7a; font-size: .88rem;
+}
+footer.site-footer .instructor { margin: 0 0 .4rem; color: var(--primary); font-weight: 600; }
+
+/* Landing page */
+.hero {
+  background: linear-gradient(160deg, var(--primary) 0%, var(--secondary) 60%, var(--accent) 100%);
+  color: #fff; padding: 3.4rem 1.2rem 3rem; text-align: center;
+}
+.hero h1 { font-size: 2.1rem; margin: 0 0 .6rem; }
+.hero .tagline { font-size: 1.08rem; font-style: italic; opacity: .95; margin: 0 0 1.8rem; }
+.hero .instructor { color: #fff; background: rgba(255,255,255,.12); display: inline-block; padding: .8rem 1.6rem; border-radius: 10px; line-height: 1.5; }
+.hero .instructor strong { font-size: 1.15rem; }
+.btn {
+  display: inline-block; margin-top: 1.6rem; background: #fff; color: var(--primary);
+  font-weight: 700; padding: .7rem 2rem; border-radius: 999px; text-decoration: none; font-size: 1.05rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+}
+.btn:hover { transform: translateY(-1px); }
+.section-card { max-width: 1080px; margin: 1.4rem auto; padding: 0 1rem; }
+.card {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.3rem 1.5rem; margin-bottom: 1.1rem;
+}
+.card h2 { color: var(--primary); margin-top: 0; font-size: 1.25rem; border-bottom: 2px solid var(--border); padding-bottom: .35rem; }
+.card table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+.card th, .card td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; }
+.card th { background: var(--primary); color: #fff; }
+.card tr:nth-child(even) td { background: var(--light); }
+.card a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+.card a:hover { text-decoration: underline; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.grid .card { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .layout { flex-direction: column; padding: .8rem; }
+  nav.sidebar { position: static; max-height: none; flex-basis: auto; }
+  main.content { padding: 1.1rem 1rem 1.8rem; }
+  .hero h1 { font-size: 1.55rem; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <p class="crumb"><a href="../index.html">Course Home</a></p>
+  <p class="course-title">DNA Replication in Prokaryotes and Eukaryotes</p>
+</header>
+<div class="layout"><nav class="sidebar">
+  <h3>Course</h3>
+  <a href="../README.html">Course Home</a>
+  <a href="../REFERENCES.html">References</a>
+  <h3>Teaching Modules</h3>
+  <a href="../MARKDOWN/01-Introduction-to-DNA-Replication.html">Introduction to DNA Replication</a>
+<a href="../MARKDOWN/02-Core-Concepts.html">Core Concepts of DNA Replication</a>
+<a href="../MARKDOWN/03-Prokaryotic-DNA-Replication.html">Prokaryotic DNA Replication</a>
+<a href="../MARKDOWN/04-Eukaryotic-DNA-Replication.html">Eukaryotic DNA Replication</a>
+<a href="../MARKDOWN/05-Replication-Fidelity-and-Repair.html">Replication Fidelity and Repair</a>
+<a href="../MARKDOWN/06-Telomeres-and-Telomerase.html">Telomeres and Telomerase</a>
+<a href="../MARKDOWN/07-Replication-Stress-and-Checkpoints.html">Replication Stress and Checkpoints</a>
+<a href="../MARKDOWN/08-Prokaryote-vs-Eukaryote.html">Prokaryote vs. Eukaryote Comparison</a>
+<a href="../MARKDOWN/09-Experimental-Methods.html">Experimental Methods</a>
+<a href="../MARKDOWN/10-Data-Analysis-and-Interpretation.html">Data Analysis and Interpretation</a>
+<a href="../MARKDOWN/11-Clinical-and-Biotechnology-Applications.html">Clinical and Biotechnology Applications</a>
+<a href="../MARKDOWN/12-Advanced-Topics.html">Advanced Topics in DNA Replication</a>
+  <h3>Laboratory</h3>
+  <a href="../LAB/Lab-01-DNA-Replication-Concepts.html">Lab 01: DNA Structure and Replication Modeling</a>
+<a href="../LAB/Lab-02-DNA-Quantification.html">Lab 02: DNA Quantification and Quality Assessment</a>
+<a href="../LAB/Lab-03-Gel-Electrophoresis.html">Lab 03: Agarose Gel Electrophoresis</a>
+<a href="../LAB/Lab-04-PCR-and-DNA-Amplification.html">Lab 04: PCR and DNA Amplification</a>
+<a href="../LAB/Lab-05-Replication-Data-Analysis.html">Lab 05: Replication Data Analysis</a>
+<a href="../LAB/Lab-06-Capstone-Exercise.html">Lab 06: Capstone Exercise — Integrated Replication Analysis</a>
+  <h3>Workbook & Data</h3>
+  <a href="../WORKBOOK/DNA-Replication-Lab-Workbook.html">Lab Workbook</a>
+  <a href="../DATA/datasets.html">Datasets</a>
+  <h3>Resources</h3>
+  <a href="../CHEAT-SHEET/DNA-Replication-Cheat-Sheet.html">Cheat Sheet</a>
+  <a href="../FAQ/DNA-Replication-FAQs.html">FAQs</a>
+  <h3>Assessment</h3>
+  <a href="../ASSESSMENT/MCQs.html">DNA Replication — Multiple Choice Questions</a>
+<a href="../ASSESSMENT/Short-Questions.html">DNA Replication — Short Answer Questions</a>
+<a href="../ASSESSMENT/Long-Questions.html">DNA Replication — Long Answer / Essay Questions</a>
+<a href="../ASSESSMENT/Viva-Questions.html">DNA Replication — Viva Voce Questions</a>
+<a href="../ASSESSMENT/Case-Studies.html">DNA Replication — Case Studies</a>
+  <h3>Downloads</h3>
+  <a href="../PDF/Complete-Tutorial.pdf">Complete Tutorial (PDF)</a>
+  <a href="../PDF/Lab-Workbook.pdf">Lab Workbook (PDF)</a>
+  <a href="../PDF/Cheat-Sheet.pdf">Cheat Sheet (PDF)</a>
+  <a href="../PDF/FAQs.pdf">FAQs (PDF)</a>
+  <a href="../PDF/Assessment.pdf">Assessment (PDF)</a>
+  <a href="../PPTX/DNA_Replication_Complete_Lecture.pptx">Lecture Slides (PPTX)</a>
+</nav><main class="content"><h1 id="lab-05-replication-data-analysis">Lab 05: Replication Data Analysis</h1>
+<hr>
+<h2 id="experiment-title">Experiment Title</h2>
+<p>Computational Analysis of DNA Replication Data</p>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<ol>
+<li>Analyze simulated DNA fiber data</li>
+<li>Interpret Okazaki fragment sequencing data</li>
+<li>Perform bioinformatics analysis of replication origins</li>
+<li>Analyze replication timing data</li>
+<li>Connect computational analysis to experimental validation</li>
+</ol>
+<h2 id="background-theory">Background Theory</h2>
+<h3 id="dna-fiber-analysis">DNA Fiber Analysis</h3>
+<ul>
+<li>Label cells with nucleotide analogs (IdU, CldU)</li>
+<li>Stretch DNA fibers on glass slides</li>
+<li>Measure track lengths → fork speed</li>
+<li>Count tracks → origin usage</li>
+<li>Analyze patterns → fork dynamics</li>
+</ul>
+<h3 id="repli-seq">Repli-seq</h3>
+<ul>
+<li>Sort cells by S-phase stage (FACS)</li>
+<li>Sequence replicating DNA</li>
+<li>Map early vs. late replicating regions</li>
+</ul>
+<h3 id="origin-mapping">Origin Mapping</h3>
+<ul>
+<li>Identify DnaA box sequences (E. coli)</li>
+<li>Use GC-skew analysis for origin prediction</li>
+<li>Analyze Okazaki fragment distribution for origin localization</li>
+</ul>
+<h2 id="materials">Materials</h2>
+<h3 id="computational-tools">Computational Tools</h3>
+<ul>
+<li>Web browser (for online bioinformatics tools)</li>
+<li>Text editor</li>
+<li>Calculator</li>
+<li>Provided datasets (below)</li>
+</ul>
+<h2 id="equipment">Equipment</h2>
+<ul>
+<li>Computer with internet access</li>
+<li>Calculator</li>
+<li>Printer (optional)</li>
+</ul>
+<h2 id="safety-considerations">Safety Considerations</h2>
+<ul>
+<li>This is a computational exercise — no wet-lab hazards</li>
+<li>Follow institutional guidelines for computer use</li>
+</ul>
+<h2 id="experimental-principle">Experimental Principle</h2>
+<p>Bioinformatics analysis of replication data involves sequence analysis, statistical interpretation, and data visualization. Students will use simulated datasets that mirror real experimental data to develop analytical skills.</p>
+<hr>
+<h2 id="exercise-1-dna-fiber-analysis-interpretation-30-minutes">Exercise 1: DNA Fiber Analysis Interpretation (30 minutes)</h2>
+<h3 id="dataset-1-fiber-track-lengths">Dataset 1: Fiber Track Lengths</h3>
+<p>A researcher treated cells with IdU (20 min) followed by CldU (20 min) and performed DNA fiber analysis. The following track lengths were measured:</p>
+<p><strong>Wild-type cells:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Fiber #</th>
+<th>IdU track (μm)</th>
+<th>CldU track (μm)</th>
+<th>Pattern</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>12.5</td>
+<td>13.0</td>
+<td>Symmetric bidirectional</td>
+</tr>
+<tr>
+<td>2</td>
+<td>8.0</td>
+<td>8.2</td>
+<td>Symmetric bidirectional</td>
+</tr>
+<tr>
+<td>3</td>
+<td>11.2</td>
+<td>11.5</td>
+<td>Symmetric bidirectional</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0</td>
+<td>15.5</td>
+<td>Asymmetric (one fork only)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>10.8</td>
+<td>11.0</td>
+<td>Symmetric bidirectional</td>
+</tr>
+<tr>
+<td>6</td>
+<td>14.2</td>
+<td>14.5</td>
+<td>Symmetric bidirectional</td>
+</tr>
+<tr>
+<td>7</td>
+<td>9.5</td>
+<td>9.8</td>
+<td>Symmetric bidirectional</td>
+</tr>
+<tr>
+<td>8</td>
+<td>11.0</td>
+<td>0</td>
+<td>Asymmetric (one fork only)</td>
+</tr>
+</tbody></table>
+<p><strong>Drug-treated cells (Replication inhibitor):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Fiber #</th>
+<th>IdU track (μm)</th>
+<th>CldU track (μm)</th>
+<th>Pattern</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>12.0</td>
+<td>4.0</td>
+<td>Asymmetric (fork slowing)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>11.5</td>
+<td>3.5</td>
+<td>Asymmetric (fork slowing)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>10.8</td>
+<td>3.8</td>
+<td>Asymmetric (fork slowing)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>12.2</td>
+<td>0</td>
+<td>Fork collapse</td>
+</tr>
+<tr>
+<td>5</td>
+<td>11.0</td>
+<td>2.5</td>
+<td>Asymmetric (fork slowing)</td>
+</tr>
+</tbody></table>
+<h3 id="questions">Questions:</h3>
+<ol>
+<li><p><strong>Calculate the average fork speed for wild-type cells:</strong></p>
+<ul>
+<li>Assume 1 μm ≈ 2 kb for stretched DNA</li>
+<li>Pulse time = 20 minutes</li>
+<li>Speed = (track length × 2 kb/μm) / 20 min</li>
+</ul>
+</li>
+<li><p><strong>Compare fork speed between wild-type and drug-treated cells:</strong></p>
+<ul>
+<li>Is the drug affecting fork speed or fork stability?</li>
+</ul>
+</li>
+<li><p><strong>What does the &quot;asymmetric&quot; pattern (Fiber #4, #8) tell you about replication?</strong></p>
+</li>
+<li><p><strong>Predict what a &quot;fork collapse&quot; event would look like on a fiber:</strong></p>
+</li>
+</ol>
+<hr>
+<h2 id="exercise-2-okazaki-fragment-analysis-20-minutes">Exercise 2: Okazaki Fragment Analysis (20 minutes)</h2>
+<h3 id="dataset-2-okazaki-fragment-size-distribution">Dataset 2: Okazaki Fragment Size Distribution</h3>
+<p>A researcher analyzed Okazaki fragments from two cell lines using alkaline gel electrophoresis:</p>
+<p><strong>Cell Line A (Normal):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Fragment Size Range</th>
+<th>Relative Abundance</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>50-100 nt</td>
+<td>10%</td>
+</tr>
+<tr>
+<td>100-150 nt</td>
+<td>45%</td>
+</tr>
+<tr>
+<td>150-200 nt</td>
+<td>35%</td>
+</tr>
+<tr>
+<td>200-300 nt</td>
+<td>10%</td>
+</tr>
+<tr>
+<td>&gt;300 nt</td>
+<td>0%</td>
+</tr>
+</tbody></table>
+<p><strong>Cell Line B (Mutant):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Fragment Size Range</th>
+<th>Relative Abundance</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>50-100 nt</td>
+<td>5%</td>
+</tr>
+<tr>
+<td>100-150 nt</td>
+<td>15%</td>
+</tr>
+<tr>
+<td>150-200 nt</td>
+<td>25%</td>
+</tr>
+<tr>
+<td>200-300 nt</td>
+<td>35%</td>
+</tr>
+<tr>
+<td>&gt;300 nt</td>
+<td>20%</td>
+</tr>
+</tbody></table>
+<h3 id="questions-1">Questions:</h3>
+<ol>
+<li><p><strong>What is the average Okazaki fragment size for each cell line?</strong></p>
+</li>
+<li><p><strong>Cell Line B has larger fragments. Which protein might be mutated?</strong></p>
+<ul>
+<li>Consider: Primase, RNase H, FEN1, DNA Ligase I</li>
+</ul>
+</li>
+<li><p><strong>How would you confirm your hypothesis about the mutation in Cell Line B?</strong></p>
+</li>
+<li><p><strong>Design an experiment to test whether the mutation affects primer processing:</strong></p>
+<ul>
+<li>What would you measure?</li>
+<li>What controls would you include?</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="exercise-3-origin-prediction-by-gc-skew-25-minutes">Exercise 3: Origin Prediction by GC-Skew (25 minutes)</h2>
+<h3 id="dataset-3-gc-skew-data">Dataset 3: GC-Skew Data</h3>
+<p>A researcher calculated GC-skew for a 100 kb region of a circular bacterial chromosome:</p>
+<pre><code>Position (kb):   0     10    20    30    40    50    60    70    80    90    100
+GC-skew:       +0.05  +0.08  +0.12  +0.15  +0.02  -0.05  -0.12  -0.18  -0.15  -0.08  +0.05
+</code></pre>
+<h3 id="questions-2">Questions:</h3>
+<ol>
+<li><p><strong>Plot the GC-skew values against position:</strong></p>
+</li>
+<li><p><strong>At what position does the GC-skew change from positive to negative?</strong></p>
+</li>
+<li><p><strong>What does this transition indicate about origin and terminus locations?</strong></p>
+</li>
+<li><p><strong>How does GC-skew analysis compare to experimental origin mapping methods?</strong></p>
+</li>
+</ol>
+<hr>
+<h2 id="exercise-4-replication-timing-analysis-25-minutes">Exercise 4: Replication Timing Analysis (25 minutes)</h2>
+<h3 id="dataset-4-repli-seq-data">Dataset 4: Repli-seq Data</h3>
+<p>Gene expression and replication timing data for Chromosome 1 (partial):</p>
+<table>
+<thead>
+<tr>
+<th>Gene</th>
+<th>Expression Level</th>
+<th>Replication Timing</th>
+<th>Gene Size (kb)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Gene A</td>
+<td>High</td>
+<td>Early-S</td>
+<td>2.5</td>
+</tr>
+<tr>
+<td>Gene B</td>
+<td>High</td>
+<td>Early-S</td>
+<td>1.8</td>
+</tr>
+<tr>
+<td>Gene C</td>
+<td>Low</td>
+<td>Late-S</td>
+<td>15.0</td>
+</tr>
+<tr>
+<td>Gene D</td>
+<td>High</td>
+<td>Early-S</td>
+<td>3.2</td>
+</tr>
+<tr>
+<td>Gene E</td>
+<td>Low</td>
+<td>Late-S</td>
+<td>22.0</td>
+</tr>
+<tr>
+<td>Gene F</td>
+<td>High</td>
+<td>Early-S</td>
+<td>4.1</td>
+</tr>
+<tr>
+<td>Gene G</td>
+<td>Low</td>
+<td>Late-S</td>
+<td>18.5</td>
+</tr>
+<tr>
+<td>Gene H</td>
+<td>High</td>
+<td>Early-S</td>
+<td>2.9</td>
+</tr>
+<tr>
+<td>Gene I</td>
+<td>Low</td>
+<td>Late-S</td>
+<td>25.0</td>
+</tr>
+<tr>
+<td>Gene J</td>
+<td>High</td>
+<td>Early-S</td>
+<td>3.5</td>
+</tr>
+</tbody></table>
+<h3 id="questions-3">Questions:</h3>
+<ol>
+<li><p><strong>Calculate the correlation between gene expression and replication timing.</strong></p>
+<ul>
+<li>Assign numerical values: Early-S = 1, Late-S = 0</li>
+</ul>
+</li>
+<li><p><strong>Calculate the correlation between gene size and replication timing.</strong></p>
+</li>
+<li><p><strong>What is the biological significance of these correlations?</strong></p>
+</li>
+<li><p><strong>Predict the replication timing of a newly discovered gene that is:</strong>
+a. Highly expressed, 5 kb
+b. Lowly expressed, 30 kb</p>
+</li>
+</ol>
+<hr>
+<h2 id="exercise-5-mutation-consequence-analysis-20-minutes">Exercise 5: Mutation Consequence Analysis (20 minutes)</h2>
+<h3 id="dataset-5-replication-gene-mutations">Dataset 5: Replication Gene Mutations</h3>
+<table>
+<thead>
+<tr>
+<th>Mutation</th>
+<th>Organism</th>
+<th>Protein Affected</th>
+<th>Consequence</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>G671S</td>
+<td>E. coli</td>
+<td>Pol III ε subunit</td>
+<td>?</td>
+</tr>
+<tr>
+<td>R110A</td>
+<td>Human</td>
+<td>PCNA (PIP box)</td>
+<td>?</td>
+</tr>
+<tr>
+<td>S122E</td>
+<td>Human</td>
+<td>MSH6</td>
+<td>?</td>
+</tr>
+<tr>
+<td>N925S</td>
+<td>Human</td>
+<td>TERT</td>
+<td>?</td>
+</tr>
+<tr>
+<td>C228T</td>
+<td>Human</td>
+<td>TERT promoter</td>
+<td>?</td>
+</tr>
+<tr>
+<td>E49A</td>
+<td>E. coli</td>
+<td>DnaA</td>
+<td>?</td>
+</tr>
+</tbody></table>
+<h3 id="questions-4">Questions:</h3>
+<ol>
+<li><p><strong>For each mutation, predict the phenotype:</strong></p>
+<ul>
+<li>Would replication be affected?</li>
+<li>What aspect of replication would be impaired?</li>
+</ul>
+</li>
+<li><p><strong>How would you test these predictions experimentally?</strong></p>
+</li>
+<li><p><strong>Which of these mutations might be associated with cancer? Explain.</strong></p>
+</li>
+</ol>
+<hr>
+<h2 id="exercise-6-comparative-analysis-15-minutes">Exercise 6: Comparative Analysis (15 minutes)</h2>
+<h3 id="dataset-6-replication-protein-comparison">Dataset 6: Replication Protein Comparison</h3>
+<table>
+<thead>
+<tr>
+<th>Protein Feature</th>
+<th>E. coli</th>
+<th>Yeast</th>
+<th>Human</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Helicase</td>
+<td>DnaB</td>
+<td>MCM2-7</td>
+<td>MCM2-7</td>
+</tr>
+<tr>
+<td>Sliding clamp</td>
+<td>β₂</td>
+<td>PCNA</td>
+<td>PCNA</td>
+</tr>
+<tr>
+<td>Primase</td>
+<td>DnaG</td>
+<td>Pol α/primase</td>
+<td>Pol α/primase</td>
+</tr>
+<tr>
+<td>Leading Pol</td>
+<td>Pol III</td>
+<td>Pol ε</td>
+<td>Pol ε</td>
+</tr>
+<tr>
+<td>Lagging Pol</td>
+<td>Pol III</td>
+<td>Pol δ</td>
+<td>Pol δ</td>
+</tr>
+</tbody></table>
+<h3 id="questions-5">Questions:</h3>
+<ol>
+<li><p><strong>Which features are conserved? What does this suggest about evolution?</strong></p>
+</li>
+<li><p><strong>Why do eukaryotes use different polymerases for leading and lagging strands?</strong></p>
+</li>
+<li><p><strong>If you discovered a new organism with a circular genome but PCNA-like sliding clamp, what would you predict about its replication system?</strong></p>
+</li>
+</ol>
+<hr>
+<h2 id="expected-results">Expected Results</h2>
+<h3 id="exercise-1-answers-fiber-analysis">Exercise 1 Answers (Fiber Analysis)</h3>
+<ol>
+<li><strong>Wild-type speed</strong>: Average IdU track = 11.0 μm; 11.0 × 2 kb/μm = 22 kb; 22 kb / 20 min = 1.1 kb/min ≈ 18 nt/s</li>
+<li><strong>Drug effect</strong>: CldU tracks shorter (4.0 vs 13.0 μm) → drug slows fork progression after IdU pulse</li>
+<li><strong>Asymmetric pattern</strong>: Only one fork visible → may be a dormant origin or one-directional fork</li>
+<li><strong>Fork collapse</strong>: Abrupt termination of one track → DSB at fork</li>
+</ol>
+<h3 id="exercise-2-answers-okazaki-fragments">Exercise 2 Answers (Okazaki Fragments)</h3>
+<ol>
+<li><strong>Normal</strong>: Average ~150 nt; <strong>Mutant</strong>: Average ~250 nt</li>
+<li><strong>Likely FEN1 or RNase H</strong> — impaired primer processing → larger fragments</li>
+<li><strong>Confirm by sequencing</strong>: Look for RNA sequence remnants at fragment junctions</li>
+</ol>
+<h3 id="exercise-3-answers-gc-skew">Exercise 3 Answers (GC-Skew)</h3>
+<ol>
+<li><strong>Transition at ~45 kb</strong> (positive → negative)</li>
+<li><strong>Origin at ~45 kb</strong> (transition point); <strong>Terminus at ~95 kb</strong> (opposite transition)</li>
+<li><strong>GC-skew reflects strand-specific mutation patterns</strong> caused by asymmetric replication</li>
+</ol>
+<h3 id="exercise-4-answers-replication-timing">Exercise 4 Answers (Replication Timing)</h3>
+<ol>
+<li><strong>Positive correlation</strong>: Highly expressed genes tend to replicate early</li>
+<li><strong>Negative correlation</strong>: Large genes tend to replicate late</li>
+<li><strong>Biological significance</strong>: Active chromatin is more accessible to replication machinery</li>
+</ol>
+<h3 id="exercise-5-answers-mutations">Exercise 5 Answers (Mutations)</h3>
+<ol>
+<li><strong>G671S (ε)</strong>: Loss of proofreading → increased mutation rate</li>
+<li><strong>R110A (PCNA)</strong>: Loss of PIP interaction → impaired polymerase switching</li>
+<li><strong>S122E (MSH6)</strong>: Defective mismatch repair → microsatellite instability</li>
+<li><strong>N925S (TERT)</strong>: Altered telomerase activity → telomere dysfunction</li>
+<li><strong>C228T (TERT promoter)</strong>: Created ETS binding site → telomerase reactivation → cancer</li>
+<li><strong>E49A (DnaA)</strong>: Defective ATP binding → impaired origin firing</li>
+</ol>
+<hr>
+<h2 id="post-lab-questions">Post-Lab Questions</h2>
+<ol>
+<li>Design a complete bioinformatics workflow to identify replication origins in a newly sequenced bacterial genome.</li>
+<li>How would you use DNA fiber analysis to test whether a drug is a replication fork inhibitor?</li>
+<li>Explain how replication timing analysis can inform our understanding of gene regulation.</li>
+<li>Why is the distinction between &quot;fork slowing&quot; and &quot;fork collapse&quot; important in cancer biology?</li>
+</ol>
+<h2 id="viva-questions">Viva Questions</h2>
+<ol>
+<li>What information can DNA fiber analysis provide about replication?</li>
+<li>How does Okazaki fragment size differ between prokaryotes and eukaryotes? Why?</li>
+<li>What is the biological significance of replication timing?</li>
+<li>How can bioinformatics predict replication origins without experimental data?</li>
+<li>What are the limitations of computational replication analysis?</li>
+</ol>
+<h2 id="instructor-notes">Instructor Notes</h2>
+<ul>
+<li>This is a computational exercise — no wet-lab equipment needed</li>
+<li>Provide printed datasets or digital files</li>
+<li>Allow time for students to work through each exercise</li>
+<li>Discuss the connection between computational predictions and experimental validation</li>
+<li>Use this lab to introduce students to bioinformatics approaches</li>
+<li>Connect to Modules 09, 10, and 11</li>
+</ul>
+<h2 id="related-theory">Related Theory</h2>
+<ul>
+<li><a href="../MARKDOWN/09-Experimental-Methods.html">Module 09: Experimental Methods</a></li>
+<li><a href="../MARKDOWN/10-Data-Analysis-and-Interpretation.html">Module 10: Data Analysis</a></li>
+<li><a href="../MARKDOWN/12-Advanced-Topics.html">Module 12: Advanced Topics</a></li>
+</ul>
+</main></div>
+<footer class="site-footer">
+  <p class="instructor">Dr. Saira Azam — Assistant Professor, Centre of Excellence in Molecular Biology, University of the Punjab, Lahore</p>
+  <p>DNA Replication in Prokaryotes and Eukaryotes · A Complete Molecular Biology Teaching and Learning Module</p>
+</footer>
+</body>
+</html>

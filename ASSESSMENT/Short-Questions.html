@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DNA Replication in Prokaryotes and Eukaryotes</title>
+<style>
+:root {
+  --primary: #1B4F72; --secondary: #2E86C1; --accent: #16A085;
+  --dark: #2C3E50; --light: #F4F8FB; --border: #D5E5F1;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  margin: 0; color: #22303c; line-height: 1.65;
+  background: #fbfdff;
+}
+.site-header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff; padding: 1.4rem 1rem 1.2rem; text-align: center;
+}
+.site-header .course-title { font-size: 1.35rem; font-weight: 700; margin: 0; }
+.site-header .crumb { font-size: .8rem; opacity: .85; margin: 0 0 .35rem; }
+.site-header a { color: #fff; text-decoration: none; opacity: .92; }
+.site-header a:hover { text-decoration: underline; opacity: 1; }
+.layout { display: flex; max-width: 1180px; margin: 0 auto; gap: 1.5rem; padding: 1.25rem 1rem; }
+nav.sidebar {
+  flex: 0 0 260px; align-self: flex-start; position: sticky; top: 12px;
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1rem 1.1rem; max-height: calc(100vh - 30px); overflow-y: auto;
+}
+nav.sidebar h3 {
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--accent); margin: 1.1rem 0 .35rem;
+}
+nav.sidebar h3:first-of-type { margin-top: 0; }
+nav.sidebar a {
+  display: block; color: var(--primary); text-decoration: none;
+  font-size: .9rem; padding: .28rem .5rem; border-radius: 6px;
+}
+nav.sidebar a:hover { background: var(--light); }
+main.content { flex: 1; min-width: 0; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1.6rem 2rem 2.4rem; }
+main.content.wide { width: 100%; }
+main.content h1 { color: var(--primary); font-size: 1.65rem; border-bottom: 3px solid var(--secondary); padding-bottom: .45rem; }
+main.content h2 { color: var(--secondary); font-size: 1.25rem; border-bottom: 1px solid var(--border); padding-bottom: .3rem; margin-top: 2rem; }
+main.content h3 { color: var(--accent); font-size: 1.05rem; margin-top: 1.6rem; }
+main.content table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .9rem; display: block; overflow-x: auto; }
+main.content th, main.content td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; vertical-align: top; }
+main.content th { background: var(--primary); color: #fff; }
+main.content tr:nth-child(even) td { background: var(--light); }
+main.content pre {
+  background: #F4F6F8; border: 1px solid #DDE3E9; border-radius: 8px;
+  padding: .9rem 1.1rem; overflow-x: auto; font-size: .82rem; line-height: 1.45;
+}
+main.content code { background: #F0F2F4; border-radius: 4px; padding: .1rem .35rem; font-size: .88em; }
+main.content pre code { background: none; padding: 0; }
+main.content blockquote { border-left: 4px solid var(--secondary); background: var(--light); margin: 1rem 0; padding: .6rem 1.1rem; border-radius: 0 8px 8px 0; }
+main.content a { color: var(--secondary); }
+main.content img { max-width: 100%; }
+.nav-links { margin-top: 2.4rem; padding-top: 1rem; border-top: 2px solid var(--border); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .92rem; }
+footer.site-footer {
+  text-align: center; padding: 1.6rem 1rem 2.2rem; color: #5a6b7a; font-size: .88rem;
+}
+footer.site-footer .instructor { margin: 0 0 .4rem; color: var(--primary); font-weight: 600; }
+
+/* Landing page */
+.hero {
+  background: linear-gradient(160deg, var(--primary) 0%, var(--secondary) 60%, var(--accent) 100%);
+  color: #fff; padding: 3.4rem 1.2rem 3rem; text-align: center;
+}
+.hero h1 { font-size: 2.1rem; margin: 0 0 .6rem; }
+.hero .tagline { font-size: 1.08rem; font-style: italic; opacity: .95; margin: 0 0 1.8rem; }
+.hero .instructor { color: #fff; background: rgba(255,255,255,.12); display: inline-block; padding: .8rem 1.6rem; border-radius: 10px; line-height: 1.5; }
+.hero .instructor strong { font-size: 1.15rem; }
+.btn {
+  display: inline-block; margin-top: 1.6rem; background: #fff; color: var(--primary);
+  font-weight: 700; padding: .7rem 2rem; border-radius: 999px; text-decoration: none; font-size: 1.05rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+}
+.btn:hover { transform: translateY(-1px); }
+.section-card { max-width: 1080px; margin: 1.4rem auto; padding: 0 1rem; }
+.card {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.3rem 1.5rem; margin-bottom: 1.1rem;
+}
+.card h2 { color: var(--primary); margin-top: 0; font-size: 1.25rem; border-bottom: 2px solid var(--border); padding-bottom: .35rem; }
+.card table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+.card th, .card td { border: 1px solid var(--border); padding: .45rem .7rem; text-align: left; }
+.card th { background: var(--primary); color: #fff; }
+.card tr:nth-child(even) td { background: var(--light); }
+.card a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+.card a:hover { text-decoration: underline; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.grid .card { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .layout { flex-direction: column; padding: .8rem; }
+  nav.sidebar { position: static; max-height: none; flex-basis: auto; }
+  main.content { padding: 1.1rem 1rem 1.8rem; }
+  .hero h1 { font-size: 1.55rem; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <p class="crumb"><a href="../index.html">Course Home</a></p>
+  <p class="course-title">DNA Replication in Prokaryotes and Eukaryotes</p>
+</header>
+<div class="layout"><nav class="sidebar">
+  <h3>Course</h3>
+  <a href="../README.html">Course Home</a>
+  <a href="../REFERENCES.html">References</a>
+  <h3>Teaching Modules</h3>
+  <a href="../MARKDOWN/01-Introduction-to-DNA-Replication.html">Introduction to DNA Replication</a>
+<a href="../MARKDOWN/02-Core-Concepts.html">Core Concepts of DNA Replication</a>
+<a href="../MARKDOWN/03-Prokaryotic-DNA-Replication.html">Prokaryotic DNA Replication</a>
+<a href="../MARKDOWN/04-Eukaryotic-DNA-Replication.html">Eukaryotic DNA Replication</a>
+<a href="../MARKDOWN/05-Replication-Fidelity-and-Repair.html">Replication Fidelity and Repair</a>
+<a href="../MARKDOWN/06-Telomeres-and-Telomerase.html">Telomeres and Telomerase</a>
+<a href="../MARKDOWN/07-Replication-Stress-and-Checkpoints.html">Replication Stress and Checkpoints</a>
+<a href="../MARKDOWN/08-Prokaryote-vs-Eukaryote.html">Prokaryote vs. Eukaryote Comparison</a>
+<a href="../MARKDOWN/09-Experimental-Methods.html">Experimental Methods</a>
+<a href="../MARKDOWN/10-Data-Analysis-and-Interpretation.html">Data Analysis and Interpretation</a>
+<a href="../MARKDOWN/11-Clinical-and-Biotechnology-Applications.html">Clinical and Biotechnology Applications</a>
+<a href="../MARKDOWN/12-Advanced-Topics.html">Advanced Topics in DNA Replication</a>
+  <h3>Laboratory</h3>
+  <a href="../LAB/Lab-01-DNA-Replication-Concepts.html">Lab 01: DNA Structure and Replication Modeling</a>
+<a href="../LAB/Lab-02-DNA-Quantification.html">Lab 02: DNA Quantification and Quality Assessment</a>
+<a href="../LAB/Lab-03-Gel-Electrophoresis.html">Lab 03: Agarose Gel Electrophoresis</a>
+<a href="../LAB/Lab-04-PCR-and-DNA-Amplification.html">Lab 04: PCR and DNA Amplification</a>
+<a href="../LAB/Lab-05-Replication-Data-Analysis.html">Lab 05: Replication Data Analysis</a>
+<a href="../LAB/Lab-06-Capstone-Exercise.html">Lab 06: Capstone Exercise — Integrated Replication Analysis</a>
+  <h3>Workbook & Data</h3>
+  <a href="../WORKBOOK/DNA-Replication-Lab-Workbook.html">Lab Workbook</a>
+  <a href="../DATA/datasets.html">Datasets</a>
+  <h3>Resources</h3>
+  <a href="../CHEAT-SHEET/DNA-Replication-Cheat-Sheet.html">Cheat Sheet</a>
+  <a href="../FAQ/DNA-Replication-FAQs.html">FAQs</a>
+  <h3>Assessment</h3>
+  <a href="../ASSESSMENT/MCQs.html">DNA Replication — Multiple Choice Questions</a>
+<a href="../ASSESSMENT/Short-Questions.html">DNA Replication — Short Answer Questions</a>
+<a href="../ASSESSMENT/Long-Questions.html">DNA Replication — Long Answer / Essay Questions</a>
+<a href="../ASSESSMENT/Viva-Questions.html">DNA Replication — Viva Voce Questions</a>
+<a href="../ASSESSMENT/Case-Studies.html">DNA Replication — Case Studies</a>
+  <h3>Downloads</h3>
+  <a href="../PDF/Complete-Tutorial.pdf">Complete Tutorial (PDF)</a>
+  <a href="../PDF/Lab-Workbook.pdf">Lab Workbook (PDF)</a>
+  <a href="../PDF/Cheat-Sheet.pdf">Cheat Sheet (PDF)</a>
+  <a href="../PDF/FAQs.pdf">FAQs (PDF)</a>
+  <a href="../PDF/Assessment.pdf">Assessment (PDF)</a>
+  <a href="../PPTX/DNA_Replication_Complete_Lecture.pptx">Lecture Slides (PPTX)</a>
+</nav><main class="content"><h1 id="dna-replication--short-answer-questions">DNA Replication — Short Answer Questions</h1>
+<p><strong>25 Questions (2-5 marks each)</strong></p>
+<hr>
+<h3 id="question-1-3-marks">Question 1 (3 marks)</h3>
+<p>Explain why DNA replication is described as &quot;semiconservative.&quot; What would you expect to see after two rounds of replication in the Meselson-Stahl experiment if replication were conservative instead?</p>
+<h3 id="question-2-3-marks">Question 2 (3 marks)</h3>
+<p>List the three layers of replication fidelity in E. coli and explain how each contributes to overall accuracy.</p>
+<h3 id="question-3-3-marks">Question 3 (3 marks)</h3>
+<p>Why does DNA polymerase require a primer? Explain the chemical basis for this requirement.</p>
+<h3 id="question-4-3-marks">Question 4 (3 marks)</h3>
+<p>Compare the structure and function of the β sliding clamp (E. coli) and PCNA (eukaryotes).</p>
+<h3 id="question-5-4-marks">Question 5 (4 marks)</h3>
+<p>Describe the role of DnaA protein in E. coli replication initiation. What happens if DnaA cannot bind ATP?</p>
+<h3 id="question-6-3-marks">Question 6 (3 marks)</h3>
+<p>Explain why the lagging strand is synthesized discontinuously. What would happen if both strands could be synthesized continuously?</p>
+<h3 id="question-7-4-marks">Question 7 (4 marks)</h3>
+<p>Describe the function of DNA polymerase I in E. coli. Why is it unique among E. coli polymerases?</p>
+<h3 id="question-8-3-marks">Question 8 (3 marks)</h3>
+<p>What is the role of DNA gyrase in replication? How do fluoroquinolone antibiotics exploit this?</p>
+<h3 id="question-9-4-marks">Question 9 (4 marks)</h3>
+<p>Explain the concept of replication licensing. Why is it important for genome stability?</p>
+<h3 id="question-10-3-marks">Question 10 (3 marks)</h3>
+<p>Describe the differences between Pol ε and Pol δ in terms of their roles during eukaryotic replication.</p>
+<h3 id="question-11-4-marks">Question 11 (4 marks)</h3>
+<p>Explain the end-replication problem. Why does it affect linear chromosomes but not circular chromosomes?</p>
+<h3 id="question-12-3-marks">Question 12 (3 marks)</h3>
+<p>What is the role of telomerase in maintaining telomere length? Name its two essential components.</p>
+<h3 id="question-13-4-marks">Question 13 (4 marks)</h3>
+<p>Explain how the ATR-CHK1 checkpoint pathway responds to replication stress.</p>
+<h3 id="question-14-3-marks">Question 14 (3 marks)</h3>
+<p>Compare the mismatch repair systems in E. coli and human cells. What is the key difference in strand discrimination?</p>
+<h3 id="question-15-4-marks">Question 15 (4 marks)</h3>
+<p>Describe how Okazaki fragments are processed in eukaryotes. Name the enzymes involved at each step.</p>
+<h3 id="question-16-3-marks">Question 16 (3 marks)</h3>
+<p>What is chromatin remodeling during replication? Why is it necessary in eukaryotes but not prokaryotes?</p>
+<h3 id="question-17-3-marks">Question 17 (3 marks)</h3>
+<p>Explain the relationship between CDK activity and replication licensing. Why are these mutually exclusive?</p>
+<h3 id="question-18-4-marks">Question 18 (4 marks)</h3>
+<p>A researcher discovers a new protein that, when mutated, causes cells to accumulate reversed replication forks. What protein might this be, and what is its normal function?</p>
+<h3 id="question-19-3-marks">Question 19 (3 marks)</h3>
+<p>Describe the mechanism by which translesion synthesis bypasses DNA lesions.</p>
+<h3 id="question-20-4-marks">Question 20 (4 marks)</h3>
+<p>Explain how oncogene activation leads to replication stress. Give two specific examples of oncogenes and their mechanisms.</p>
+<h3 id="question-21-3-marks">Question 21 (3 marks)</h3>
+<p>What is the role of the Shelterin complex at telomeres? Name three of its components.</p>
+<h3 id="question-22-3-marks">Question 22 (3 marks)</h3>
+<p>Compare the replication speeds of E. coli and human cells. Explain why they differ.</p>
+<h3 id="question-23-4-marks">Question 23 (4 marks)</h3>
+<p>Describe the complete pathway from origin recognition to fork activation in eukaryotic cells.</p>
+<h3 id="question-24-3-marks">Question 24 (3 marks)</h3>
+<p>How does the Fanconi anemia pathway relate to DNA replication? What happens when it is defective?</p>
+<h3 id="question-25-3-marks">Question 25 (3 marks)</h3>
+<p>Explain the concept of synthetic lethality and how it is applied in cancer therapy using PARP inhibitors.</p>
+<hr>
+<h2 id="suggested-marking-scheme">Suggested Marking Scheme</h2>
+<p><strong>3-mark questions</strong>: 1 mark for each key point
+<strong>4-mark questions</strong>: 1 mark for each key point + clarity marks</p>
+<h3 id="key-points-for-sample-answers">Key Points for Sample Answers</h3>
+<p><strong>Q1 (Semiconservative)</strong>: </p>
+<ul>
+<li>Each daughter = 1 old + 1 new strand (1)</li>
+<li>Conservative: would show heavy + light bands (not hybrid) (1)</li>
+<li>Dispersive: would show intermediate density bands (1)</li>
+</ul>
+<p><strong>Q9 (Licensing)</strong>:</p>
+<ul>
+<li>ORC/Cdc6/Cdt1/MCM assembly (1)</li>
+<li>G1 phase (low CDK) (1)</li>
+<li>Once per cycle (1)</li>
+<li>Prevents re-replication (1)</li>
+</ul>
+<p><strong>Q11 (End-replication)</strong>:</p>
+<ul>
+<li>RNA primer removal at 5&#39; end (1)</li>
+<li>No 3&#39;-OH available to fill gap (1)</li>
+<li>Progressive shortening (1)</li>
+<li>Circular = no ends (1)</li>
+</ul>
+<hr>
+</main></div>
+<footer class="site-footer">
+  <p class="instructor">Dr. Saira Azam — Assistant Professor, Centre of Excellence in Molecular Biology, University of the Punjab, Lahore</p>
+  <p>DNA Replication in Prokaryotes and Eukaryotes · A Complete Molecular Biology Teaching and Learning Module</p>
+</footer>
+</body>
+</html>
