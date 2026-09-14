@@ -32,23 +32,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Setup Python (PDF QA)
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: '3.12'
 
       - name: Install course dependencies
         run: npm install
 
+      # Chrome is installed through Node directly: the committed
+      # node_modules/.bin shims were added to git from Windows and lost
+      # their executable bit, so `npx puppeteer …` fails on Linux with
+      # "Permission denied". Requiring the same CLI module via `node`
+      # performs the identical install and does not depend on exec bits.
+      # The shim is also repaired defensively for any later npm-run usage.
       - name: Install Chrome for PDF rendering
-        run: npx puppeteer browsers install chrome
+        run: |
+          chmod +x node_modules/.bin/* 2>/dev/null || true
+          node node_modules/puppeteer/lib/puppeteer/node/cli.js browsers install chrome
 
       - name: Rebuild PDFs from Markdown
         run: node generate_pdf.js
@@ -74,10 +82,10 @@ jobs:
           echo "All 5 PDFs and the site entry page are present."
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Upload course content as Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           # Repository root (workspace) is the site root. The action's
           # tar step itself excludes .git and .github; build-only files
@@ -93,4 +101,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
