@@ -1,0 +1,92 @@
+# GitHub Pages deployment for the DNA Replication course.
+#
+# Rebuilds the course PDFs (marked + Puppeteer) and the static site
+# HTML from Markdown on every push to main, then deploys the contents
+# of DNA-Replication-Course/ as the Pages artifact (the course
+# directory IS the deployment root).
+#
+# Note: this file must stay under .github/workflows/ for GitHub Actions
+# to detect it, even though it deploys DNA-Replication-Course/.
+#
+# One-time setup: Settings → Pages → Source → "GitHub Actions".
+name: Deploy DNA Replication course to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Python (PDF QA)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install course dependencies
+        working-directory: DNA-Replication-Course
+        run: npm install
+
+      - name: Install Chrome for PDF rendering
+        working-directory: DNA-Replication-Course
+        run: npx puppeteer browsers install chrome
+
+      - name: Rebuild PDFs from Markdown
+        working-directory: DNA-Replication-Course
+        run: node generate_pdf.js
+
+      - name: Rebuild static site (in place, course dir = Pages root)
+        working-directory: DNA-Replication-Course
+        run: node generate_site.js
+
+      - name: Disable Jekyll processing
+        run: touch DNA-Replication-Course/.nojekyll
+
+      - name: Prune build-only files from the artifact
+        run: rm -rf DNA-Replication-Course/node_modules
+
+      - name: Verify PDFs and site entry page were built
+        run: |
+          for f in Complete-Tutorial Lab-Workbook Cheat-Sheet FAQs Assessment; do
+            test -s "DNA-Replication-Course/PDF/$f.pdf" || { echo "MISSING PDF: $f"; exit 1; }
+          done
+          test -s "DNA-Replication-Course/index.html" || { echo "MISSING: index.html"; exit 1; }
+          echo "All 5 PDFs and the site entry page are present."
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload course directory as Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: DNA-Replication-Course
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
