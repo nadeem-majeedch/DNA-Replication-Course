@@ -1,12 +1,14 @@
 # GitHub Pages deployment for the DNA Replication course.
 #
+# The Git repository root IS the course directory: the checked-out
+# workspace contains README.md, MARKDOWN/, LAB/, PDF/, PPTX/, etc. and
+# .github/workflows/ lives directly inside it (as GitHub requires).
+#
 # Rebuilds the course PDFs (marked + Puppeteer) and the static site
 # HTML from Markdown on every push to main, then deploys the contents
-# of DNA-Replication-Course/ as the Pages artifact (the course
-# directory IS the deployment root).
-#
-# Note: this file must stay under .github/workflows/ for GitHub Actions
-# to detect it, even though it deploys DNA-Replication-Course/.
+# of the repository root as the Pages artifact. Build-only files
+# (node_modules, generator scripts) are pruned before upload, and the
+# upload action itself excludes .git and .github.
 #
 # One-time setup: Settings → Pages → Source → "GitHub Actions".
 name: Deploy DNA Replication course to GitHub Pages
@@ -43,42 +45,44 @@ jobs:
           python-version: '3.12'
 
       - name: Install course dependencies
-        working-directory: DNA-Replication-Course
         run: npm install
 
       - name: Install Chrome for PDF rendering
-        working-directory: DNA-Replication-Course
         run: npx puppeteer browsers install chrome
 
       - name: Rebuild PDFs from Markdown
-        working-directory: DNA-Replication-Course
         run: node generate_pdf.js
 
-      - name: Rebuild static site (in place, course dir = Pages root)
-        working-directory: DNA-Replication-Course
+      - name: Rebuild static site (in place, repo root = Pages root)
         run: node generate_site.js
 
       - name: Disable Jekyll processing
-        run: touch DNA-Replication-Course/.nojekyll
+        run: touch .nojekyll
 
       - name: Prune build-only files from the artifact
-        run: rm -rf DNA-Replication-Course/node_modules
+        run: |
+          rm -rf node_modules
+          rm -f generate_pdf.js generate_pptx.js generate_site.js validate_site.js
+          rm -f package.json package-lock.json .gitignore
 
       - name: Verify PDFs and site entry page were built
         run: |
           for f in Complete-Tutorial Lab-Workbook Cheat-Sheet FAQs Assessment; do
-            test -s "DNA-Replication-Course/PDF/$f.pdf" || { echo "MISSING PDF: $f"; exit 1; }
+            test -s "PDF/$f.pdf" || { echo "MISSING PDF: $f"; exit 1; }
           done
-          test -s "DNA-Replication-Course/index.html" || { echo "MISSING: index.html"; exit 1; }
+          test -s "index.html" || { echo "MISSING: index.html"; exit 1; }
           echo "All 5 PDFs and the site entry page are present."
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload course directory as Pages artifact
+      - name: Upload course content as Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: DNA-Replication-Course
+          # Repository root (workspace) is the site root. The action's
+          # tar step itself excludes .git and .github; build-only files
+          # were pruned in the previous step.
+          path: .
 
   deploy:
     needs: build
